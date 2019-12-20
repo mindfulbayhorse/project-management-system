@@ -16,7 +16,7 @@ class DeliverableController extends Controller
      */
     public function index(Project $project)
     {
-        return view('projects.deliverables.index');
+        return view('projects.deliverables.index', compact('project'));
     }
 
     /**
@@ -63,7 +63,10 @@ class DeliverableController extends Controller
      */
     public function show(Project $project, Deliverable $deliverable)
     {
-         return view('projects.deliverables.index');
+         return view('projects.deliverables.index', [
+             'project'=>$project,
+             'deliverable'=>$deliverable
+             ]);
     }
 
     /**

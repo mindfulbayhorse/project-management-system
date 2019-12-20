@@ -57,7 +57,7 @@
         
     </form>
     
-    <a href="/projects/{{$project->id}}/deliverables/create" class="btn">Add deliverable</a>
+    @include('projects.deliverables.table')
 
 </main>
 @endsection

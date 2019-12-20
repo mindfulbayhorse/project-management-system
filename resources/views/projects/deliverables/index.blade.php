@@ -1,34 +1,17 @@
-@extends('layout')
+@extends('nav_left')
 
-@section('title','{{$project->title}}')
+@section('title','Work breakdown structure')
+
+@section('left_sidebar')
+<h2>{{$project->title}}</h2>
+<h3>Work breakdown structure</h3>
+<nav>
+  <ul>
+      <li></li>
+  </ul>
+</nav>
+@endsection
 
 @section('content')
-<a href="/projects/create" class="btn">Add deliverable</a>
-<main>
-    
-    <table>
-        <caption>Work Breakdown structure</caption>
-        <thead>
-            <th>Ordinal number</th>
-            <th>Title</th>
-            <th>Cost</th>
-            <th>Start date</th>
-            <th>End date</th>
-        </thead>
-        <tbody>
-            
-            @foreach ($projects->deliverables as $deliverable)
-                <tr>
-                    <td>{{$loop->index}}</td>
-                    <td><a href="/projects/{{$project->id}}">{{$deliverable->title}}</a></td>
-                    <td>{{ $deliverable->cost }}</td>
-                    <td>{{ $deliverable->start_date }}</td>
-                    <td>{{ $deliverable->end_date }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    
-    </table>
-    
-</main>
+    @include('projects.deliverables.table')
 @endsection

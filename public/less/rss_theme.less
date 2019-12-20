@@ -1,0 +1,202 @@
+@width_screen: 100%;
+@basic_font: Tahoma;
+@basic_font_size: 12px;
+@height_slogan: 60px;
+@width_main: 80%;
+@btn: btn;
+@errors: err_info;
+@color_res: #78A058;
+@color_inf: #F2F2F2;
+@btn_radius: 8px;
+@layer_back: #ccccff;
+@header_back: rgb(153, 102, 204);
+@header_id: top_slogan;
+@add_flex_style: flex_block;
+@flex_one_row: one_row;
+
+#@{header_id}{
+  width: @width_screen;
+  height: @height_slogan;
+  border-width: 0px;
+  border-color: rgb(0, 0, 102);
+  border-style: solid;
+  background-color: @header_back;
+  padding: 30px 20px 0px 40px;
+  border-bottom: 4px solid rgb(255, 153, 102);
+  
+  p.title {
+    font-size: 24px;
+    font-family: "Century Schoolbook";
+    color: rgb(255, 255, 204);
+    line-height: 0.75;
+    text-align: left;
+    margin: 0px;
+    
+  }   
+}
+
+.@{btn}{
+  min-width: 50px;
+  max-width: 150px;
+  background-color: #000066;
+  color: #ffffff;
+  border-radius: @btn_radius;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: @basic_font;
+  font-size: @basic_font_size;
+  border: 0px solid #fff;
+  outline: none;
+  cursor: pointer;
+  display: block;
+  margin: 5px;
+}
+
+.@{errors} {
+    border: 1px solid #800000;
+    background: #FA8573;
+    color: #993300;
+    font-weight: bold;  
+    padding: 5px;   
+}
+
+body{
+    background: @layer_back;
+}
+
+body, h1{
+    text-align: center;
+    font-size: 12px;
+    font-family: Tahoma;
+    color: #333333;
+}
+
+h1{
+  font-size: 24px;
+  font-family: "Constantia";
+  color: rgb(0, 0, 51);
+  font-weight: bold;
+  line-height: 0.75;
+  text-align: center;
+  text-shadow: 0px 2px 4.85px rgba(102, 102, 153, 0.85);
+}
+
+.center_part {
+  width: @width_main;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+main, nav {
+    margin-top: 20px;
+}
+
+nav a{
+    margin: 0px 10px 0px 0px;
+}
+
+.msg{
+  margin: 20px 0px;
+  border: 1px solid @color_inf;
+}
+
+.res {
+    border: 1px solid @color_res;
+    color: @color_res;
+    padding: 4px;
+}
+
+.err {
+    border: 1px solid #EF8579;
+}
+
+input {
+  margin: 5px;
+  border-width: 1px;
+  border-color: rgb(102, 45, 145);
+  border-style: solid;
+  border-radius: @btn_radius;
+  background-color: rgb(255, 255, 255);
+  padding: 4px 5px 4px 8px;
+  width: 338px;
+  font-size: 14px;
+  font-family: "Tahoma";
+  line-height: 100%;
+  text-align: left;
+  color: #000000;
+}
+
+label {
+  font-size: 16px;
+  font-family: "Arial";
+  color: rgb(0, 0, 51);
+  line-height: 100%;
+  text-align: left;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+table th{
+  background-color: rgb(102, 102, 153);
+  padding: 5px 5px 5px 10px;
+  font-size: 18px;
+  font-family: "Myriad Pro";
+  color: rgb(255, 255, 255);
+  line-height: 1.2;
+  text-align: center;
+}
+
+table td{
+  border-width: 1px;
+  border-color: rgb(102, 102, 153);
+  border-style: solid;
+  background-color: rgb(255, 255, 255);
+  padding: 5px 5px 5px 10px;
+  font-size: 16px;
+  font-family: "Lucida Sans";
+  color: rgb(0, 0, 0);
+  line-height: 1.125;
+  text-align: left;
+}
+
+table caption{
+    display: none;
+}
+
+.@{add_flex_style}{
+    
+    display: -ms-Flexbox;
+	-ms-box-orient: horizontal;
+
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: flex;
+ }
+ 
+.@{flex_one_row} {
+  -webkit-flex-flow: row nowrap;
+  -moz-flex-flow: row nowrap;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+	-ms-justify-content: flex-start;
+	justify-content: flex-start;
+    
+    -webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	align-items: center;;
+}
+
+.fields{
+    
+}
+

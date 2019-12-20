@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('rssfeed', 'RssfeedsController');
+Route::resource('projects', 'ProjectController');
+Route::resource('projects/{project}/deliverables', 'DeliverableController');
+
+

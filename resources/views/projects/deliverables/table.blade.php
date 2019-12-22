@@ -1,5 +1,4 @@
-<a href="/projects/{{$project->id}}/deliverables/create" class="btn">Add deliverable</a>
-<main>
+@if ($project->deliverables->count())
     
     <table>
         <caption>Work Breakdown structure</caption>
@@ -24,5 +23,5 @@
         </tbody>
     
     </table>
-    
-</main>
+
+@endif

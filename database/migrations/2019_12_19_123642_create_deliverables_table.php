@@ -18,7 +18,7 @@ class CreateDeliverablesTable extends Migration
             $table->bigInteger('project_id');
             $table->bigInteger('parent_id')->nullable();
             $table->string('title',200);
-            $table->date('start_date')->useCurrent();
+            $table->timestamp('start_date')->useCurrent();
             $table->date('end_date')->nullable();
             $table->float('cost',8,2)->default(0.0);
             $table->boolean('package')->default(false);            

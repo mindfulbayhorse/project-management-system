@@ -20,37 +20,21 @@ class DeliverableController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \App\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Project $project)
-    {
-        return view('projects.deliverables.create',compact('project'));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Project $project)
-    {        
-        $request->validate([
+    public function store(Project $project)
+    {             
+        $attr = request()->validate([
              'title'=>'required',
-             'start_date' => 'nullable|date_format:Y-m-d',
              'end_date' => 'nullable|date_format:Y-m-d']);
-             
-        Deliverable::create(request([
-            'title',
-            'project_id',
-            'cost',
-            'start_date',
-            'end_date'
-        ]));
+        
+        $project->addDeliverable($attr);
+        
+        return back();   
         
     }
 

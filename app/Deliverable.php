@@ -19,4 +19,5 @@ class Deliverable extends Model
     {
         return $this->belongsTo(Project::class);
     }
+    
 }

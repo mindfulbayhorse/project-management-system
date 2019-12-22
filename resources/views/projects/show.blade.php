@@ -22,11 +22,11 @@
             <p>{{$project->finished}}</p>
         </div>   
         
-        <a href="/projects/{{$project->id}}/edit" class="btn">Edit project</a>  
+        <a href="/projects/{{$project->id}}/edit" class="btn">Edit project</a> 
         
-        @include('projects.deliverables.table')
-        
-        <a href="/projects/{{$project->id}}/deliverables/">Work breakdown structure</a>      
+        @include('projects.deliverables.create')
+    
+        @include('projects.deliverables.table')     
     
 </main>
 @endsection

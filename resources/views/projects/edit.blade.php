@@ -6,14 +6,7 @@
 
 <main>
     
-    @if ($errors->any())
-        <div class="err_info">    
-            @foreach($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        </div>
-    @endif
-    
+    @include('show_err') 
     
     <form method="POST" action="/projects/{{ $project->id }}">
     
@@ -57,7 +50,7 @@
         
     </form>
     
-    @include('projects.deliverables.table')
-
+    <a href="/projects/{{$project->id}}/deliverables/">Work breakdown structure</a>
+    
 </main>
 @endsection

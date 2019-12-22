@@ -13,5 +13,6 @@
 @endsection
 
 @section('content')
+    @include('projects.deliverables.create')
     @include('projects.deliverables.table')
 @endsection

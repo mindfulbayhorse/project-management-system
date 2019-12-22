@@ -8,12 +8,17 @@ class Project extends Model
 {
     protected $guarded = [];
     
-    protected $table = 'projects';
-    
-    protected $primaryKey = 'id';
-    
     public function deliverables() {
         
         return $this->hasMany(Deliverable::class);
+    }
+    
+    public function addDeliverable($deliverable)
+    {
+        //dd($deliverable);
+        
+        $this->deliverables()->create($deliverable);
+        
+        return back();
     }
 }

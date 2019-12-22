@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::resource('rssfeed', 'RssfeedsController');
 Route::resource('projects', 'ProjectController');
-Route::resource('projects/{project}/deliverables', 'DeliverableController');
+Route::post('projects/{project}/deliverables', 'DeliverableController@store');
+Route::get('projects/{project}/deliverables', 'DeliverableController@index');
 
 

@@ -30,7 +30,8 @@ class DeliverableController extends Controller
     {             
         $attr = request()->validate([
              'title'=>'required',
-             'end_date' => 'nullable|date_format:Y-m-d']);
+             'end_date' => 'nullable|date_format:Y-m-d'
+        ]);
         
         $project->addDeliverable($attr);
         

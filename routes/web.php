@@ -21,3 +21,4 @@ Route::post('projects/{project}/deliverables', 'DeliverableController@store');
 Route::get('projects/{project}/deliverables', 'DeliverableController@index');
 
 
+Auth::routes();

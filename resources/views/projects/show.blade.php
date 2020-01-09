@@ -24,9 +24,11 @@
         
         <a href="/projects/{{$project->id}}/edit" class="btn">Edit project</a> 
         
-        @include('projects.deliverables.create')
+        <div id="WBS">
+            @include('projects.deliverables.create')
     
-        @include('projects.deliverables.table')     
-    
+            @include('projects.deliverables.table')  
+        </div>
+
 </main>
 @endsection

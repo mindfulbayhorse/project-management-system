@@ -1,30 +1,60 @@
 
 @include('show_err')
 
-<form method="POST" action="/projects/{{ $project->id }}/deliverables">
+    <form id="deliverable" name="deliverable" method="POST" action="/projects/{{ $project->id }}/deliverables"
+        class="groupped flex_block one_row">
 
-    @csrf
-    
-    <input type="hidden" name="project_id" value="{{$project->id}}" /> 
-    <div class="flex_block one_row">
-        <label for="title">Title:</label>
-        <input type="text" name="title" value="{{ old('title') }}" />
-    </div>
-    
-    <div class="flex_block one_row">
-        <label for="cost">Cost:</label>
-        <input type="text" value="" name="cost" />
-    </div>   
+        @csrf
+        
+        <input type="hidden" name="project_id" value="{{$project->id}}" /> 
 
-    <div class="flex_block one_row">
-        <label for="started">Start date:</label>
-        <input type="text" value="" name="start_date" />
-    </div>
+	        <div class="flex_block one_column grid_rows col_1">
+	        
+	            <div class="flex_block one_column">
+	                <label for="title">Title:</label>
+	                <input maxlength='100' type="text" name="title" data-template='newTitle' value="{{ old('title') }}" />
+	            </div> 	
+	            
+	            <div class="flex_block one_row">
+	            
+	              <div class="flex_block one_column">
+	                  <label for="dateStart">Start date:</label>
+	                  <input maxlength='10' type="text" name="start_date" data-template='newDateStart' value="{{ old('start_date') }}" />
+	              </div>
+	              
+	              <div class="flex_block one_column">
+	                  <label for="dateEnd">End date:</label>
+	                  <input maxlength='10' type="text" name="end_date" data-template='newDateEnd' value="{{ old('end_date') }}" />
+	              </div>
+	              
+	            </div>		        
+	        </div>
+	        
+	        <div class="flex_block one_column grid_rows col_2">
+	            
+	            <div class="flex_block one_column">
+	                <label for="cost">Cost:</label>
+	                <input maxlength='10' type="text" name="cost" data-template='newCost' value="{{ old('cost') }}"/>
+	            </div>
+	            
+	            <div class="flex_block one_column">
+	                <label for="cost">Work amount:</label>
+	                <input maxlength='10' type="text" name="period"/>
+	            </div>
+	            
+	        </div>
+	        
+	        <div class="flex_block one_column grid_rows col_3">
+	            
+	            <div class="flex_block one_column">
+	                <label for="parentID">Package is ready:</label>
+	                <input type="checkbox" name="package" />
+	            </div>
+	            
+	            <div class="flex_block one_column">
+	                <input type="submit" name='create' value="Create" data-template='addNew'/>
+	            </div>
+	            
+	        </div>
     
-    <div class="flex_block one_row">
-        <label for="started">End date:</label>
-        <input type="text" value="" name="end_date" />
-    </div>
-    
-    <input type="submit" class="btn" value="Create" name="create"/>
-</form>
+    </form>

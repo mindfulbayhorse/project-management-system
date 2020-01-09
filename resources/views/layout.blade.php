@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="/css/normalize.css" />
         <link rel="stylesheet/less" type="text/css" href="/less/rss_theme.less" />
+        <link rel="stylesheet/less" type="text/css" href="/multilevel_structure/css/wbs.css" />
         <script>
           less = {
             env: "development",

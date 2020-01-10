@@ -1,4 +1,4 @@
-@if ($project->deliverables->count())
+@if ($deliverable->children->count())
     
     <table>
         <caption>Work Breakdown structure</caption>
@@ -11,8 +11,7 @@
         </thead>
         <tbody>
             
-            @foreach ($project->deliverables as $deliverable)
-              @if ($deliverable->parent === null)
+            @foreach ($deliverable->children as $deliverable)
                 <tr>
                     <td>{{$loop->index}}</td>
                     <td><a href="/projects/{{$project->id}}/deliverables/{{$deliverable->id}}">{{$deliverable->title}}</a></td>
@@ -20,7 +19,6 @@
                     <td>{{ $deliverable->start_date }}</td>
                     <td>{{ $deliverable->end_date }}</td>
                 </tr>
-              @endif
             @endforeach
         </tbody>
     

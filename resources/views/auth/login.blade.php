@@ -14,7 +14,7 @@
 	        
 	            <div class="flex_block one_column">
 	                <label for="title">User name:</label>
-	                <input type="text" name="username" value="{{ old('username') }}" />
+	                <input type="text" name="email" value="{{ old('email') }}" />
 	            </div> 	
 	            	        
 	        </div>
@@ -23,7 +23,7 @@
 	            
 	            <div class="flex_block one_column">
 	                <label for="cost">Password:</label>
-	                <input type="password" name="password" value="{{ old('password') }}"/>
+	                <input type="password" name="password" value=""/>
 	            </div>
 	            
 	        </div>

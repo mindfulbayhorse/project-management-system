@@ -27,10 +27,12 @@ class DeliverableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Project $project)
-    {             
+    {    
+        
         $attr = request()->validate([
              'title'=>'required',
-             'end_date' => 'nullable|date_format:Y-m-d'
+             'end_date' => 'nullable|date_format:Y-m-d',
+             'parent_id' => 'nullable'
         ]);
         
         $project->addDeliverable($attr);
@@ -47,7 +49,7 @@ class DeliverableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project, Deliverable $deliverable)
-    {
+    {        
          return view('projects.deliverables.index', [
              'project'=>$project,
              'deliverable'=>$deliverable

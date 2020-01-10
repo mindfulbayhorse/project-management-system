@@ -13,6 +13,6 @@
 @endsection
 
 @section('content')
-    @include('projects.deliverables.create')
-    @include('projects.deliverables.table')
+    @include('projects.deliverables.sub_create')
+    @include('projects.deliverables.sub_table')
 @endsection

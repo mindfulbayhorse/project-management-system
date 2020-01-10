@@ -20,4 +20,23 @@ class Deliverable extends Model
         return $this->belongsTo(Project::class);
     }
     
+    
+    /*
+     * Get the parent deliverable
+     */
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+    
+    
+    /*
+     * Get the child deliverables
+     */
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
+    
+    
 }

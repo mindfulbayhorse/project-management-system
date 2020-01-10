@@ -6,7 +6,7 @@
 
         @csrf
         
-        <input type="hidden" name="parent_id" value="null"/>
+        <input type="hidden" name="parent_id" value=@if ($deliverable->id) "{{$deliverable->id}}" @else "null" @endif />
         
         <input type="hidden" name="project_id" value="{{$project->id}}" /> 
 

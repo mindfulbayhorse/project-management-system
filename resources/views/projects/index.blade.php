@@ -9,7 +9,6 @@
     <table>
         <caption>List of all projects</caption>
         <thead>
-            <th>Ordinal number</th>
             <th>Title</th>
             <th>Status</th>
             <th>Start date</th>
@@ -19,7 +18,6 @@
             
             @foreach ($projects as $project)
                 <tr>
-                    <td>{{$loop->index}}</td>
                     <td><a href="/projects/{{$project->id}}">{{$project->title}}</a></td>
                     <td>{{ $project->status }}</td>
                     <td>{{ $project->started }}</td>

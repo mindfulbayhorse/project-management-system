@@ -14,15 +14,20 @@ class CreateDeliverablesTable extends Migration
     public function up()
     {
         Schema::create('deliverables', function (Blueprint $table) {
+            
             $table->bigIncrements('id');
-            $table->bigInteger('project_id');
-            $table->bigInteger('parent_id')->nullable();
-            $table->string('title',200);
+            $table->unsignedbigInteger('project_id');
+            $table->unsignedbigInteger('parent_id')->nullable();
+            $table->string('title', 200);
             $table->timestamp('start_date')->useCurrent();
             $table->date('end_date')->nullable();
             $table->float('cost',8,2)->default(0.0);
-            $table->boolean('package')->default(false);            
+            $table->boolean('package')->default(false); 
+            $table->unsignedSmallInteger('order')->default(0);
             $table->timestamps();
+            
+            //deleting a project will delete all data about its WBS
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 

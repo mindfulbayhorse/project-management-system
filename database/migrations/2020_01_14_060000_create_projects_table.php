@@ -13,14 +13,17 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('projects', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title');
-            $table->string('status')->nullable();
+            $table->unsignedSmallInteger('status_id')->nullable();
             $table->string('url')->nullable();
             $table->timestamp('started')->nullable();
             $table->timestamp('finished')->nullable();
             $table->timestamps();
+            
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

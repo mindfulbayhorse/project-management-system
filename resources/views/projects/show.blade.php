@@ -18,7 +18,7 @@
         </div> 
         
         <div class="flex_block one_row">
-            <label for="finished">End date:</label>
+            <label for="finished">Comletion date:</label>
             <p>{{$project->finished}}</p>
         </div>   
         

@@ -43,10 +43,9 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['title'=>'required',
-            'started' => 'nullable|date']);
-
-        Project::create(request(['title','status','started']));
+        $fields = $this->validateFields($request);
+        
+        Project::create($fields);
         
         return redirect('/projects/');
     }
@@ -83,12 +82,9 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         
-        $fields = $request->validate([
-             'title'=>'required',
-             'started' => 'nullable|date_format:Y-m-d',
-             'finished' => 'nullable|date_format:Y-m-d']);
+        $fields = $this->validateFields($request);
              
-        $project->update(request(['title','status','started','finished']));
+        $project->update($fields);
          
         return redirect('/projects');
     }
@@ -104,5 +100,19 @@ class ProjectController extends Controller
         $project->delete();
         
         return redirect('/projects');
+    }
+    
+    
+    /*
+     * Request validaing process
+     * 
+     * @param \Illuminate\Http\Request  $request
+     */
+    public function validateFields(Request $request)
+    {
+        return $request->validate([
+            'title'=>'required',
+            'started' => 'nullable|date_format:Y-m-d' 
+        ]);
     }
 }

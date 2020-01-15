@@ -32,11 +32,6 @@
             <label for="started">Start date:</label>
             <input type="text" name="started" value="{{ $project->started }} " />
         </div>   
-        
-         <div>
-            <label for="finished">End date:</label>
-            <input type="text" name="finished" value="{{$project->finished }}" />
-        </div> 
     
         <input type="submit" class="btn" value="Save" name="save"/>
     </form>

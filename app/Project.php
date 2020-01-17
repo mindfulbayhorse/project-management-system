@@ -15,10 +15,16 @@ class Project extends Model
     
     public function addDeliverable($deliverable)
     {
-        //dd($deliverable);
         
         $this->deliverables()->create($deliverable);
         
         return back();
+    }
+    
+    
+    public function status() {
+        
+        return $this->belongsTo(Status::class);
+        
     }
 }

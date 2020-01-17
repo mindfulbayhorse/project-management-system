@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\Status;
 
 class ProjectController extends Controller
 {
@@ -22,7 +23,7 @@ class ProjectController extends Controller
     {
         $projects = Project::all();
         
-        return view('projects.index',compact('projects'));
+        return view('projects.index', compact('projects'));
     }
 
     /**
@@ -32,7 +33,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        $statuses = $this->listStatuses();
+        return view('projects.create', compact('statuses'));
     }
 
     /**
@@ -69,7 +71,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit',compact('project'));
+        return view('projects.edit',[
+            'project'=>$project,
+            'statuses' => $this->listStatuses()
+        ]);
+        
     }
 
     /**
@@ -102,7 +108,6 @@ class ProjectController extends Controller
         return redirect('/projects');
     }
     
-    
     /*
      * Request validaing process
      * 
@@ -112,7 +117,17 @@ class ProjectController extends Controller
     {
         return $request->validate([
             'title'=>'required',
-            'started' => 'nullable|date_format:Y-m-d' 
+            'started' => 'nullable|date_format:Y-m-d',
+            'status_id' => 'nullable'
         ]);
+    }
+    
+    /*
+     * get lisy of all statuses
+     */    
+    public function listStatuses() {
+        
+        return Status::all();
+        
     }
 }

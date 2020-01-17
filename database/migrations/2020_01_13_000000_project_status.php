@@ -19,7 +19,6 @@ class ProjectStatus extends Migration
             $table->text('description')->nullable();
             $table->timestamps(0);
             
-            
         });
     }
 

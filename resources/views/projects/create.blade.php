@@ -13,12 +13,12 @@
         </div>
         
         <div>
-            <label for="status">Status:</label>
-            <select name="status">
-                <option value="0">Select a status</option>
-                <option value="1">Active</option>
-                <option value="2">Deployment</option>
-                <option value="3">Closed</option>
+            <label for="status_id">Status:</label>
+            <select name="status_id">
+                <option value="">Choose</option>
+                @foreach ($statuses as $status)
+                     <option value="{{ $status->id }}">{{ $status->name }}</option>
+                @endforeach
             </select>
         </div>      
     

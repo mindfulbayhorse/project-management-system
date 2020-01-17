@@ -6,8 +6,6 @@
 
         @csrf
         
-        <input type="hidden" name="parent_id" value="null"/>
-        
         <input type="hidden" name="project_id" value="{{$project->id}}" /> 
 
 	        <div class="flex_block one_column grid_rows col_1">

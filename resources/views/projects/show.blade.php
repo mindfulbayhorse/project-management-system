@@ -9,7 +9,7 @@
 <main>        
         <div class="flex_block one_row">
             <label for="status">Status:</label>
-            <p>{{$project->status}}</p>
+            <p>{{$project->status->name}}</p>
         </div>  
         
         <div class="flex_block one_row">

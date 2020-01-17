@@ -60,30 +60,12 @@ h1{
   }   
 }
 
-.@{btn}{
-  min-width: 50px;
-  max-width: 150px;
-  background-color: #000066;
-  color: #ffffff;
-  border-radius: @btn_radius;
-  padding: 8px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: bold;
-  font-family: @basic_font;
-  font-size: @basic_font_size;
-  border: 0px solid #fff;
-  outline: none;
-  cursor: pointer;
-  display: block;
-  margin: 5px;
-}
-
 .@{border_group}{
   border-width: 1px;
   border-color: rgb(46, 49, 146);
   border-style: solid;
   border-radius: 5px;
+  padding: 10px;
 }
 
 .@{errors} {
@@ -141,8 +123,7 @@ form{
 	padding: 10px 0px;
 }
 
-input, select {
-  margin: 0px;
+input, select, textarea{
   border-width: 1px;
   border-color: rgb(102, 45, 145);
   border-style: solid;
@@ -155,21 +136,21 @@ input, select {
   text-align: left;
   color: #000000;
   margin: 5px 10px 10px 10px; 
+  outline: none;
 }
 
-input[type="submit"] {
-  border-radius: 6px;
+button, input[type="submit"], input[type="reset"]{
+  min-width: 100px;
+  max-width: 100%;
   background-color: rgb(0, 51, 0);
-  border-color: rgb(0, 51, 0);
-  border-radius: @btn_radius;  
-  border-width: 1px;
-  border-style: solid;
-  font-size: 14px;
-  font-family: "Arial";
-  color: rgb(255, 255, 255);
+  color: #ffffff;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
   font-weight: bold;
-  text-transform: uppercase;
-  line-height: 100%;
+  font-family: @basic_font;
+  font-size: @basic_font_size;
+  border: 0px solid #fff;
   cursor: pointer;
 }
 
@@ -186,35 +167,35 @@ table{
   border-collapse: collapse;
   width: 100%;
   margin: 0px;
-}
 
-table th{
-  background-color: rgb(102, 102, 153);
-  padding: 5px 5px 5px 10px;
-  font-size: 18px;
-  font-family: "Myriad Pro";
-  color: rgb(255, 255, 255);
-  line-height: 1.2;
-  text-align: center;
-  font-size: 16px;
-  font-family: "Arial";
-}
-
-table td{
-  border-width: 1px;
-  border-color: rgb(102, 102, 153);
-  border-style: solid;
-  background-color: rgb(255, 255, 255);
-  padding: 5px 5px 5px 10px;
-  font-size: 16px;
-  font-family: "Lucida Sans";
-  color: rgb(0, 0, 0);
-  line-height: 1.125;
-  text-align: left;
-}
-
-table caption{
-    display: none;
+	th{
+  		background-color: rgb(102, 102, 153);
+  		padding: 5px 5px 5px 10px;
+	  font-size: 18px;
+	  font-family: "Myriad Pro";
+	  color: rgb(255, 255, 255);
+	  line-height: 1.2;
+	  text-align: center;
+	  font-size: 16px;
+	  font-family: "Arial";
+	 }
+	
+	 td{
+	  border-width: 1px;
+	  border-color: rgb(102, 102, 153);
+	  border-style: solid;
+	  background-color: rgb(255, 255, 255);
+	  padding: 5px 5px 5px 10px;
+	  font-size: 16px;
+	  font-family: "Lucida Sans";
+	  color: rgb(0, 0, 0);
+	  line-height: 1.125;
+	  text-align: left;
+	}
+	
+	caption{
+	    display: none;
+	}
 }
 
 .@{add_flex_style}{
@@ -261,6 +242,37 @@ table caption{
 	-ms-align-items: stretch;
 	align-items: stretch;
 }
-   
+
+.wide{
+	width: @width_screen;
+}
+
+form {
+	
+	.col_1{
+        width: 45%;
+    }
+
+    .col_2{
+        width: 35%;
+    }
+
+    .col_3{
+        width: 20%;
+    }
+
+    .col_half{
+	   width: 50%;
+    }
+
+    .wide{
+	
+	    input, label{
+	        width: 90%;
+            margin: 5px 10% 0px 0px;
+         }
+    }
+
+}  
 
 

@@ -16,7 +16,7 @@
             
             @foreach ($statuses as $status)
                 <tr>
-                    <td><a href="/projects/{{$status->id}}">{{$status->name}}</a></td>
+                    <td><a href="/statuses/{{$status->id}}">{{$status->name}}</a></td>
                     <td>{{ $status->description }}</td>
                 </tr>
             @endforeach

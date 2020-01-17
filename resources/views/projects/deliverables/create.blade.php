@@ -8,9 +8,9 @@
         
         <input type="hidden" name="project_id" value="{{$project->id}}" /> 
 
-	        <div class="flex_block one_column grid_rows col_1">
+	        <div class="flex_block grid_rows col_1">
 	        
-	            <div class="flex_block one_column">
+	            <div class="flex_block one_column wide">
 	                <label for="title">Title:</label>
 	                <input maxlength='100' type="text" name="title" data-template='newTitle' value="{{ old('title') }}" />
 	            </div> 	
@@ -30,7 +30,7 @@
 	            </div>		        
 	        </div>
 	        
-	        <div class="flex_block one_column grid_rows col_2">
+	        <div class="flex_block grid_rows col_2">
 	            
 	            <div class="flex_block one_column">
 	                <label for="cost">Cost:</label>
@@ -44,7 +44,7 @@
 	            
 	        </div>
 	        
-	        <div class="flex_block one_column grid_rows col_3">
+	        <div class="flex_block grid_rows col_3">
 	            
 	            <div class="flex_block one_column">
 	                <label for="parentID">Package is ready:</label>

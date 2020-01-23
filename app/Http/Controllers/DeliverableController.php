@@ -65,7 +65,7 @@ class DeliverableController extends Controller
      */
     public function edit(Project $project, Deliverable $deliverable)
     {
-        //
+        return view('projects.deliverables.wbs');
     }
 
     /**

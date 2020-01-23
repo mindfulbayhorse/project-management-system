@@ -39,5 +39,6 @@
                 @yield('content')
             </div>
         </div>
+        <script data-main="js/main" src="require.js"></script>
     </body>
 </html>

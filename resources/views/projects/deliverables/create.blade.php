@@ -1,4 +1,3 @@
-
 @include('show_err')
 
     <form id="deliverable" name="deliverable" method="POST" action="/projects/{{ $project->id }}/deliverables"
@@ -56,5 +55,4 @@
 	            </div>
 	            
 	        </div>
-    
     </form>

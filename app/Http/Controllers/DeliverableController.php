@@ -16,7 +16,7 @@ class DeliverableController extends Controller
      */
     public function index(Project $project)
     {
-        return view('projects.deliverables.index', compact('project'));
+        return view('projects.wbs.index', compact('project'));
     }
 
     /**

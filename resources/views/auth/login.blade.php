@@ -13,7 +13,7 @@
 	        <div class="flex_block one_column grid_rows col_1">
 	        
 	            <div class="flex_block one_column">
-	                <label for="title">User name:</label>
+	                <label for="title">User email:</label>
 	                <input type="text" name="email" value="{{ old('email') }}" />
 	            </div> 	
 	            	        

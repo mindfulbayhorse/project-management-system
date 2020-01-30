@@ -4,8 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>WBS for edit</title>
         <link rel="stylesheet" type="text/css" href="/css/normalize.css" />
-        <link rel="stylesheet/less" type="text/css" href="/less/rss_theme.less" />
+        <link rel="stylesheet/less" type="text/css" href="/less/rss_theme.less?@php echo date('YmdHis'); @endphp" />
         <script>
           less = {
             env: "development",
@@ -13,9 +14,7 @@
           };
         </script>
         <script src="/less/less.js" ></script>
-        <title>@yield('title','Laracast')</title>
-
-        
+        <title>@yield('title','Laracast')</title>  
     </head>
     <body>
         <div id="top_slogan">
@@ -39,6 +38,6 @@
                 @yield('content')
             </div>
         </div>
-        <script data-main="js/main" src="require.js"></script>
+        <script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js"></script>
     </body>
 </html>

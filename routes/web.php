@@ -20,8 +20,7 @@ Route::resource('projects', 'ProjectController');
 Route::resource('statuses', 'StatusController');
 Route::post('projects/{project}/deliverables', 'DeliverableController@store');
 Route::get('projects/{project}/deliverables/{deliverable}', 'DeliverableController@show');
-
-Route::get('wbs', 'DeliverableController@index');
+Route::get('projects/{project}/wbs', 'DeliverableController@index');
 
 
 Auth::routes();

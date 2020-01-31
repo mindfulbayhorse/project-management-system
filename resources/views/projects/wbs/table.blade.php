@@ -1,5 +1,5 @@
 <div class="action_panel">
-    <ul data-template='actions'>
+    <ul data-template='actions' class="flex_block one_row">
       <li><button data-template='action'></button></li>
     </ul>
 </div>

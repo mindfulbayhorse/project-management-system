@@ -4,33 +4,20 @@
    {{$project->title}}
 @endsection
 
+@section('left_sidebar')
+   <h1>{{$project->title}}</h1>
+@endsection
+
 @section('content')
 
-<main>
-    <div class="text_part">
-        <div class="flex_block one_row">
-            <label for="status">Status:</label>
-            <p>{{$project->status['name']}}</p>
-        </div>  
-        
-        <div class="flex_block one_row">
-            <label for="started">Start date:</label>
-            <p>{{$project->started}}</p>
-        </div> 
-        
-        <div class="flex_block one_row">
-            <label for="finished">Comletion date:</label>
-            <p>{{$project->finished}}</p>
-        </div>   
-        
+    <div class="limit_area">
+         @include('projects.info')
+    
         <a href="/projects/{{$project->id}}/edit" class="btn">Edit project</a> 
         
         <div id="WBS">
-            @include('projects.deliverables.create')
-    
-            @include('projects.deliverables.table')  
+            @include('projects.wbs.index')
         </div>
-    </div>        
+    </div>     
 
-</main>
 @endsection

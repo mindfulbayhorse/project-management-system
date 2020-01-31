@@ -6,11 +6,11 @@
 
 @include('show_err')
 
-    <form name="authonticate" method="POST" action=""  class="groupped flex_block one_row">
+    <form name="authonticate" method="POST" action=""  class="groupped flex_block one_row row_wide">
 
         @csrf
 
-	        <div class="flex_block one_column grid_rows col_1">
+	        <div class="flex_block one_column grid_rows">
 	        
 	            <div class="flex_block one_column">
 	                <label for="title">User email:</label>
@@ -19,7 +19,7 @@
 	            	        
 	        </div>
 	        
-	        <div class="flex_block one_column grid_rows col_2">
+	        <div class="flex_block one_column grid_rows">
 	            
 	            <div class="flex_block one_column">
 	                <label for="cost">Password:</label>
@@ -28,7 +28,7 @@
 	            
 	        </div>
 	        
-	         <div class="flex_block one_column grid_rows col_2">
+	         <div class="flex_block one_column grid_rows">
 	            
 	            <div class="flex_block one_column">
 	        

@@ -15,12 +15,12 @@
         <th>End date</th>
     </thead>
     <tbody data-template='deliverables'>
-        <tr tabindex='-1' data-template='setCurrent'>
+        <tr tabindex='-1'>
             <th class="actions row_only">
                  <button name='openTree'></button>         
             </th>
             <th>
-	             <input type="radio" data-template="setCurrent" name="current">
+	             <input type="radio" name="current" data-template='setCurrent'>
 	        </th>
             <td data-template='recordID'></td>
             <td>
@@ -39,4 +39,3 @@
     </tbody>
 
 </table>
-<form id="deliverable"></form>

@@ -38,6 +38,6 @@
                 @yield('content')
             </div>
         </div>
-        <script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js"></script>
+        <script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js?@php echo date('YmdHis'); @endphp""></script>
     </body>
 </html>

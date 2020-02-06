@@ -1,4 +1,8 @@
 
+<div data-template="showErrMsg">
+<p>Errors are found in project WBS creating!</p>
+</div>
+<div data-template="showErrors"></div>
 <form id="deliverable" name="deliverable" method="POST" action="/projects/{{ $project->id }}/deliverables"
     class="groupped flex_block one_row row_wide">
     
@@ -8,6 +12,7 @@
         
             <div class="flex_block one_column fld_space_100">
                 <label for="title">Title:</label>
+                <span data-template="validTitle">Title is required!</span>
                 <input type="text" data-template='newTitle' />
             </div> 	
             

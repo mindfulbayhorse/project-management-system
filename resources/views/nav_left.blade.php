@@ -39,5 +39,10 @@
             </div>
         </div>
         <script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js?@php echo date('YmdHis'); @endphp""></script>
+        <script>
+        requirejs.config({
+          urlArgs: "bust=" +  (new Date()).getTime()
+        });
+        </script>
     </body>
 </html>

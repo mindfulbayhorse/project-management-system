@@ -15,7 +15,7 @@
         <th>End date</th>
     </thead>
     <tbody data-template='deliverables'>
-        <tr tabindex='-1'>
+        <tr tabindex='-1' data-template='chosenDeliverables'>
             <th class="actions row_only">
                  <button name='openTree'></button>         
             </th>

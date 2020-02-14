@@ -18,13 +18,13 @@
         <tbody data-template='deliverables'>
             
             @foreach ($project->deliverables as $deliverable)
-              @if ($deliverable->parent === null)
+
                 <tr tabindex='-1' data-template='setCurrent'>
                     <th class="actions row_only">
 		                 <button name='openTree'>Fold</button>         
 		            </th>
 		            <th>
-			             <input type="radio" data-template="setCurrent" name="current">
+			             <input type="radio"  name="current" form="deliverable">
 			        </th>
                     <td data-template='recordID'>{{$loop->index}}</td>
                     <td>
@@ -45,10 +45,11 @@
 			                       form='deliverable' value='{{ $deliverable->end_date }}' />
 			        </td>
                 </tr>
-              @endif
+
             @endforeach
         </tbody>
     
     </table>
-   
+    <form id="deliverable">
+    </form>
 @endif

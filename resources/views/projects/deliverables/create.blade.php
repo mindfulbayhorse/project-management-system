@@ -11,19 +11,19 @@
 	        
 	            <div class="flex_block one_column wide">
 	                <label for="title">Title:</label>
-	                <input maxlength='100' type="text" name="title" data-template='newTitle' value="{{ old('title') }}" />
+	                <input maxlength='100' type="text" name="title" value="{{ old('title') }}" />
 	            </div> 	
 	            
 	            <div class="flex_block one_row">
 	            
 	              <div class="flex_block one_column">
 	                  <label for="dateStart">Start date:</label>
-	                  <input maxlength='10' type="text" name="start_date" data-template='newDateStart' value="{{ old('start_date') }}" />
+	                  <input maxlength='10' type="text" name="start_date" value="{{ old('start_date') }}" />
 	              </div>
 	              
 	              <div class="flex_block one_column">
 	                  <label for="dateEnd">End date:</label>
-	                  <input maxlength='10' type="text" name="end_date" data-template='newDateEnd' value="{{ old('end_date') }}" />
+	                  <input maxlength='10' type="text" name="end_date" value="{{ old('end_date') }}" />
 	              </div>
 	              
 	            </div>		        
@@ -33,7 +33,7 @@
 	            
 	            <div class="flex_block one_column">
 	                <label for="cost">Cost:</label>
-	                <input maxlength='10' type="text" name="cost" data-template='newCost' value="{{ old('cost') }}"/>
+	                <input maxlength='10' type="text" name="cost" value="{{ old('cost') }}"/>
 	            </div>
 	            
 	            <div class="flex_block one_column">
@@ -51,7 +51,7 @@
 	            </div>
 	            
 	            <div class="flex_block one_column">
-	                <input type="submit" name='create' value="Create" data-template='addNew'/>
+	                <input type="submit" name='create' value="Create"/>
 	            </div>
 	            
 	        </div>

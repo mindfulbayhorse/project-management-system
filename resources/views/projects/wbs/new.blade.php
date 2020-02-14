@@ -1,10 +1,9 @@
-
 <div data-template="showErrMsg">
 <p>Errors are found in project WBS creating!</p>
 </div>
 <div data-template="showErrors"></div>
-<form id="deliverable" name="deliverable" method="POST" action="/projects/{{ $project->id }}/deliverables"
-    class="groupped flex_block one_row row_wide">
+<form id="deliverable" name="deliverable" method="POST" data-template="newRequest" 
+  class="groupped flex_block one_row row_wide" action="/projects/{{ $project->id }}/deliverables">
     
     <input type="hidden" name="project_id" value="{{$project->id}}" /> 
 
@@ -48,7 +47,7 @@
         <div class="flex_block grid_rows">
             
             <div class="flex_block one_column fld_space_100">
-                <label for="parentID">Package is ready:</label>
+                <label for="package">Package is ready:</label>
                 <input type="checkbox" name="package" />
             </div>
             

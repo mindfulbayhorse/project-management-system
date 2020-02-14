@@ -1,5 +1,5 @@
-@include('projects.wbs.new')
+@include('projects.deliverables.create')
 
-@include('projects.wbs.table')  
+@include('projects.deliverables.table')  
       
 

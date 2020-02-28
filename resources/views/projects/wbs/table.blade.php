@@ -1,4 +1,4 @@
-<div class="action_panel">
+<div class="action_panel" data-template='actionsBar'>
     <ul data-template='actions' class="flex_block one_row">
       <li><button data-template='action'></button></li>
     </ul>
@@ -24,16 +24,25 @@
 	        </th>
             <td data-template='recordID'></td>
             <td>
-                <input type='text' data-template='recordTitle' form='deliverable' />
+            	<div class="flex_block one_row field">
+                	<input type='text' data-template='recordTitle' form='deliverable'/>
+                </div>
 	        </td>
             <td>
-                <input type='text' data-template='recordCost' form='deliverable' />
+            	<div class="flex_block one_row field">
+            		<input type='text' data-template='recordCost' form='deliverable' />
+            	</div>
+                
 	        </td>
             <td>
-                <input type='text' data-template='recordDateStart' form='deliverable' />
+            	<div class="flex_block one_row field">
+                	<input type='text' data-template='recordDateStart' form='deliverable'/>
+                </div>
 	        </td>
             <td>
-                <input type='text' data-template='recordDateEnd' form='deliverable'/>
+            	<div class="flex_block one_row field">
+                    <input type='text' data-template='recordDateEnd' form='deliverable'/>
+                </div>
 	        </td>
         </tr>
     </tbody>

@@ -14,14 +14,18 @@
 
 @section('content')
 
-    <div class="limit_area">
+    <div class="center_area">
          @include('projects.info')
     
         <a href="/projects/{{$project->id}}/edit" class="btn">Edit project</a> 
         <a href="/projects/{{$project->id}}/edit" class="btn">Edit project</a> 
         
         <div id="WBS">
-            @include('projects.wbs.index')
+            @include('projects.info')
+
+			@include('projects.deliverables.create')
+
+			@include('projects.wbs.table') 
         </div>
     </div>     
 

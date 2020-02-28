@@ -6,7 +6,7 @@
 
 <main>
     <form method="POST" action="/projects">
-        @csrf 
+        @csrf
         
         <div class="flex_block one_column grid_rows col_1">
             

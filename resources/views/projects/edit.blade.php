@@ -45,7 +45,7 @@
         
     </form>
     
-    <a href="/projects/{{$project->id}}/deliverables/">Work breakdown structure</a>
+    <a href="/projects/{{$project->id}}/wbs">Work breakdown structure</a>
     
 </main>
 @endsection

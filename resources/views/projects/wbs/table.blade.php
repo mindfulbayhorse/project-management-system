@@ -15,12 +15,12 @@
         <th>End date</th>
     </thead>
     <tbody data-template='deliverables'>
-        <tr tabindex='-1' data-template='chosenDeliverables'>
+        <tr tabindex='-1' data-template='isSelected'>
             <th class="actions row_only">
                  <button name='openTree'></button>         
             </th>
             <th>
-	             <input type="radio" name="current" data-template='setCurrent'>
+	             <input type="checkbox" name="current" data-template='setCurrent'>
 	        </th>
             <td data-template='recordID'></td>
             <td>

@@ -4,18 +4,21 @@
 
 @section('content')
 
-<main>
-    <form method="POST" action="/projects">
+<main class='center_area'>
+    <form method="POST" action="/projects" class="groupped flex_block one_row flex_width">
         @csrf
         
-        <div class="flex_block one_column grid_rows col_1">
+         <div class="flex_block grid_rows fld_space_20 around_space">
             
-            <div class="flex_block one_column">
+            <div class="flex_block one_column fld_space_100 bottom_space">
                 <label for="title">Title:</label>
                 <input type="text" name="title" value="{{ old('title') }}" />
             </div>
             
-            <div class="flex_block one_column">
+         </div>
+         
+          <div class="flex_block grid_rows fld_space_20 bottom_space">
+            <div class="flex_block one_column fld_space_100 bottom_space">
                 <label for="status_id">Status:</label>
                 <select name="status_id">
                     <option value="">Choose</option>
@@ -24,7 +27,9 @@
                     @endforeach
                 </select>
             </div>      
-        
+		</div>
+		
+		<div class="flex_block grid_rows fld_space_20 bottom_space">
             <div class="flex_block one_column">
                 <label for="started">Start date:</label>
                 <input type="text" value="" name="started" />
@@ -32,7 +37,9 @@
             
         </div>
         
-        <input type="submit" value="Create" name="create"/>
+        <div class="flex_block grid_rows fld_space_20 around_space">
+        	<input type="submit" value="Create" name="create"/>
+        </div>
     </form>
 
 </main>

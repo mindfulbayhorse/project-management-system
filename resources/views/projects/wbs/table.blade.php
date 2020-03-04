@@ -24,23 +24,23 @@
 	        </th>
             <td data-template='recordID'></td>
             <td>
-            	<div class="flex_block one_row field">
+            	<div class="flex_block grid_rows field">
                 	<input type='text' data-template='recordTitle' form='deliverable'/>
                 </div>
 	        </td>
             <td>
-            	<div class="flex_block one_row field">
+            	<div class="flex_block grid_rows field">
             		<input type='text' data-template='recordCost' form='deliverable' />
             	</div>
                 
 	        </td>
             <td>
-            	<div class="flex_block one_row field">
+            	<div class="flex_block grid_rows field">
                 	<input type='text' data-template='recordDateStart' form='deliverable'/>
                 </div>
 	        </td>
             <td>
-            	<div class="flex_block one_row field">
+            	<div class="flex_block grid_rows field">
                     <input type='text' data-template='recordDateEnd' form='deliverable'/>
                 </div>
 	        </td>

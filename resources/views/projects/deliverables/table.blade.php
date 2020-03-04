@@ -31,7 +31,7 @@
 			            </div>
 			        </th>
                     <td data-template='recordID'>
-                    	<div class="flex_block one_row field">{{$loop->index}}
+                    	<div class="flex_block one_row field">{{$loop->iteration}}
                     	</div>
                    	</td>
                     <td>

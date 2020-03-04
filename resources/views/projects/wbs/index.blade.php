@@ -5,7 +5,7 @@
 @endsection
 
 @section('left_sidebar')
-   <div class="section_title">Work breakdown structure</div>
+   <h2>Work breakdown structure</h2>
    <h1>{{$project->title}}</h1>
    
    @include('projects.wbs.tree')

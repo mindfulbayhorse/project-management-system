@@ -18,9 +18,11 @@ Route::get('/', function () {
 Route::resource('rssfeed', 'RssfeedsController');
 Route::resource('projects', 'ProjectController');
 Route::resource('statuses', 'StatusController');
+Route::resource('work_units', 'WorkAmountController');
 Route::post('projects/{project}/deliverables', 'DeliverableController@store');
-Route::get('projects/{project}/deliverables/{deliverable}', 'DeliverableController@show');
+Route::get('projects/{project}/wbs/{deliverable}', 'DeliverableController@show');
 Route::get('projects/{project}/wbs', 'DeliverableController@index');
+Route::patch('projects/{project}/wbs/{deliverable}', 'DeliverableController@update');
 
 
 Auth::routes();

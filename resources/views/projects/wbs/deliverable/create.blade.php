@@ -5,6 +5,10 @@
 
         @csrf
         
+        @if (isset($deliverable))
+        	<input type="hidden" name="parent_id" value="{{$deliverable->id}}" />
+        @endif
+        
         <input type="hidden" name="project_id" value="{{$project->id}}" /> 
         <input type="hidden" name="deliverableID" data-template='newID' /> 
 
@@ -12,7 +16,7 @@
         
             <div class="flex_block one_column fld_space_100 bottom_space">
                 <label for="title">Title:</label>
-                <input maxlength='100' type="text" name="title" value="{{ old('title') }}" data-template='newTitle'/>
+                <input maxlength='150' type="text" name="title" value="{{ old('title') }}" data-template='newTitle'/>
             </div> 	
             
             <div class="flex_block one_row fld_space_100">
@@ -30,7 +34,7 @@
             </div>
         </div>
 	        
-        <div class="flex_block grid_rows fld_space_30 side_space">
+        <div class="flex_block grid_rows fld_space_30 bottom_top_space">
             
             <div class="flex_block one_column fld_space_100 bottom_space">
                 <label for="cost">Cost:</label>
@@ -46,7 +50,7 @@
         
         <div class="flex_block grid_rows fld_space_30 around_space">
             
-            <div class="flex_block one_column fld_space_100 side_space">
+            <div class="flex_block one_column fld_space_100">
                 <label for="parentID">Package is ready:</label>
                 <input type="checkbox" name="package" />
             </div>

@@ -1,4 +1,6 @@
 <div id="top_slogan">
 <p class="title">Project performance</p>
-@include('auth.user_panel')
+<div class="user_profile">
+	@include('auth.user_panel')
+</div>
 </div>

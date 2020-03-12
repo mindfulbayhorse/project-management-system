@@ -19,15 +19,21 @@ less = {
 	@include('blocks.header')
 	<div class="wide_screen flex_block one_row">
 		@hasSection('left_sidebar')
-			<div class="left_nav">@yield('left_sidebar')</div>
+			<div class="left_nav">
+				<div class="section_title">
+					<h2>@yield('section_title')</h2>
+					<h1>@yield('title')</h1>
+				</div>
+				@yield('left_sidebar')
+			</div>
 			<div class="right_main">
 				<div class="center_area">
 		@else
 			<div class="center_part">
+				<h1>@yield('title')</h1>
 		@endif
 		
-			<h1>@yield('title')</h1>
-			@yield('content')
+		@yield('content')
 			
 		@hasSection('left_sidebar')
 			</div>
@@ -36,11 +42,17 @@ less = {
 		</div>
 
 	</div>
-<script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js?@php echo date('YmdHis'); @endphp""></script>
+@php 
+if (!preg_match('/wbs/', $_SERVER['REQUEST_URI'])){
+@endphp
+<script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js?@php echo date('YmdHis'); @endphp"></script>
 <script>
 requirejs.config({
   urlArgs: "bust=" +  (new Date()).getTime()
 });
 </script>
+@php 
+}
+@endphp
 </body>
 </html>

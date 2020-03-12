@@ -1,26 +1,20 @@
 @extends('layout')
 
-@section('title') {{$project->title}} @endsection
-
 @section('left_sidebar')
-	<h2>@yield('section_title')</h2>
-	<h1>@yield('title')</h1>
+	@section('section_title') Work breakdown structure @endsection
+	@section('title') {{$project->title}} @endsection
 	
-	@include('projects.wbs.tree') 
+	@include('projects.wbs.tree')
 @endsection
 
 @section('content')
 <main>
 	@include('projects.info')
-	
-	<a href="/projects/{{$project->id}}/edit" class="btn">Edit project</a>
 
 	<div id="WBS">
-		@include('projects.deliverables.info')
 		
-		@include('projects.deliverables.create')
+		@include('projects.wbs.index')
 		
-		@include('projects.wbs.table')
 	</div>
 </main>
 @endsection

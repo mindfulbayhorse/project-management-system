@@ -8,32 +8,46 @@
     
     @include('show_err') 
     
-    <form method="POST" action="/projects/{{ $project->id }}">
+    <form method="POST" action="/projects/{{ $project->id }}"
+    	class="groupped flex_block one_row flex_width">
     
-        @csrf 
+        @csrf
         @method('PATCH')
         
-        <div>
-            <label for="title">Title:</label>
-            <input type="text" name="title" value="{{ $project->title }}" />
+        <div class="flex_block grid_rows fld_space_30 around_space">
+        	<div class="flex_block one_column fld_space_100">
+            	<label for="title">Title:</label>
+            	<input type="text" name="title" value="{{ $project->title }}" />
+            </div>
         </div>
         
-        <div>
-            <label for="status">Status:</label>
-            <select name="status">
-                <option value="0" @if ($project->status === '0')) {{ 'selected' }} @endif>Select a status</option>
-                <option value="1" @if ($project->status === '1')) {{ 'selected' }} @endif>Active</option>
-                <option value="2" @if ($project->status === '2')) {{ 'selected' }} @endif>Deployment</option>
-                <option value="3" @if ($project->status === '3')) {{ 'selected' }} @endif>Closed</option>
-            </select>
-        </div>  
+         <div class="flex_block grid_rows fld_space_30 bottom_top_space">
+         	<div class="flex_block one_column fld_space_100">
+                <label for="status">Status:</label>
+                <select name="status">
+                    <option value="0" @if ($project->status === '0')) {{ 'selected' }} @endif>Select a status</option>
+                    
+                    @foreach ($statuses as $status)
+                    	<option value="{{ $status['id'] }}" 
+                    		@if ($project->status_id === $status['id'])) 
+                    			{{ 'selected' }}
+                    		@endif
+                    		>{{$status['name']}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         
-        <div>
-            <label for="started">Start date:</label>
-            <input type="text" name="started" value="{{ $project->started }} " />
-        </div>   
+        <div class="flex_block grid_rows fld_space_30 bottom_top_space">
+        	<div class="flex_block one_column fld_space_100">
+            	<label for="started">Start date:</label>
+            	<input type="text" name="started" value="{{ $project->started }} " />
+        	</div>
+        </div>
     
-        <input type="submit" class="btn" value="Save" name="save"/>
+    	<div class="flex_block grid_rows fld_space_30 around_space">
+        	<input type="submit" class="btn" value="Save" name="save"/>
+        </div>
     </form>
     
     <form action="/projects/{{ $project->id }}" method="POST">

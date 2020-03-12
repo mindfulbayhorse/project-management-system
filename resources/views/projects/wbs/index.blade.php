@@ -1,25 +1,7 @@
-@extends('nav_left_request')
+@if (isset($deliverable))
+	@include('projects.wbs.deliverable.info')
+@endif
 
-@section('title')
-    {{$project->title}}
-@endsection
+@include('projects.wbs.deliverable.create')
 
-@section('left_sidebar')
-   <h2>Work breakdown structure</h2>
-   <h1>{{$project->title}}</h1>
-   
-   @include('projects.wbs.tree')
-   
-@endsection
-
-@section('content')
-
-	<div class="center_area">
-        @include('projects.info')
-
-		@include('projects.deliverables.create')
-
-		@include('projects.deliverables.table') 
-	</div>
-@endsection
-
+@include('projects.wbs.deliverable.table') 

@@ -15,6 +15,7 @@ class WorkAmount extends Migration
     {
         Schema::create('work_amounts', function (Blueprint $table) {
             $table->smallIncrements('id');
+            $table->string('symbol', 10);
             $table->string('name', 50);
             $table->text('description')->nullable();
             $table->timestamps(0);

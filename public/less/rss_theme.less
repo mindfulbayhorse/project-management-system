@@ -32,12 +32,12 @@ body {
     color: #333333;
 }
 
-p{
+p, h1, h2{
     margin: 0px;
 }
 h1 {
     font-size: 24px;
-    font-family: "Constantia";
+    font-family: "Constantia", Tahoma;
     color: rgb(0, 0, 51);
     font-weight: bold;
     line-height: 0.75;
@@ -45,11 +45,12 @@ h1 {
 
 h2{
   font-size: 16px;
-  font-family: "Myriad Pro";
+  font-family: "Myriad Pro", Tahoma;
   color: rgb(0, 0, 51);
   line-height: 1.125;
-  text-align: left;
+  font-weight: normal;
 }
+
 
 #@{header_id} {
     width: @width_screen;
@@ -60,6 +61,7 @@ h2{
     background-color: @header_back;
     padding: 30px 0px 0px 0px;
     border-bottom: 4px solid #6633cc;
+    
     p.title {
         font-size: 24px;
         font-family: "Century Schoolbook";
@@ -100,6 +102,36 @@ h2{
 .@{left_sidebar} {
     width: 25%;
     border-right: 1px solid #009966;
+    position: relative;
+    
+    .section_title{
+    	
+		float: right;
+		margin: 15px 20px 0px 0px;
+		
+		h2{
+			border-bottom: 1px solid rgb(153, 102, 102);
+			position: relative;
+			border-right: 1px solid rgb(153, 102, 102);
+			padding: 0px 5px 3px 30px;
+			text-align: right;	
+		}
+		
+		h1{
+			text-align: right;
+			padding: 10px 5px 10px 0px;
+			border-right: 1px solid rgb(153, 102, 102);
+		}
+	}
+	
+	.tree{
+		clear: both;
+		float: none;
+		
+		ul{
+			list-style-type: none;
+		}
+	}
 }
 
 .@{right_main} {
@@ -144,7 +176,7 @@ input , select , textarea {
     outline: none;
 }
 
-button , input[type="submit"] , input[type="reset"] {
+button , input[type="submit"] , input[type="reset"], .btn{
     min-width: 100px;
     max-width: 100%;
     background-color: rgb(0, 51, 0);
@@ -157,9 +189,11 @@ button , input[type="submit"] , input[type="reset"] {
     font-size: @basic_font_size;
     border: 0px solid #fff;
     cursor: pointer;
+    display: block;
+    border-radius: 8px;
 }
 
-label {
+label, p{
     font-size: 16px;
     font-family: "Arial";
     color: rgb(0, 0, 51);
@@ -220,8 +254,24 @@ table {
     }
 }
 
-form {
+form{
     padding: 0px;
+}
+
+.bottom_space {
+	padding: 0px 0px @space_fields 0px;
+}
+
+.bottom_top_space {
+    padding: @space_fields 0px;
+}
+
+.side_space {
+    padding: 0px @space_fields ;
+}
+
+.around_space {
+    padding: @space_fields;
 }
 
 .@{add_flex_style} {
@@ -257,18 +307,6 @@ form {
 
 .fld_space_20 {
     width: 20%;
-}
-
-.bottom_space {
-    padding: 0px 0px @space_fields 0px;
-}
-
-.side_space {
-    padding: @space_fields 0px;
-}
-
-.around_space {
-    padding: @space_fields;
 }
 
 .@{flex_one_row} {
@@ -333,5 +371,9 @@ form {
 
 table tr.active{
 	border: 1px solid #FA4DC4;
+}
+
+.user_profile{
+	float: right;
 }
 

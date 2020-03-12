@@ -71,6 +71,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        //dd($this->listStatuses());
+        
         return view('projects.edit',[
             'project'=>$project,
             'statuses' => $this->listStatuses()
@@ -123,11 +125,11 @@ class ProjectController extends Controller
     }
     
     /*
-     * get lisy of all statuses
+     * get list of all statuses
      */    
-    public function listStatuses() {
+    private function listStatuses() {
         
-        return Status::all();
+        return Status::all()->toArray();
         
     }
 }

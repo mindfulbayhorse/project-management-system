@@ -8,15 +8,21 @@ use Illuminate\Http\Request;
 
 class DeliverableController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function index(Project $project)
+    public function index(Project $project, Deliverable $deliverable)
     {
-        return view('projects.wbs.index', compact('project'));
+        return view('projects.show',
+            ['project'=>$project,
+            'deliverable'=>$deliverable]);
     }
 
     /**
@@ -26,18 +32,14 @@ class DeliverableController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function store(Project $project)
+    public function store(Project $project, Request $request)
     {    
         
-        $attr = request()->validate([
-             'title'=>'required',
-             'end_date' => 'nullable|date_format:Y-m-d',
-             'parent_id' => 'nullable'
-        ]);
+        $attr = $this->validateFields($request);
         
         $project->addDeliverable($attr);
         
-        return back();   
+        return back();
         
     }
 
@@ -49,23 +51,11 @@ class DeliverableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project, Deliverable $deliverable)
-    {        
-         return view('projects.deliverables.index', [
-             'project'=>$project,
-             'deliverable'=>$deliverable
-             ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Project  $project
-     * @param  \App\Deliverable  $deliverable
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Project $project, Deliverable $deliverable)
     {
-        return view('projects.deliverables.wbs');
+        
+        return view('projects.show',
+            ['project'=>$project,
+                'deliverable'=>$deliverable]);
     }
 
     /**
@@ -78,7 +68,11 @@ class DeliverableController extends Controller
      */
     public function update(Request $request, Project $project, Deliverable $deliverable)
     {
-        //
+        $fields = $this->validateFields($request);
+        
+        $deliverable->update($fields);
+        
+        return back();
     }
 
     /**
@@ -91,5 +85,22 @@ class DeliverableController extends Controller
     public function destroy(Project $project, Deliverable $deliverable)
     {
         //
+    }
+    
+    
+    /*
+     * Request validaing process
+     *
+     * @param \Illuminate\Http\Request  $request
+     */
+    public function validateFields(Request $request)
+    {
+        return request()->validate([
+            'title'=>'required',
+            'end_date' => 'nullable|date_format:Y-m-d',
+            'order' => 'nullable',
+            'cost' => 'nullable',
+            'parent_id' => 'nullable'
+        ]);
     }
 }

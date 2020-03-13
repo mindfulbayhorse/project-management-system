@@ -71,7 +71,6 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //dd($this->listStatuses());
         
         return view('projects.edit',[
             'project'=>$project,

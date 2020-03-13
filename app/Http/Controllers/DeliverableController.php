@@ -20,9 +20,14 @@ class DeliverableController extends Controller
      */
     public function index(Project $project, Deliverable $deliverable)
     {
-        return view('projects.show',
-            ['project'=>$project,
-            'deliverable'=>$deliverable]);
+        $wbs = [];
+        if ($project->deliverables->count()) $wbs = $project->deliverables;
+        
+        return view('projects.show',[
+            'project'=> $project,
+            'deliverable'=> $deliverable,
+            'wbs'=> $wbs
+        ]);
     }
 
     /**
@@ -52,10 +57,16 @@ class DeliverableController extends Controller
      */
     public function show(Project $project, Deliverable $deliverable)
     {
-        
-        return view('projects.show',
-            ['project'=>$project,
-                'deliverable'=>$deliverable]);
+        $wbs = [];
+        if ($deliverable->children->count()) $wbs = $deliverable->children;
+
+        return view(
+            'projects.show',[
+                'project'=> $project,
+                'deliverable'=> $deliverable,
+                'wbs'=> $wbs
+            ]
+        );
     }
 
     /**

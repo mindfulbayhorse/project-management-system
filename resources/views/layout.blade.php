@@ -42,17 +42,13 @@ less = {
 		</div>
 
 	</div>
-@php 
-if (!preg_match('/wbs/', $_SERVER['REQUEST_URI'])){
-@endphp
-<script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js?@php echo date('YmdHis'); @endphp"></script>
-<script>
-requirejs.config({
-  urlArgs: "bust=" +  (new Date()).getTime()
-});
-</script>
-@php 
-}
-@endphp
+	@if (!isset($wbs))
+		<script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js?@php echo date('YmdHis'); @endphp"></script>
+		<script>
+			requirejs.config({
+			urlArgs: "bust=" +  (new Date()).getTime()
+		});
+	</script>
+	@endif
 </body>
 </html>

@@ -23,7 +23,7 @@
                 <select name="status_id">
                     <option value="">Choose</option>
                     @foreach ($statuses as $status)
-                         <option value="{{ $status->id }}">{{ $status->name }}</option>
+                         <option value="{{ $status['id'] }}">{{ $status['name'] }}</option>
                     @endforeach
                 </select>
             </div>      

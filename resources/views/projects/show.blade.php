@@ -12,9 +12,9 @@
 	@include('projects.info')
 
 	<div id="WBS">
-		
+
 		@include('projects.wbs.index')
-		
+	
 	</div>
 </main>
 @endsection

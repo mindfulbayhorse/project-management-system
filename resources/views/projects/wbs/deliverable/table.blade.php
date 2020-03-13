@@ -45,15 +45,9 @@
                 </div>
 	        </td>
         </tr>
-        @if(isset($deliverable))
-			@if ($deliverable->children->count())
-				@include('projects.wbs.table',['wbs' => $deliverable->children])
-			@endif
-		@else
-			@if ($project->deliverables->count())
-				@include('projects.wbs.table',['wbs' => $project->deliverables])
-			@endif
-		@endif
+        @if (isset($wbs))
+        	@include('projects.wbs.table')
+        @endif
     </tbody>
 
 </table>

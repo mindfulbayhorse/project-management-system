@@ -1,0 +1,3 @@
+[submodule "multilevel_structure"]
+	path = resources/js/multilevel_structure
+	url = git@github.com:mindfulbayhorse/multilevel_structure.git

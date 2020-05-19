@@ -5,14 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/css/normalize.css" />
-<link rel="stylesheet/less" type="text/css" href="/less/rss_theme.less?@php echo date('YmdHis'); @endphp" />
-<script>
-less = {
-  env: "development",
-  useFileCache: false
-};
-</script>
-<script src="/less/less.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/project_performance.css" />
 <title>@yield('title','Laracast')</title>
 </head>
 <body>
@@ -42,13 +35,6 @@ less = {
 		</div>
 
 	</div>
-	@if (!isset($wbs))
-		<script data-main="/multilevel_structure/js/main" src="/multilevel_structure/require.js?@php echo date('YmdHis'); @endphp"></script>
-		<script>
-			requirejs.config({
-			urlArgs: "bust=" +  (new Date()).getTime()
-		});
-	</script>
-	@endif
+	<script src="/main.js" type="text/javascript "></script>
 </body>
 </html>

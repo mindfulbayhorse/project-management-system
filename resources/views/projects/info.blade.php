@@ -2,7 +2,7 @@
     <div class="flex_block fld_space_20 around_space">
     	<div class="flex_block one_column fld_space_100">
         	<label for="status">Status:</label>
-        	<p>{{$project->status['name']}}</p>
+        	<p>@if ($project->status) {{$project->status->name}} @endif</p>
         </div>
     </div>
     

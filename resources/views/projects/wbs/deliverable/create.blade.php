@@ -64,7 +64,7 @@
         
         <div class="flex_block grid_rows fld_space_30 around_space">
             
-            <div class="flex_block one_column fld_space_100">
+            <div class="flex_block one_column fld_space_100 bottom_space">
                 <label for="parentID">Package is ready:</label>
                 <input type="checkbox" name="package" 
                 	data-bind="checked: newDeliverable().isPackage"/>

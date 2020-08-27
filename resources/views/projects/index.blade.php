@@ -19,7 +19,7 @@
             @foreach ($projects as $project)
                 <tr>
                     <td><a href="/projects/{{$project->id}}">{{$project->title}}</a></td>
-                    <td>{{ $project->status['name'] }}</td>
+                    <td>@if ($project->status) {{ $project->status->name }} @endif</td>
                     <td>{{ $project->started }}</td>
                     <td>{{ $project->finished }}</td>
                 </tr>

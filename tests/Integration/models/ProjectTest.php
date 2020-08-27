@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use \App\Project;
 use \App\WorkBreakdownStructure;
+use \App\Status;
 
 class ProjectTest extends TestCase
 {
@@ -48,14 +49,36 @@ class ProjectTest extends TestCase
         
         $newWBS->actualize();
            
-        $this->assertEquals(1, $project->wbs()->actual()->count());
+        $this->assertCount(1, $project->wbs()->actual());
         
     }
     
     
     /** @test */
-    /*public function wbs_deliverables_list_is_ordered()
+    public function project_has_no_any_status()
+    {
+    
+        $project = factory(Project::class)->create([
+                        'title' => 'Cook book',
+        ]);
+        
+        $this->assertEmpty($project->status);
+    }
+    
+    
+    /** @test */
+    public function project_has_only_one_status()
     {
         
-    }*/
+        $status = factory(Status::class)->create([
+                        'name' => 'Initiated',
+        ]);
+        
+        $project = factory(Project::class)->create([
+                        'title' => 'RSS feeder',
+                        'status_id'=>$status->id
+        ]);
+        
+        $this->assertEquals('Initiated', $project->status->name);
+    }
 }

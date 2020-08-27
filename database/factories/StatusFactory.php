@@ -2,12 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Deliverable;
+use App\Status;
 use Faker\Generator as Faker;
 
-$factory->define(Deliverable::class, function (Faker $faker) {
+$factory->define(Status::class, function (Faker $faker) {
     return [
-        'id',
-        'order'
+        'name' => $faker->name
     ];
 });

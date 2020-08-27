@@ -18,14 +18,13 @@
         <th>End date</th>
     </thead>
     <tbody data-bind='foreach: wbsAll'>
-        <tr tabindex='-1' data-bind='hasFocus: $root.isSelected($data)'>
+        <tr tabindex='-1' data-bind='hasFocus: entry.isSelected,
+                            class: entry.isActive'>
             <th class="actions row_only">
                  <button name='openTree'></button>
             </th>
             <th>
-	             <input type="checkbox" name="current" 
-	             	data-bind="checkedValue: $data,
-        				checked: $root.current"/>
+	             <input type="checkbox" name="current" />
 	        </th>
             <td data-bind='text: entry.ID'></td>
             <td>

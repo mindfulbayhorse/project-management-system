@@ -7,24 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     protected $guarded = [];
+    public $wbs = [];
     
-    public function deliverables() {
-        
-        return $this->hasMany(Deliverable::class);
-    }
-    
-    public function addDeliverable($deliverable)
+    public function wbs()
     {
-        
-        $this->deliverables()->create($deliverable);
-        
-        return back();
-    }
+        return $this->hasMany(WorkBreakdownStructure::class);
+    }   
     
+    public function deliverables()
+    {
+        return $this->hasManyThrough(Deliverable::class, 
+                        WorkBreakdownStructure::class, 
+                        'project_id',
+                        'wbs_id');
+    }
     
     public function status() {
         
         return $this->belongsTo(Status::class);
         
     }
+    
 }

@@ -9,15 +9,6 @@
     <form name="authonticate" method="POST" action=""  class="groupped flex_block one_row">
 
         @csrf
-
-	        <div class="flex_block one_column grid_rows col_1">
-	        
-	            <div class="flex_block one_column">
-	                <label for="title">User name:</label>
-	                <input type="text" name="name" value="{{ old('name') }}" />
-	            </div> 	
-	            	        
-	        </div>
 	        
 	        <div class="flex_block one_column grid_rows col_1">
 	        

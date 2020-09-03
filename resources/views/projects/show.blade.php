@@ -10,11 +10,15 @@
 @section('content')
 <main>
 	@include('projects.info')
+    
+    @if ($project->wbs->count() > 0)
 
-	<div id="WBS">
+    	<div id="WBS">
+    
+    		@include('projects.wbs.index')
+    	
+    	</div>
 
-		@include('projects.wbs.index')
-	
-	</div>
+    @endif
 </main>
 @endsection

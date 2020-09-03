@@ -1,5 +1,9 @@
-<form id="deliverable" name="deliverable" method="POST" action="/projects/{{ $project->id }}/wbs/{{$deliverable->id}}" 
-	class="groupped flex_block one_row flex_width" data-template="breakdown">
+<form id="deliverable" 
+    name="deliverable" 
+    method="POST" 
+    action="/projects/{{ $project->id }}/wbs/{{$deliverable->id}}" 
+	class="groupped flex_block one_row flex_width" 
+    data-template="breakdown">
 	
 	@csrf
 	@method('PATCH')

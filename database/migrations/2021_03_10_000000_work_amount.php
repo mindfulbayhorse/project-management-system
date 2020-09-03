@@ -30,6 +30,6 @@ class WorkAmount extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deliverables');
+        Schema::dropIfExists('work_amounts');
     }
 }

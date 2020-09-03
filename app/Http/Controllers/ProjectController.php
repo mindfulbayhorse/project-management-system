@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Status;
+use App\WorkBreakdownStructure;
 
 class ProjectController extends Controller
 {
@@ -47,9 +48,12 @@ class ProjectController extends Controller
     {
         $fields = $this->validateFields($request);
         
-        Project::create($fields);
+        $project = Project::create($fields);
+        $wbs  = WorkBreakdownStructure::create(['project_id' => $project->id]);
+        $wbs->actualize();
+        dd($wbs);
         
-        return redirect('/projects/');
+        //return redirect('/projects/');
     }
 
     /**

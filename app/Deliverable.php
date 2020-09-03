@@ -15,8 +15,7 @@ class Deliverable extends Model
     {
         return $this->belongsTo(WorkBreakdownStructure::class);
     }
-    
-    
+      
     /*
      * Get the parent deliverable
      */
@@ -24,14 +23,18 @@ class Deliverable extends Model
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
-    
-    
+      
     /*
      * Get the child deliverables
      */
     public function children()
     {
         return $this->hasMany(self::class, 'parent_id');
+    }
+    
+    public function scopeOrdered($query)
+    {
+        return $query->orderby('order')->get();
     }
     
     

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Deliverable;
 
 class WorkBreakdownStructure extends Model
 {
@@ -19,28 +20,31 @@ class WorkBreakdownStructure extends Model
         return $this->belongsTo(Project::class);
     }
     
-    public function add($userInput)
+    public function add(Deliverable $deliverable)
     {
-        $fields = array_merge(['wbs_id'=>$this->id], $userInput);
-        return Deliverable::create($fields);
+        return $this->deliverables()->save($deliverable);
     }
     
     public function archive()
     {
         $this->actual=false;
         $this->save();
-        
     }
     
     public function actualize()
     {
         $this->actual = true;
         $this->save();
-
     }
     
     public function scopeActual($query)
     {
         return $query->where('actual', true)->get();
     }
+    
+    public function scopeArchived($query)
+    {
+        return $query->where('actual', false)->get();
+    }
+    
 }

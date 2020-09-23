@@ -18,15 +18,11 @@ class DeliverableController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function index(Project $project, Deliverable $deliverable)
+    public function index(Project $project)
     {
-        $wbs = [];
-        if ($project->deliverables->count()) $wbs = $project->deliverables;
-        
-        return view('projects.show',[
+
+        return view('projects.wbs.index',[
             'project'=> $project,
-            'deliverable'=> $deliverable,
-            'wbs'=> $wbs
         ]);
     }
 

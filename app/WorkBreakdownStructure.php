@@ -10,6 +10,11 @@ class WorkBreakdownStructure extends Model
     protected $guarded = [];
     protected $table = 'wbs';
     
+    public function path()
+    {
+        return $this->project->path().'/wbs/'.$this->id;
+    }
+    
     public function deliverables()
     {
         return $this->hasMany(Deliverable::class,'wbs_id');
@@ -22,6 +27,7 @@ class WorkBreakdownStructure extends Model
     
     public function add(Deliverable $deliverable)
     {
+        $deliverable->wbs_id = $this->id;
         return $this->deliverables()->save($deliverable);
     }
     

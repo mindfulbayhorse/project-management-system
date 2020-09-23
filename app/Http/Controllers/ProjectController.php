@@ -49,11 +49,8 @@ class ProjectController extends Controller
         $fields = $this->validateFields($request);
         
         $project = Project::create($fields);
-        $wbs  = WorkBreakdownStructure::create(['project_id' => $project->id]);
-        $wbs->actualize();
-        dd($wbs);
         
-        //return redirect('/projects/');
+        return redirect('/projects/');
     }
 
     /**

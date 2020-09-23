@@ -9,9 +9,14 @@ class Project extends Model
 {
     protected $guarded = [];
     
+    public function path()
+    {
+        return "/projects/".$this->id;
+    }
+    
     public function wbs()
     {
-        return $this->hasMany(WorkBreakdownStructure::class);
+        return $this->hasMany(WorkBreakdownStructure::class, 'project_id', 'id');
     }   
     
     public function getWBS($wbsId)
@@ -26,13 +31,13 @@ class Project extends Model
         
     }
     
-    public function actualizeWBS(WorkBreakdownStructure $Wbs)
+    public function actualizeWBS(WorkBreakdownStructure $wbs)
     {
         foreach ($this->wbs()->actual() as $wbsOld){
             $wbsOld->archive();
         }
         
-        $Wbs->actualize();
+        $wbs->actualize();
     }
     
 }

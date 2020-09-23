@@ -5,10 +5,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use \App\Project;
 use \App\WorkBreakdownStructure;
-use \App\Status;
 use \App\Deliverable;
 
-class ProjectTest extends TestCase
+class ProjectWBSTest extends TestCase
 {
     use RefreshDatabase;
     
@@ -33,12 +32,7 @@ class ProjectTest extends TestCase
         $this->actualWBS = $this->project->wbs()->actual()->first();
         
     }
-    
-    /** @test */
-    public function project_has_a_title()
-    {
-        $this->assertEquals('Beadshine', $this->project->title);
-    }
+
 
     /** @test 
     public function wbs_is_created_for_new_project()
@@ -70,26 +64,6 @@ class ProjectTest extends TestCase
            
         $this->assertCount(1, $this->project->wbs()->actual());
         
-    }
-    
-    /** @test */
-    public function project_has_no_any_status()
-    {       
-        $this->assertEmpty($this->project->status);
-    }
-       
-    /** @test */
-    public function project_has_only_one_status()
-    {
-        
-        $status = factory(Status::class)->create([
-                        'name' => 'Initiated',
-        ]);
-        
-        $this->project->status_id = $status->id;
-        $this->project->save();
-        
-        $this->assertEquals('Initiated', $this->project->status->name);
     }
     
     /** @test */
@@ -132,6 +106,14 @@ class ProjectTest extends TestCase
         $this->assertEquals(2, key($deliverables));
         
         $this->assertEquals(2, current($deliverables)['order']);
+    }
+    
+    /** @test */
+    public function it_has_a_path()
+    {
+        $this->actualWBS->path();
+        $this->assertEquals('/projects/'.$this->actualWBS->project_id.'/wbs/'.$this->actualWBS->id,
+                        $this->actualWBS->path());
     }
     
         

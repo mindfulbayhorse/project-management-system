@@ -8,7 +8,8 @@
     
     @include('show_err') 
     
-    <form method="POST" action="/projects/{{ $project->id }}"
+    <form method="POST" 
+        action="{{$project->path() }}"
     	class="groupped flex_block one_row flex_width">
     
         @csrf

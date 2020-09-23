@@ -21,6 +21,6 @@
     </div>
     
     <div class="flex_block fld_space_20 around_space">
-    	<a href="/projects/{{$project->id}}/edit" class="btn">Edit project</a>
+    	<a href="{{ $project->path() }}/edit" class="btn">Edit project</a>
     </div>
 </div>

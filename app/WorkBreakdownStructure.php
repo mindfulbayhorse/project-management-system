@@ -17,7 +17,7 @@ class WorkBreakdownStructure extends Model
     
     public function deliverables()
     {
-        return $this->hasMany(Deliverable::class,'wbs_id');
+        return $this->hasMany(Deliverable::class,'wbs_id')->orderby('order');
     }
     
     public function project()
@@ -29,6 +29,11 @@ class WorkBreakdownStructure extends Model
     {
         $deliverable->wbs_id = $this->id;
         return $this->deliverables()->save($deliverable);
+    }
+    
+    public function discard(Deliverable $deliverable)
+    {
+    	$this->deliverables()->where('id', $deliverable->id)->delete();
     }
     
     public function archive()

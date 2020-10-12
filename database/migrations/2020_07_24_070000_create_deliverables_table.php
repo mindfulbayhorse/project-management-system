@@ -16,7 +16,7 @@ class CreateDeliverablesTable extends Migration
         Schema::create('deliverables', function (Blueprint $table) {
             
             $table->bigIncrements('id');
-            $table->unsignedbigInteger('wbs_id');
+            $table->foreignId('wbs_id')->constrained()->onDelete('cascade');
             $table->unsignedbigInteger('parent_id')->nullable();
             $table->string('title', 200);
             $table->timestamp('start_date')->useCurrent();
@@ -28,8 +28,6 @@ class CreateDeliverablesTable extends Migration
             $table->unsignedSmallInteger('order')->default(0);
             $table->timestamps();
             
-            //deleting a project will delete all data about its WBS
-            $table->foreign('wbs_id')->references('id')->on('wbs')->onDelete('cascade');
         });
     }
 

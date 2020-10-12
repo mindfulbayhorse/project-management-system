@@ -16,7 +16,7 @@ class CreateWorkBreakdownStructuresTable extends Migration
         Schema::create('wbs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->unsignedbigInteger('project_id');
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->boolean('actual')->default(false);
         });
         

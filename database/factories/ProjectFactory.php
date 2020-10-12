@@ -12,6 +12,6 @@ $factory->define(Project::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(Project::class, function ($project, $faker) {
-        $project->wbs()->save(factory(WorkBreakdownStructure::class)->make(['actual'=>true]));
-});
+//$factory->afterCreating(Project::class, function ($project, $faker) {
+//        $project->wbs()->save(factory(WorkBreakdownStructure::class)->make(['actual'=>true]));
+//});

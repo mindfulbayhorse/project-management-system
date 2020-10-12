@@ -29,45 +29,17 @@ class ProjectWBSTest extends TestCase
                         'title' => 'Beadshine',
         ]);
         
-        $this->actualWBS = $this->project->wbs()->actual()->first();
+        $newWbs = factory(WorkBreakdownStructure::class)->make();
         
-    }
-
-
-    /** @test 
-    public function wbs_is_created_for_new_project()
-    {
-        //project has not wbs yet
-        /*$this->assertDatabaseMissing('wbs', [
-                        'id' => 1,
-        ]);
-        
-        //new wbs is created in project creating event
-        $this->assertDatabaseHas('wbs', [
-                        'id' => 1,
-                        'project_id' => $project->id,
-                        'actual' => true
-        ]);
-        
-    }*/
-    
-    /** @test */
-    public function project_has_just_one_actual_wbs()
-    {
-        $this->assertCount(1, $this->project->wbs()->actual());
-        
-        //new wbs is created for project       
-        $newWbs = factory(WorkBreakdownStructure::class)->create(
-                        ['project_id'=>$this->project->id]);
-        
+        $this->project->initializeWBS($newWbs);
         $this->project->actualizeWBS($newWbs);
-           
-        $this->assertCount(1, $this->project->wbs()->actual());
+        
+        $this->firstWBS = $this->project->wbs()->actual()->first();
         
     }
     
     /** @test */
-    public function project_wbs_deliverables_are_ordered()
+    public function its_deliverables_are_ordered()
     {
         
         $deliverable = new Deliverable(['title'=>'Prototype']);
@@ -82,7 +54,7 @@ class ProjectWBSTest extends TestCase
                         'order' => 2
         ]);
         
-        $actualWBS = WorkBreakdownStructure::find($this->actualWBS->id);
+        $actualWBS = WorkBreakdownStructure::find($this->firstWBS->id);
         
         $actualWBS->add($deliverable);
         
@@ -90,7 +62,7 @@ class ProjectWBSTest extends TestCase
         
         $actualWBS->add($deliverable3);
         
-        $deliverables = $actualWBS->deliverables()->ordered()->toArray();
+        $deliverables = $actualWBS->deliverables->toArray();
         
         $this->assertEquals(0, key($deliverables));
         $this->assertEquals(0, current($deliverables)['order']);
@@ -111,16 +83,41 @@ class ProjectWBSTest extends TestCase
     /** @test */
     public function it_has_a_path()
     {
-        $this->actualWBS->path();
-        $this->assertEquals('/projects/'.$this->actualWBS->project_id.'/wbs/'.$this->actualWBS->id,
-                        $this->actualWBS->path());
+        $this->firstWBS->path();
+        $this->assertEquals(
+            '/projects/'.$this->firstWBS->project_id.'/wbs/'
+            .$this->firstWBS->id,
+            $this->firstWBS->path());
+    }
+           
+    /** @test */
+    public function it_is_deleted_after_deleting_a_project()
+    {
+        $projectId = $this->project->id;
+        $this->assertDatabaseHas('wbs', [
+                        'project_id' => $this->project->id
+        ]);
+        
+        $this->project->delete();
+        $this->assertDatabaseMissing('wbs', [
+                        'project_id' => $projectId
+        ]);
+        
     }
     
-        
-    /** @test 
-    public function project_has_been_deleted_with_all_wbs()
+    /** @test */
+    public function its_deliverable_can_be_deleted()
     {
-        
-        
-    }*/
+    	$deliverables = factory(Deliverable::class, 2)->make();
+    	
+    	$deliverable1 = $this->firstWBS->add($deliverables->first());
+    	
+    	$this->firstWBS->add($deliverables->last());
+    	
+    	$this->assertCount(2, $this->firstWBS->deliverables);
+    	
+    	$this->delete($deliverables->last());
+    	
+    	$this->assertEquals($deliverable1->id, $this->firstWBS->deliverables->first()->id);
+    }
 }

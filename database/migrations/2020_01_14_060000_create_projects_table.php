@@ -24,7 +24,9 @@ class CreateProjectsTable extends Migration
             $table->timestamps();
             
             $table->foreign('status_id')->references('id')->on('statuses');
+         
         });
+              
     }
 
     /**

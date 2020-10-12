@@ -7,8 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Deliverable::class, function (Faker $faker) {
     return [
-        'id',
-        'order',
-        'title'
+    	'title' => $faker->sentence(3, true)
     ];
 });

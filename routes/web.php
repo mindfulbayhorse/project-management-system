@@ -15,12 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('rssfeed', 'RssfeedsController');
-Route::resource('projects', 'ProjectController');
-Route::resource('statuses', 'StatusController');
+Route::resource('projects', 'ProjectController')->middleware(['auth']);
+
 Route::resource('projects.wbs', 'ProjectWBSController')->parameters([
                 'wbs' => 'wbs'
 ])->scoped();
+
+
+Route::resource('rssfeed', 'RssfeedsController');
+
+Route::resource('statuses', 'StatusController');
+
 Route::resource('work_units', 'WorkAmountController');
 //Route::post('projects/{project}/deliverables', 'DeliverableController@store');
 //Route::get('projects/{project}/wbs/{deliverable}', 'DeliverableController@show');

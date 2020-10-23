@@ -18,7 +18,6 @@
     <input type="hidden" name="project_id" value="{{$project->id}}" /> 
     <input type="hidden" name="id" value="{{$wbs->id}}" />
     
-
     <div class="flex_block grid_rows fld_space_30 around_space">
     
         <div class="flex_block one_column fld_space_100 bottom_space">
@@ -88,8 +87,6 @@
     <table>
         <caption>Work Breakdown structure</caption>
         <thead>
-            <th></th>
-            <th></th>
             <th>Ordinal number</th>
             <th>Title</th>
             <th>Cost</th>
@@ -101,25 +98,15 @@
             @foreach ($wbs->deliverables as $deliverable)
 
                 <tr tabindex='-1'>
-                    <th class="actions row_only">
-                        <div class="flex_block one_row field">
-                            {{ $deliverable->order }}
-                            <button name='openTree'>Fold</button>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="flex_block one_row field">
-                            <input type="radio" name="current" form="deliverable">
-                        </div>
-                    </th>
                     <td data-template='recordID'>
                         <div class="flex_block one_row field">
-                            {{$loop->iteration}} {{ $deliverable->id }} {{ $deliverable->parent_id }}
+                            {{ $deliverable->order }}
                         </div>
                     </td>
                     <td>
                         <div class="flex_block one_row field">
-                            <a href="{{$wbs->path() }}">{{$deliverable->title}}</a>
+                            <a href="{{ $project->path() }}/deliverables/{{ $deliverable->id}}/edit"
+                                >{{$deliverable->title}}</a>
                         </div>
                     </td>
                     <td>
@@ -135,16 +122,6 @@
                     <td>
                         <div class="flex_block one_row field">
                             {{ $deliverable->end_date }}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="flex_block one_row field">
-                            {{ $deliverable->work_amount }}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="flex_block one_row field">
-                            {{ $deliverable->work_amount_id }}
                         </div>
                     </td>
                 </tr>

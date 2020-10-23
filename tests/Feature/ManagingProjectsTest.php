@@ -4,24 +4,29 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use \App\Project;
+use \App\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
 
 class ManagingProjectsTest extends TestCase{
     
     use WithFaker, Refreshdatabase;
     
+    public $user;
+    
     /** @test  */
     function it_can_be_created_by_authenticated_user(){
         
         $this->withoutExceptionHandling();
         
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
         
         $attributes = array(
         	"title" => $this->faker->sentence
         );
         
-        $this->post('/projects', $attributes)->assertRedirect('/projects');
+        $response = $this->post('/projects', $attributes);
+        
+        $response->assertRedirect(Project::where($attributes)->first()->path().'/edit');
         
         $this->assertDatabaseHas('projects', $attributes);
         
@@ -61,6 +66,24 @@ class ManagingProjectsTest extends TestCase{
         
         $this->get($project->path())->assertSee($project->title);
         
+    }
+    
+    /** @test */
+    public function only_authorized_user_can_initialize_project_wbs(){
+    	
+    	$project = factory(Project::class)->create();
+    	
+    	$deliverable = factory(Deliverable::class)->raw([
+    		'title' => ''
+    	]);
+    	
+    	$this->call('POST', $project->path().'/wbs', $deliverable)
+    		->assertStatus(403);
+    	
+    	$this->assertDatabaseMissing('wbs', [
+    		'project_id' => $project->id
+    	]);
+    	
     }
 }
 ?>

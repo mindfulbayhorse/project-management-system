@@ -4,6 +4,7 @@
 
 use App\Deliverable;
 use Faker\Generator as Faker;
+use App\WorkBreakdownStructure;
 
 $factory->define(Deliverable::class, function (Faker $faker) {
     return [

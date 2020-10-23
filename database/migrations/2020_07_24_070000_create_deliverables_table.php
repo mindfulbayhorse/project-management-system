@@ -28,6 +28,8 @@ class CreateDeliverablesTable extends Migration
             $table->unsignedSmallInteger('order')->default(0);
             $table->timestamps();
             
+            //$table->primary(['wbs_id','parent_id','order']);
+            
         });
     }
 

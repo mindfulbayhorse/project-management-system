@@ -64,9 +64,9 @@ class Project extends Model
         }
     }
     
-    /*public function recources(){
+    public function scopeLastUpdated($query){
     	
-    	$this->morthMany(ProjectResource::class);
-    }*/
+        $query->orderBy('updated_at', 'desc');    
+    }
     
 }

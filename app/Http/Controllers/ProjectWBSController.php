@@ -6,6 +6,7 @@ use App\Project;
 use App\WorkBreakdownStructure;
 use Illuminate\Http\Request;
 use App\Deliverable;
+use \Illuminate\Support\Facades\Auth;
 
 class ProjectWBSController extends Controller
 {
@@ -17,7 +18,7 @@ class ProjectWBSController extends Controller
      */
     public function index(Project $project)
     {
-        //dd($project->wbs);
+
         return view('projects.wbs.index',[
             'project'=> $project,
         ]);
@@ -45,19 +46,25 @@ class ProjectWBSController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Project $project)
-    {
-         
-        $wbs = WorkBreakdownStructure::create(['project_id'=>$project->id]);
-        
-        $deliverable = new Deliverable();
-        $deliverable->title = $request->title;
-        
-        $wbs->add($deliverable);
-        
-        return view('projects.wbs.edit',[
-            'project' => $project,
-            'wbs' => $wbs
-        ]);
+    {    	
+    	if (!auth::check()) {
+    		abort(403);
+    	}
+    		
+    	$request->validate(['title'=>'required']);
+    		
+    	$wbs = new WorkBreakdownStructure();
+    	$project->initializeWBS($wbs);
+    		
+    	$deliverable = new Deliverable();
+    	$deliverable->title = $request->title;
+    		
+    	$wbs->add($deliverable);
+    		
+    	return view('projects.wbs.edit',[
+    		'project' => $project,
+    		'wbs' => $wbs
+    	]);
     }
 
     /**
@@ -69,7 +76,10 @@ class ProjectWBSController extends Controller
      */
     public function show(Project $project, WorkBreakdownStructure $wbs)
     {
-        dd($wbs);
+    	return view('projects.wbs.edit',[
+    		'project' => $project,
+    		'wbs' => $wbs
+    	]);
     }
 
     /**
@@ -81,10 +91,9 @@ class ProjectWBSController extends Controller
      */
     public function edit(Project $project, WorkBreakdownStructure $wbs)
     {
-        dd($wbs);
         return view('projects.wbs.edit',[
              'project' => $project,
-              'wbs' => $wbs
+             'wbs' => $wbs
         ]);
     }
 
@@ -98,7 +107,21 @@ class ProjectWBSController extends Controller
      */
     public function update(Request $request, Project $project, WorkBreakdownStructure $wbs)
     {
+        if (!auth::check()) {
+            abort(403);
+        }
         
+    	$request->validate(['title'=>'required']);
+    	
+    	$deliverable = new Deliverable();
+    	$deliverable->title = $request->title;
+    	
+    	$wbs->add($deliverable);
+    	
+    	return view('projects.wbs.edit',[
+    		'project' => $project,
+    		'wbs' => $wbs
+    	]);
     }
 
     /**

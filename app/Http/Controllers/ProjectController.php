@@ -5,15 +5,11 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Status;
-use App\WorkBreakdownStructure;
+use Illuminate\Support\Facades\DB;
+
 
 class ProjectController extends Controller
 {
-    
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     
     /**
      * Display a listing of the resource.
@@ -22,7 +18,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('updated_at', 'desc')->get();
         
         return view('projects.index', compact('projects'));
     }
@@ -50,7 +46,7 @@ class ProjectController extends Controller
         
         $project = Project::create($fields);
         
-        return redirect('/projects/');
+        return redirect($project->path().'/edit');
     }
 
     /**

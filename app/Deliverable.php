@@ -8,12 +8,14 @@ class Deliverable extends Model
 {
     protected $guarded = [];
     
+    protected $touches = ['projectWBS'];
+    
     /*
     * Get the project to which all deliverables are linked
     */
     public function projectWBS()
     {
-        return $this->belongsTo(WorkBreakdownStructure::class);
+        return $this->belongsTo(WorkBreakdownStructure::class, 'wbs_id');
     }
       
     /*
@@ -35,6 +37,12 @@ class Deliverable extends Model
     public function scopeOrdered($query)
     {
         return $query->orderby('order')->get();
+    }
+    
+    public function path()
+    {
+        
+        return "/projects/{$this->projectWBS->project_id}/deliverables/{$this->id}";
     }
     
     

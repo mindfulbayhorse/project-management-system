@@ -8,6 +8,9 @@ use App\Deliverable;
 class WorkBreakdownStructure extends Model
 {
     protected $guarded = [];
+    
+    protected $touches = ['project'];
+    
     protected $table = 'wbs';
     
     public function path()

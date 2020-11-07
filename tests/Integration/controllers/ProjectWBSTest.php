@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Integration;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -8,10 +8,12 @@ use Tests\TestCase;
 use \App\Project;
 use \App\WorkBreakdownStructure;
 use \App\Deliverable;
+use Facades\Tests\Setup\ProjectFactory;
+use Facades\Tests\Setup\DeliverableFactory;
 
 class ProjectWBSTest extends TestCase
 {
-	use RefreshDatabase;
+	use RefreshDatabase, WithFaker;
 	
     private $project;
 	public $user;
@@ -22,23 +24,25 @@ class ProjectWBSTest extends TestCase
 		
 		$this->signIn();
 		
-		$this->project = factory(Project::class)->create();
+		$this->project = ProjectFactory::create();
 		
 	}
     
 	/** @test */
-    public function project_can_have_initial_wbs()
+    public function project_can_initialize_wbs_by_new_deliverable()
     {
-    	
-        $deliverable = factory(Deliverable::class)->raw(['title' => 'Content']);
+        $this->withoutExceptionHandling();
         
+    	$title = $this->faker->sentence;
+    	
+        $deliverable = DeliverableFactory::withTitle($title)
+            ->new();
+
         $this->post($this->project->path().'/wbs', $deliverable);
         
-        $wbs = factory(WorkBreakdownStructure::class)->make();
+        $this->project->refresh();
         
-        $this->project->initializeWBS($wbs);
-        
-        $this->get($this->project->wbs()->first()->path())->assertSee('Content');
+        $this->get($this->project->path().'/wbs/'.$this->project->wbs->last()->id)->assertSee($title);
 
     }
 }

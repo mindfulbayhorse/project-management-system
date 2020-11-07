@@ -4,14 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Deliverable;
+use App\Suites\RecordsActivity;
 
 class WorkBreakdownStructure extends Model
 {
+    use RecordsActivity;
+    
     protected $guarded = [];
     
     protected $touches = ['project'];
     
     protected $table = 'wbs';
+    
+    protected static $recordableEvents = ['created'];
+    
+    public $old = [];
     
     public function path()
     {
@@ -59,6 +66,14 @@ class WorkBreakdownStructure extends Model
     public function scopeArchived($query)
     {
         return $query->where('actual', false)->get();
+    }
+    
+    public function activities(){
+        return $this->morphMany(Activity::class, 'subject')->latest();
+    }
+    
+    public function activityRecords(){
+        return $this->hasMany(Activity::class,'wbs_id')->latest();
     }
     
 }

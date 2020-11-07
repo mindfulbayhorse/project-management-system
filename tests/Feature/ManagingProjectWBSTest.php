@@ -8,6 +8,8 @@ use Tests\TestCase;
 use \App\Project;
 use \App\WorkBreakdownStructure;
 use \App\Deliverable;
+use Facades\Tests\Setup\ProjectFactory;
+use Facades\Tests\Setup\DeliverableFactory;
 
 class ManagingProjectWBSTest extends TestCase
 {
@@ -21,7 +23,7 @@ class ManagingProjectWBSTest extends TestCase
 		
 		parent::setUp();
 		
-		$this->project = factory(Project::class)->create();
+		$this->project = ProjectFactory::create();
 		
 		$this->wbs = factory(WorkBreakdownStructure::class)->create([
 			'project_id' => $this->project->id
@@ -34,9 +36,7 @@ class ManagingProjectWBSTest extends TestCase
     	
         $this->signIn();
         
-    	$deliverable = [
-    		'title' => ''
-    	];
+        $deliverable = DeliverableFactory::withTitle('')->new();
     	
     	$this->call('PATCH', $this->wbs->path(), $deliverable)
     		->assertSessionHasErrors('title');
@@ -44,10 +44,22 @@ class ManagingProjectWBSTest extends TestCase
     }
     
     /** @test */
+    public function guests_cannot_initiate_wbs()
+    {
+        
+        $deliverable = DeliverableFactory::new();
+        
+        $this->get($this->project->path().'/wbs/create')->assertStatus(403);
+        $this->post($this->project->path().'/wbs', $deliverable)->assertStatus(403);
+        
+        $this->assertDatabaseMissing('deliverables', $deliverable);
+    }
+    
+    /** @test */
     public function guests_cannot_add_new_first_level_deliverables()
     {
         
-        $deliverable = ['title' => $this->faker->sentence];
+        $deliverable = DeliverableFactory::new();
         
         $this->patch(
             $this->wbs->path(),
@@ -56,5 +68,14 @@ class ManagingProjectWBSTest extends TestCase
         
         $this->assertDatabaseMissing('deliverables', $deliverable);
             
+    }
+    
+    /** test */
+    public function wbs_is_initialized_after_project_is_created(){
+        
+        $this->project = ProjectFactory::create();
+        
+        $this->assertCount(1, $project->wbs);
+        
     }
 }

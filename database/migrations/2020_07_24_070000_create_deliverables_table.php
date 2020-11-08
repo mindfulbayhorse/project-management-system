@@ -23,12 +23,11 @@ class CreateDeliverablesTable extends Migration
             $table->date('end_date')->nullable();
             $table->float('cost',8,2)->default(0.0);
             $table->boolean('package')->default(false); 
+            $table->boolean('milestone')->default(false); 
             $table->unsignedSmallInteger('work_amount')->nullable();
             $table->unsignedSmallInteger('work_amount_id')->nullable();
             $table->unsignedSmallInteger('order')->default(0);
             $table->timestamps();
-            
-            //$table->primary(['wbs_id','parent_id','order']);
             
         });
     }

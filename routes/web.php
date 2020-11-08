@@ -22,7 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('projects', ProjectController::class)->middleware(['auth']);
+
 
 Route::resource('projects.wbs', ProjectWBSController::class)->parameters([
                     'wbs' => 'wbs'
@@ -31,7 +31,7 @@ Route::resource('projects.wbs', ProjectWBSController::class)->parameters([
 Route::resource('projects.deliverables', WBS_DeliverableController::class);
 
 
-Route::resource('statuses', StatusController::class);
+
 
 Route::resource('work_units', WorkAmountController::class);
 

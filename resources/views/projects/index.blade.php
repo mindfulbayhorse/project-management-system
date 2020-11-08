@@ -15,6 +15,9 @@
                         <p>@if ($project->status) {{ $project->status->name }} @endif</p>
                         <p>{{ $project->started }}</p>
                         <p>{{ $project->finished }}</p>
+                        @if ($project->wbs()->actual()[0]->deliverables->count() > 0)
+                            <a href="{{ $project->wbs()->actual()[0]->path() }}">WBS</a>
+                        @endif
                     </div>
 	              </div>
 	        </div>

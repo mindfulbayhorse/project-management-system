@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 class StatusController extends Controller
 {
     
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -44,9 +39,9 @@ class StatusController extends Controller
     {
         $fields = $this->validateFields($request);
         
-        Status::create($fields);
+        $status = Status::create($fields);
         
-        return redirect('/statuses/');
+        return redirect($status->path());
         
     }
 
@@ -58,7 +53,7 @@ class StatusController extends Controller
      */
     public function show(Status $status)
     {
-        //
+        return view('projects.statuses.edit', compact('status'));
     }
 
     /**
@@ -66,11 +61,11 @@ class StatusController extends Controller
      *
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
-     */
+     
     public function edit(Status $status)
     {
-        //
-    }
+        
+    }*/
 
     /**
      * Update the specified resource in storage.
@@ -81,7 +76,10 @@ class StatusController extends Controller
      */
     public function update(Request $request, Status $status)
     {
-        //
+
+        $status->update($this->validateFields($request));
+        
+        return redirect($status->path());
     }
 
     /**

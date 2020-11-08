@@ -10,6 +10,7 @@ use \App\Status;
 use Illuminate\Database\Eloquent\Collection;
 use \App\WorkBreakdownStructure;
 use \App\Resource;
+use Facades\Tests\Setup\ProjectFactory;
 
 class ProjectTest extends TestCase
 {
@@ -29,16 +30,10 @@ class ProjectTest extends TestCase
         parent::setUp();
         
         //new project is created
-        $this->project = factory(Project::class)->create([
-                        'title' => 'Beadshine',
-        ]);
+        $this->project = ProjectFactory::create();
         
-        $this->projectWbs = factory(WorkBreakdownStructure::class)->create([
-        	'project_id'=>$this->project->id]);
-        
-        $this->wbsNew = factory(WorkBreakdownStructure::class)->make();
-        
-        $this->project->actualizeWBS($this->projectWbs);
+        $this->project->refresh();
+   
     }
     
     /** @test*/
@@ -51,7 +46,11 @@ class ProjectTest extends TestCase
     /** @test */
     public function project_has_a_title()
     {
-        $this->assertEquals('Beadshine', $this->project->title);
+    	$title = $this->faker->word;
+    	
+    	$this->project->update(['title' => $title]);
+    	
+    	$this->assertEquals($title, $this->project->title);
     }
        
     /** @test */
@@ -81,26 +80,22 @@ class ProjectTest extends TestCase
     /** @test */
     public function it_can_have_initial_wbs()
     {
-
-        $this->project->initializeWBS($this->wbsNew);
-
-        $this->assertInstanceOf(Collection::class, $this->project->wbs);
         
-        $this->project->refresh();
+        $this->assertCount(1, $this->project->wbs);
         
-        $this->assertCount(2, $this->project->wbs);
     }
     
     /** @test */
     public function it_can_have_only_one_actual_wbs()
     {
-    	$this->withoutExceptionHandling();
-    	
+        
         $this->assertCount(1, $this->project->wbs()->actual());
         
-        $this->project->initializeWBS($this->wbsNew);
+        $wbsNew = factory(WorkBreakdownStructure::class)->make();
         
-        $this->project->actualizeWBS($this->wbsNew);
+        $this->project->initializeWBS($wbsNew);
+
+        $this->project->actualizeWBS($wbsNew);
         
         $this->project->refresh();
         
@@ -108,13 +103,13 @@ class ProjectTest extends TestCase
     }
     
     /** @test */
-    public function it_can_limit_new_created_wbs()
+    public function it_can_has_a_limit_for_new_created_wbs()
     {
-    	$this->withoutExceptionHandling();
-    	
+        $wbsNew = factory(WorkBreakdownStructure::class)->make();
+        
     	$this->assertCount(1, $this->project->wbs);
     	
-    	$this->project->initializeWBS($this->wbsNew);
+    	$this->project->initializeWBS($wbsNew);
     	
     	$this->project->refresh();
     	
@@ -142,4 +137,10 @@ class ProjectTest extends TestCase
     	$this->assertCount(2, $this->project->wbs);
     }    
     
+    /** @test */
+    public function it_has_a_manager()
+    {
+    	$this->assertEquals($this->project->user_id, $this->project->manager->id);
+    }
+   
 }

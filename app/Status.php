@@ -10,4 +10,9 @@ class Status extends Model
 
     protected $table = 'statuses';
     
+    public function path(){
+        
+        return '/'.$this->table.'/'.$this->id;
+    }
+    
 }

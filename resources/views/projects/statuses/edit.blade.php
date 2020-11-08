@@ -1,16 +1,16 @@
 @extends('layout')
 
-@section('title','Create new status')
+@section('title','Edit status')
 
 @section('content')
 
 <main>
-    <form method="POST" action="/statuses" class="status">
+    <form method="POST" action="{{$status->path()}}" class="status">
+        @method('PATCH')
         @csrf 
         
         @include('projects.statuses.form', [
-            'status' => new App\Status,
-            'btnText' => 'Create'
+            'btnText' => 'Save'
         ])
          
     </form>

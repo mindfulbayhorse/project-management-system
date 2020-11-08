@@ -76,4 +76,9 @@ class WorkBreakdownStructure extends Model
         return $this->hasMany(Activity::class,'wbs_id')->latest();
     }
     
+    public function activityDescription($event){
+        
+        return $event;
+    }
+    
 }

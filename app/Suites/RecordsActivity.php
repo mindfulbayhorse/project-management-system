@@ -13,7 +13,6 @@ trait RecordsActivity{
             
             static::$event(function ($model) use ($event){
                 
-                //dd($model, $event);
                 $model->recordActivity($model->activityDescription($event));
                 
             });
@@ -32,12 +31,8 @@ trait RecordsActivity{
     
     protected function activityDescription($description){
 
-        //dd(class_basename($this));
-        if(class_basename($this) !== 'WorkBreakdownStructure'){
-            return "{$description}_".strtolower(class_basename($this));
-        }
-        
-        return $description;
+        return "{$description}_".strtolower(class_basename($this));
+
     }
     
     protected static function recordableEvents(){

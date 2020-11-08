@@ -1,88 +1,29 @@
 @extends('layout')
 
-@section('title','Edit a project')
+@section('title','Workbreakdown structure')
 
 @section('content')
 
 @include('show_err') 
- 
-<form id="deliverable" 
-    name="deliverable" 
-    method="POST" 
-    action="{{ $wbs->path() }}"
-    class="groupped flex_block one_row flex_width">
+    <main>
+    
+        <form id="deliverable" 
+            name="deliverable" 
+            method="POST" 
+            action="{{ $wbs->path() }}"
+            class="deliverable new">
+        
+            @method('PATCH')
+             
+            <input type="hidden" name="id" value="{{$wbs->id}}" />
+            
+             @include('projects.wbs.deliverables.form',  [
+                    'deliverable' => new App\Deliverable,
+                    'btnTitle' => 'Create'
+             ])
+        </form>
+    </main>    
 
-    @csrf
-    @method('PATCH')
-    
-    <input type="hidden" name="project_id" value="{{$project->id}}" /> 
-    <input type="hidden" name="id" value="{{$wbs->id}}" />
-    
-    <div class="flex_block grid_rows fld_space_30 around_space">
-    
-        <div class="flex_block one_column fld_space_100 bottom_space">
-            <label for="title">Title:</label>
-            <input maxlength='150' 
-                type="text" 
-                name="title" 
-                value="{{ old('title') }}"/>
-        </div>  
-        
-        <div class="flex_block one_row fld_space_100">
-        
-          <div class="flex_block one_column fld_space_45_left">
-              <label for="dateStart">Start date:</label>
-              <input maxlength='10' 
-                type="text" 
-                name="start_date" 
-                value="{{ old('start_date') }}"/>
-          </div>
-          
-          <div class="flex_block one_column fld_space_45_right">
-              <label for="dateEnd">End date:</label>
-              <input maxlength='10' 
-                type="text" 
-                name="end_date" 
-                value="{{ old('end_date') }}"/>
-          </div>
-          
-        </div>
-    </div>
-        
-    <div class="flex_block grid_rows fld_space_30 bottom_top_space">
-        
-        <div class="flex_block one_column fld_space_100 bottom_space">
-            <label for="cost">Cost:</label>
-            <input maxlength='10' 
-                type="text" 
-                name="cost" 
-                value="{{ old('cost') }}"/>
-        </div>
-        
-        <div class="flex_block one_column fld_space_100">
-            <label for="cost">Work amount:</label>
-            <input maxlength='10' 
-                type="text" 
-                name="period"/>
-        </div>
-        
-    </div>
-    
-    <div class="flex_block grid_rows fld_space_30 around_space">
-        
-        <div class="flex_block one_column fld_space_100 bottom_space">
-            <label for="parentID">Package is ready:</label>
-            <input type="checkbox" name="package" />
-        </div>
-        
-        <div class="flex_block one_column fld_space_100">
-            <input type="submit" name='create' value="Create"/>
-        </div>
-        
-    </div>
-</form>
-    
-<main>
     
     <table>
         <caption>Work Breakdown structure</caption>
@@ -96,7 +37,7 @@
         <tbody>
             
             @foreach ($wbs->deliverables as $deliverable)
-
+    
                 <tr tabindex='-1'>
                     <td data-template='recordID'>
                         <div class="flex_block one_row field">
@@ -129,8 +70,8 @@
             @endforeach
         
         </tbody>
-
+    
     </table>
     
-</main>
+
 @endsection

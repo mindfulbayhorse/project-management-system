@@ -37,7 +37,6 @@ class ActivityTest extends TestCase
     /** @test */
     public function deliverable_is_created()
     {
-        //$this->withoutExceptionHandling();
         
         DeliverableFactory::withWBS($this->wbs)->create();
         

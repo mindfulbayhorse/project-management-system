@@ -5,13 +5,11 @@
 use App\Project;
 use App\WorkBreakdownStructure;
 use Faker\Generator as Faker;
+use App\User;
 
 $factory->define(Project::class, function (Faker $faker) {
     return [
-        'title' => $faker->sentence
+        'title' => $faker->word,
+        'user_id' => factory(User::class)
     ];
 });
-
-//$factory->afterCreating(Project::class, function ($project, $faker) {
-//        $project->wbs()->save(factory(WorkBreakdownStructure::class)->make(['actual'=>true]));
-//});

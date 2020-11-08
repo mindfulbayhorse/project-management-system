@@ -6,6 +6,7 @@ use Tests\TestCase;
 use \App\Project;
 use \App\WorkBreakdownStructure;
 use \App\Deliverable;
+use Tests\Setup\ProjectFactory;
 
 class ProjectWBSTest extends TestCase
 {
@@ -25,9 +26,7 @@ class ProjectWBSTest extends TestCase
         parent::setUp();
         
         //new project is created
-        $this->project = factory(Project::class)->create([
-                        'title' => 'Beadshine',
-        ]);
+        $this->project = app(ProjectFactory::class)->create();
         
         $newWbs = factory(WorkBreakdownStructure::class)->make();
         

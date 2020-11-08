@@ -11,6 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 mix.js('resources/js/app.js', 'public/js')
-.less('resources/less/app.less', 'public/css/')
- .browserSync('http://blog.com')
- .version();
+  .less('resources/less/app.less', 'public/css')
+  .browserSync('http://project-management-system.com')
+  .version();

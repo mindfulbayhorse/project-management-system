@@ -19,10 +19,12 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->unsignedSmallInteger('status_id')->nullable();
             $table->string('url')->nullable();
-            $table->timestamp('started')->nullable();
-            $table->timestamp('finished')->nullable();
+            
+            $table->date('started')->nullable();
+            $table->date('finished')->nullable();
             $table->timestamps();
             
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('statuses');
          
         });

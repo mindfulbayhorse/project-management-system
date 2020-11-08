@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Deliverable;
+use App\Models\Deliverable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Generator as Faker;
 use App\WorkBreakdownStructure;
@@ -18,8 +18,3 @@ class UserFactory extends Factory
     }
      
 }
-/*$factory->define(Deliverable::class, function (Faker $faker) {
-    return [
-    	
-    ];
-});*/

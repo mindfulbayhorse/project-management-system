@@ -3,15 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Activity;
+use App\Suites\RecordsActivity;
 
 class Deliverable extends Model
 {
-    use HasFactory;
+    use RecordsActivity;
+
     
     protected $guarded = [];
     
     protected $touches = ['projectWBS'];
+    
+    protected $casts = [
+        'package' => 'boolean',
+        'milestone' => 'boolean'
+    ];
     
     /*
     * Get the project to which all deliverables are linked
@@ -48,5 +56,33 @@ class Deliverable extends Model
         return "/projects/{$this->projectWBS->project_id}/deliverables/{$this->id}";
     }
     
+    public function makeAsPackage()
+    {
     
+        $this->update(['package' => true]);
+    }
+    
+    public function makeAsNotPackage()
+    {
+        
+        $this->update(['package' => false]);
+    }
+    
+    public function makeAsMilestone()
+    {
+        
+        $this->update(['milestone' => true]);
+    }
+    
+    public function makeAsNotMilestone()
+    {
+        
+        $this->update(['milestone' => false]);
+    }
+    
+        
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, "subject");
+    }
 }

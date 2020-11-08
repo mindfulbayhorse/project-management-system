@@ -10,8 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
 mix.js('resources/js/app.js', 'public/js')
-  .less('resources/less/app.less', 'public/css/')
-  .browserSync('http://project-performance.com')
-  .version();
+.less('resources/less/app.less', 'public/css/')
+ .browserSync('http://blog.com')
+ .version();

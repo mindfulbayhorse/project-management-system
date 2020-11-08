@@ -1,5 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectWBSController;
+use App\Http\Controllers\WBS_DeliverableController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\WorkAmountController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,23 +22,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('projects', 'ProjectController')->middleware(['auth']);
+Route::resource('projects', ProjectController::class)->middleware(['auth']);
 
-Route::resource('projects.wbs', 'ProjectWBSController')->parameters([
-                'wbs' => 'wbs'
+Route::resource('projects.wbs', ProjectWBSController::class)->parameters([
+                    'wbs' => 'wbs'
 ])->scoped();
+    
+Route::resource('projects.deliverables', WBS_DeliverableController::class);
 
-Route::resource('projects.deliverables', 'WBS_DeliverableController');
 
-Route::resource('rssfeed', 'RssfeedsController');
+Route::resource('statuses', StatusController::class);
 
-Route::resource('statuses', 'StatusController');
-
-Route::resource('work_units', 'WorkAmountController');
-//Route::post('projects/{project}/deliverables', 'DeliverableController@store');
-//Route::get('projects/{project}/deliverables/{deliverable}/edit', 'WBS_DeliverableController@edit');
-//Route::get('projects/{project}/wbs', 'DeliverableController@index');
-//Route::patch('projects/{project}/wbs/{deliverable}', 'DeliverableController@update');
+Route::resource('work_units', WorkAmountController::class);
 
 
 Auth::routes();

@@ -1,16 +1,83 @@
-@import "@{themes}/tidal-wave.less";
-
-@width_screen: 100%;
 @basic_font: Tahoma;
-@basic_font_size: 12px;
-@height_slogan: 60px;
+@basic_font_size: 14px;
+@basic_font_large: 20px;
+@basic_font_color: #000000;
+@layer_back: rgba(204, 255, 153, 0.16);
+
+body {
+    background: @layer_back;
+    text-align: left;
+    font-size: @basic_font_size;
+    font-family: @basic_font;
+    color: @basic_font_color;
+    line-height: $font-size;
+    
+    h1 {
+        font-size: @basic_font_large;
+        font-family: 'Trebuchet MS';
+        font-weight: 600;
+        margin: 20px 0px;
+    }
+    
+    a{
+      color: #003300;
+      text-decoration: none;
+       
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    
+    div, p, a, span, section & + & {
+      margin: 0px;
+      padding: 0px;
+    }
+}
+
+@screen_wide: wide_screen;
 @width_main: 80%;
+@width_screen: 100%;
+
+.center_part {
+    width: @width_main;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    
+    & &{
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: flex-end;
+      
+      margin: 0px;
+    }
+    
+    .@{screen_wide}.dashboard &{
+      margin-rigth: 0px;
+    }
+}
+
+.@{screen_wide} {
+    width: @width_screen;
+    
+    &.dashboard{
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }    
+}
+
+
+@height_slogan: 60px;
+
 @btn: btn;
 @errors: err_info;
 @color_res: #78A058;
 @color_inf: #F2F2F2;
 @btn_radius: 8px;
-@layer_back: rgba(204, 255, 153, 0.16);
+@border: rgb(102, 45, 145);
 @header_back: #9966ff;
 @header_id: top_slogan;
 @add_flex_style: flex_block;
@@ -19,30 +86,20 @@
 @flex_rows: grid_rows;
 @flex_center: row_center;
 @flex_bottom: row_wide;
-@screen_wide: wide_screen;
 @left_sidebar: left_nav;
 @right_main: right_main;
 @border_group: groupped;
 @action_panel: action_panel;
 @space_fields: 15px;
 @flex_width: flex_width;
-body {
-    background: @layer_back;
-    text-align: left;
-    font-size: 12px;
-    font-family: Tahoma;
-    color: #333333;
-}
+
+@import 'wbs.less';
+@import 'project.less';
+@import 'forms.less';
+
 
 p, h1, h2{
     margin: 0px;
-}
-h1 {
-    font-size: 24px;
-    font-family: "Constantia", Tahoma;
-    color: rgb(0, 0, 51);
-    font-weight: bold;
-    line-height: 0.75;
 }
 
 h2{
@@ -90,16 +147,7 @@ h2{
     padding: 5px;
 }
 
-.center_part {
-    width: @width_main;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-}
 
-.@{screen_wide} {
-    width: @width_screen;
-}
 
 .@{left_sidebar} {
     width: 25%;
@@ -163,46 +211,6 @@ nav a {
     border: 1px solid #EF8579;
 }
 
-input , select , textarea {
-    border-width: 1px;
-    border-color: rgb(102, 45, 145);
-    border-style: solid;
-    border-radius: @btn_radius;
-    background-color: rgb(255, 255, 255);
-    padding: 4px 5px 4px 8px;
-    font-size: 14px;
-    font-family: "Tahoma";
-    line-height: 100%;
-    text-align: left;
-    color: #000000;
-    outline: none;
-}
-
-button , input[type="submit"] , input[type="reset"], .btn{
-    min-width: 100px;
-    max-width: 100%;
-    background-color: rgb(0, 51, 0);
-    color: #ffffff;
-    padding: 8px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-    font-family: @basic_font;
-    font-size: @basic_font_size;
-    border: 0px solid #fff;
-    cursor: pointer;
-    display: block;
-    border-radius: 8px;
-}
-
-label, p{
-    font-size: 16px;
-    font-family: "Arial";
-    color: rgb(0, 0, 51);
-    line-height: 100%;
-    text-align: left;
-}
-
 table {
     border-collapse: collapse;
     width: 100%;
@@ -247,17 +255,11 @@ table {
             margin: 0px;
             background-color: transparent;
         }
-        
-        
     }
 
     caption {
         display: none;
     }
-}
-
-form{
-    padding: 0px;
 }
 
 .bottom_space {
@@ -358,10 +360,7 @@ form{
     justify-content: space-between;
 }
 
-.center_area {
-    width: 60%;
-    margin: 15px 15px;
-}
+
 
 .@{action_panel} {
     background: #9999ff;
@@ -384,3 +383,19 @@ table tr.active{
 	float: right;
 }
 
+.projects_groups{
+  width: 100%;
+  
+  display: -ms-Flexbox;
+    -ms-box-orient: horizontal;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
+    
+  -webkit-flex-flow: row nowrap;
+  -moz-flex-flow: row nowrap;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  
+}

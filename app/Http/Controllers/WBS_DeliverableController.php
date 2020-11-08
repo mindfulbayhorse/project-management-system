@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Deliverable;
 use App\project;
 use Illuminate\Http\Request;
+use App\Http\Requests\DeliverableRequest;
 
 class WBS_DeliverableController extends Controller
 {
@@ -16,6 +17,7 @@ class WBS_DeliverableController extends Controller
      */
     public function index(WorkBreakdownStructure $wbs)
     {
+        
     	return view('projects.wbs.index',[
     		'project'=> $wbs,
     	]);
@@ -64,6 +66,7 @@ class WBS_DeliverableController extends Controller
      */
     public function edit(Project $project, Deliverable $deliverable)
     {
+        
     	return view('projects.wbs.deliverables.edit',[
     		'project' => $project,
     		'deliverable' => $deliverable
@@ -73,20 +76,26 @@ class WBS_DeliverableController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\DeliverableRequest  $DeliverableRequest
      * @param  \App\Project  $project
      * @param  \App\Deliverable  $deliverable
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project, Deliverable $deliverable)
+    public function update(DeliverableRequest $request, Project $project, Deliverable $deliverable)
     {
-
-        $deliverable->update([
-        	'title' => $request->title,
-        	'package' => $request->boolean('package')
-        ]);
+        $this->authorize('update', $deliverable);
         
-        return redirect($project->path().'/deliverables/'.$deliverable->id.'/edit');
+        $deliverable->update($request->validated());
+        
+        $package = $request->has('package') ? 'makeAsPackage' : 'makeAsNotPackage';
+        
+        $deliverable->$package();
+        
+        $milestone = $request->has('milestone') ? 'makeAsMilestone' : 'makeAsNotMilestone';
+        
+        $deliverable->$milestone();
+        
+        return redirect($deliverable->path().'/edit');
     }
 
     /**

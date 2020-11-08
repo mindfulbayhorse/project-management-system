@@ -32,6 +32,9 @@ class ProjectWBSController extends Controller
      */
     public function create(Project $project)
     {
+        if (!auth::check()) {
+            abort(403);
+        }
         
         return view('projects.wbs.create',[
             'project' => $project

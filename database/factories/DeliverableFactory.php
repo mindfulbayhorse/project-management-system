@@ -8,6 +8,8 @@ use App\WorkBreakdownStructure;
 
 $factory->define(Deliverable::class, function (Faker $faker) {
     return [
-    	'title' => $faker->sentence(3, true)
+    	'title' => $faker->sentence(3, true),
+        'package' => false,
+        'milestone' => false
     ];
 });

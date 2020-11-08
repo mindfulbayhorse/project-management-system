@@ -4,7 +4,10 @@
 
 use App\WorkBreakdownStructure;
 use Faker\Generator as Faker;
+use App\Project;
 
 $factory->define(WorkBreakdownStructure::class, function (Faker $faker) {
-    return [];
+    return [
+        'project_id' => factory(Project::class)  
+    ];
 });

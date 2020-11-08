@@ -6,10 +6,12 @@ use App\Project;
 use Illuminate\Http\Request;
 use App\Status;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ProjectRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProjectController extends Controller
-{
+{    
     
     /**
      * Display a listing of the resource.
@@ -18,7 +20,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderBy('updated_at', 'desc')->get();
+        $projects = Project::latest('updated_at')->get();
         
         return view('projects.index', compact('projects'));
     }
@@ -37,14 +39,12 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        $fields = $this->validateFields($request);
-        
-        $project = Project::create($fields);
+        $project = auth()->user()->projects()->create($request->validated());
         
         return redirect($project->path().'/edit');
     }
@@ -57,6 +57,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        
+        $this->authorize('show', $project);
+        
         return view('projects.show', compact('project'));
     }
 
@@ -79,18 +82,17 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ProjectRequest  $request
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
-        
-        $fields = $this->validateFields($request);
+        $this->authorize('update', $project);
              
-        $project->update($fields);
+        $project->update($request->validated());
          
-        return redirect('/projects');
+        return redirect($project->path());
     }
 
     /**
@@ -104,20 +106,6 @@ class ProjectController extends Controller
         $project->delete();
         
         return redirect('/projects');
-    }
-    
-    /*
-     * Request validaing process
-     * 
-     * @param \Illuminate\Http\Request  $request
-     */
-    public function validateFields(Request $request)
-    {
-        return $request->validate([
-            'title'=>'required',
-            'started' => 'nullable|date_format:Y-m-d',
-            'status_id' => 'nullable'
-        ]);
     }
     
     /*

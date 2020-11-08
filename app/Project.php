@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\ProjectResource;
+use App\User;
+use App\WorkBreakdownStructure;
 
 
 class Project extends Model
@@ -11,6 +13,8 @@ class Project extends Model
     protected $guarded = [];
     
     public $wbsLimit = 2;
+    
+    protected $dateFormat = 'Y-m-d';
     
     public function path()
     {
@@ -22,16 +26,14 @@ class Project extends Model
         return $this->hasMany(WorkBreakdownStructure::class, 'project_id', 'id');
     }   
     
-    public function getWBS($wbsId)
-    {
-        return $this->wbs()->where('id', $wbsId);
+    public function status()
+    {     
+        return $this->belongsTo(Status::class);   
     }
     
-    public function status()
+    public function manager()
     {
-        
-        return $this->belongsTo(Status::class);
-        
+    	return $this->belongsTo(User::class,'user_id');
     }
     
     public function actualizeWBS(WorkBreakdownStructure $wbs)
@@ -51,7 +53,7 @@ class Project extends Model
         
         $method = $wbs instanceOf WorkBreakdownStructure ? 'save' : 'saveMany';
 
-        $this->wbs()->$method($wbs);
+        return $this->wbs()->$method($wbs);
         
     }
     
@@ -67,6 +69,13 @@ class Project extends Model
     public function scopeLastUpdated($query){
     	
         $query->orderBy('updated_at', 'desc');    
+    }
+    
+    public function createWBS(){
+        
+        $wbs = new WorkBreakdownStructure();
+        $this->initializeWBS($wbs);
+        $this->actualizeWBS($wbs);
     }
     
 }

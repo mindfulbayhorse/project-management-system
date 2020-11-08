@@ -8,6 +8,6 @@ use App\Project;
 
 $factory->define(WorkBreakdownStructure::class, function (Faker $faker) {
     return [
-        'project_id' => factory(Project::class)  
+        'project_id' => factory(Project::class)
     ];
 });

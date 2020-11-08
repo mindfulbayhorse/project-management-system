@@ -26,7 +26,7 @@ class DeliverableTest extends TestCase
         
         $this->wbs = WorkBreakdownStructure::find($this->project->fresh()->wbs->first()->id);
         
-        $this->deliverable = DeliverableFactory::withWBS($this->wbs)->create();
+        $this->deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
 
     }
     

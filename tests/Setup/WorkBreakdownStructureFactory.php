@@ -8,9 +8,16 @@ class WorkBreakdownStructureFactory{
 	private $attributes  = [];
 	public $user;
 		
-	public function withProject(string $project){
+	public function withinProject(int $project){
 	    
 	    $this->attributes['project_id'] = $project;
+	    
+	    return $this;
+	}
+	
+	public function setActual(){
+	    
+	    $this->attributes['actual'] = true;
 	    
 	    return $this;
 	}

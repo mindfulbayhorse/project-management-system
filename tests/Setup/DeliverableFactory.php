@@ -16,9 +16,9 @@ class DeliverableFactory{
 		return $this;
 	}
 	
-	public function withWBS(WorkBreakdownStructure $wbs){
+	public function withinWBS(int $wbs){
 	    
-	    $this->attributes['wbs_id'] = $wbs->id;
+	    $this->attributes['wbs_id'] = $wbs;
 	    
 	    return $this;
 	}

@@ -38,7 +38,7 @@ class ActivityTest extends TestCase
     public function deliverable_is_created()
     {
         
-        DeliverableFactory::withWBS($this->wbs)->create();
+        DeliverableFactory::withinWBS($this->wbs->id)->create();
         
         $this->wbs->refresh();
 
@@ -59,7 +59,7 @@ class ActivityTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $deliverable = DeliverableFactory::withWBS($this->wbs)->create();
+        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
 
         $originalTitle = $deliverable->title;
         
@@ -89,7 +89,7 @@ class ActivityTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $deliverable = DeliverableFactory::withWBS($this->wbs)->create();
+        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
         
         $deliverable->delete();
         

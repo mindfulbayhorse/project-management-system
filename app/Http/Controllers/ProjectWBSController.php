@@ -79,6 +79,7 @@ class ProjectWBSController extends Controller
      */
     public function show(Project $project, WorkBreakdownStructure $wbs)
     {
+        
     	return view('projects.wbs.edit',[
     		'project' => $project,
     		'wbs' => $wbs

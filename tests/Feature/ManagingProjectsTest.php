@@ -8,6 +8,8 @@ use \App\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
 use Facades\Tests\Setup\ProjectFactory;
 use App\Status;
+use Facades\Tests\Setup\WorkBreakdownStructureFactory;
+use Facades\Tests\Setup\DeliverableFactory;
 
 class ManagingProjectsTest extends TestCase{
     
@@ -107,7 +109,6 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     public function project_status_can_be_added_to_project()
     {
-        $this->withoutExceptionHandling();
         
         $this->signIn();
         
@@ -124,6 +125,26 @@ class ManagingProjectsTest extends TestCase{
             'id' => $project->id,
             'status_id' =>$status->id
         ]);
+    }
+    
+    /** @test */
+    public function project_card_contains_link_to_active_wbs()
+    {
+        
+        $this->withoutExceptionHandling();
+        $project = ProjectFactory::create();
+        
+        $this->actingAs($project->manager)
+        ->get('/projects')
+        ->assertDontSeeText('WBS');
+        
+        DeliverableFactory::withinWBS($project->wbs()->actual()[0]->id)->create();
+        
+        $this->actingAs($project->manager)
+            ->get('/projects')
+            ->assertSee($project->wbs()->actual()[0]->path())
+            ->assertSeeText('WBS');
+        
     }
 }
 ?>

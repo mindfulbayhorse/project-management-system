@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Facades\Tests\Setup\ProjectFactory;
 use Facades\Tests\Setup\DeliverableFactory;
+use Facades\Tests\Setup\WorkBreakdownStructureFactory;
 
 class ManagingProjectDeliverablesTest extends TestCase
 {
@@ -25,11 +26,8 @@ class ManagingProjectDeliverablesTest extends TestCase
 		
 		$this->project = ProjectFactory::create();
 		
-		$this->wbs = $this->project->wbs()->create(
-						
-			factory(WorkBreakdownStructure::class)->raw()
-		
-		);
+		$this->wbs = WorkBreakdownStructureFactory::withinProject($this->project->id)
+		    ->create();
 	
 	}
 	
@@ -40,7 +38,7 @@ class ManagingProjectDeliverablesTest extends TestCase
         
         $this->signIn();
         
-    	$deliverable = DeliverableFactory::withWBS($this->wbs)->create();
+    	$deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
     	
     	$changedTitle = $this->faker->sentence();
     	
@@ -62,7 +60,7 @@ class ManagingProjectDeliverablesTest extends TestCase
     {
         $this->signIn();
         
-        $deliverable = DeliverableFactory::withWBS($this->wbs)->create();
+        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
         
         $this->patch(
             $deliverable->path(),[
@@ -82,7 +80,7 @@ class ManagingProjectDeliverablesTest extends TestCase
     {
         $this->signIn();
         
-        $deliverable = DeliverableFactory::withWBS($this->wbs)->create();
+        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
         
         $this->patch(
             $deliverable->path(),[
@@ -107,7 +105,7 @@ class ManagingProjectDeliverablesTest extends TestCase
     function guests_cannot_update_deliverable()
     {
         
-        $deliverable = DeliverableFactory::withWBS($this->wbs)->create();
+        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
         $titleNew = $this->faker->sentence;
         
         $response = $this->patch($deliverable->path(),[
@@ -123,7 +121,7 @@ class ManagingProjectDeliverablesTest extends TestCase
         
         $this->signIn();
         
-        $deliverable = DeliverableFactory::withWBS($this->wbs)->create();
+        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
         
         $this->patch(
             $deliverable->path(),[

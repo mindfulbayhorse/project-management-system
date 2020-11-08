@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
+use App\Models\Project;
 use Illuminate\Http\Request;
-use App\Status;
+use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProjectRequest;
 use Illuminate\Support\Facades\Auth;

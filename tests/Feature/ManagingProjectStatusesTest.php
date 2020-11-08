@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Status;
+use App\Models\Status;
 
 class ManagingProjectStatusesTest extends TestCase
 {
@@ -19,9 +19,9 @@ class ManagingProjectStatusesTest extends TestCase
         
         $this->signIn();
         
-        $status = factory(Status::class)->create();
+        $status = Status::factory()->create();
         
-        $statusChangings = factory(Status::class)->raw();
+        $statusChangings = Status::factory()->raw();
         
         $this->get($status->path())->assertSee($status->attributesToArray()['name']);
         $this->patch($status->path(), $statusChangings);

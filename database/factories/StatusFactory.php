@@ -1,13 +1,20 @@
 <?php
+namespace Database\Factories;
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Status;
 
-use App\Status;
-use Faker\Generator as Faker;
-
-$factory->define(Status::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'description' =>$faker->sentence
-    ];
-});
+class StatusFactory extends Factory
+{
+    protected $model = Status::class;
+    
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'description' =>$this->faker->sentence
+        ];
+    }
+    
+}
+    

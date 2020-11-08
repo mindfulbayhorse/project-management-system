@@ -1,14 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Deliverable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Suites\RecordsActivity;
 
 class WorkBreakdownStructure extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity, HasFactory;
     
     protected $guarded = [];
     

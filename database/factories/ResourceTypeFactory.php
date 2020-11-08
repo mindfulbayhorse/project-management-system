@@ -1,12 +1,20 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\ResourceType;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\ResourceType;
 
-$factory->define(ResourceType::class, function (Faker $faker) {
-    return [
-        'name' => $faker->sentence(2)
-    ];
-});
+class ResourceTypeFactory extends Factory
+{
+    protected $model = ResourceType::class;
+    
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->sentence(2)
+        ];
+    }
+    
+}
+

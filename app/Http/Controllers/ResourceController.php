@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ProjectResource;
+use App\Models\ProjectResource;
 use Illuminate\Http\Request;
 
 class ResourceController extends Controller

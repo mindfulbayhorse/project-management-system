@@ -7,8 +7,6 @@ trait RecordsActivity{
     
     public static function bootRecordsActivity(){
         
-        
-        
         foreach(self::recordableEvents() as $event){
             
             static::$event(function ($model) use ($event){

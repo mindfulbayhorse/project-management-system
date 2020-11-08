@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-use App\Activity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Suites\RecordsActivity;
 
 class Deliverable extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity, HasFactory;
 
     
     protected $guarded = [];

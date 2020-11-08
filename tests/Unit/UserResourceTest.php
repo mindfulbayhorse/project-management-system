@@ -5,9 +5,9 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use \App\Resource;
-use \App\User;
-use \App\ResourceType;
+use App\Models\Resource;
+use App\Models\User;
+use App\Models\ResourceType;
 
 class UserResourceTest extends TestCase
 {
@@ -21,7 +21,7 @@ class UserResourceTest extends TestCase
 		
 		parent::setUp();
 		
-		$this->resourceType = factory(ResourceType::class)->create();
+		$this->resourceType = ResourceType::factory()->create();
 		$this->signIn();
 	}
     

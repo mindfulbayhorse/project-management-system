@@ -1,29 +1,21 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Deliverable;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
-use App\WorkBreakdownStructure;
 
-class UserFactory extends Factory
+class DeliverableFactory extends Factory
 {
     protected $model = Deliverable::class;
+    
     public function definition()
     {
         return [ 
-            'title' => $thi->faker->sentence(3, true)
+            'title' => $this->faker->sentence(3, true),
+            'package' => false,
+            'milestone' => false
         ];
-    }
-    
-    public function suspended()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'account_status' => 'suspended',
-            ];
-        });
     }
      
 }

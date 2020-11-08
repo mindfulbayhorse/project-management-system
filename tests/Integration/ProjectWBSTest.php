@@ -5,11 +5,8 @@ namespace Tests\Integration;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use \App\Project;
-use \App\WorkBreakdownStructure;
-use \App\Deliverable;
-use Facades\Tests\Setup\ProjectFactory;
-use Facades\Tests\Setup\DeliverableFactory;
+use App\Models\Project;
+use App\Models\Deliverable;
 
 class ProjectWBSTest extends TestCase
 {
@@ -24,7 +21,7 @@ class ProjectWBSTest extends TestCase
 		
 		$this->signIn();
 		
-		$this->project = ProjectFactory::create();
+		$this->project = Project::factory()->create();
 		
 	}
     
@@ -35,8 +32,7 @@ class ProjectWBSTest extends TestCase
         
     	$title = $this->faker->sentence;
     	
-        $deliverable = DeliverableFactory::withTitle($title)
-            ->new();
+        $deliverable = Deliverable::factory()->raw(['title'=>$title]);
 
         $this->post($this->project->path().'/wbs', $deliverable);
         

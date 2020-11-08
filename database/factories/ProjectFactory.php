@@ -1,15 +1,21 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Project;
-use App\WorkBreakdownStructure;
-use Faker\Generator as Faker;
-use App\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Project;
+use App\Models\User;
 
-$factory->define(Project::class, function (Faker $faker) {
-    return [
-        'title' => $faker->word,
-        'user_id' => factory(User::class)
-    ];
-});
+class ProjectFactory extends Factory
+{
+    protected $model = Project::class;
+    
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->word,
+            'user_id' => User::factory()
+        ];
+    }
+    
+}

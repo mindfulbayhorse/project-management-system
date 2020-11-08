@@ -1,13 +1,20 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\WorkBreakdownStructure;
-use Faker\Generator as Faker;
-use App\Project;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\WorkBreakdownStructure;
+use App\Models\Project;
 
-$factory->define(WorkBreakdownStructure::class, function (Faker $faker) {
-    return [
-        'project_id' => factory(Project::class)
-    ];
-});
+class WorkBreakdownStructureFactory extends Factory
+{
+    protected $model = WorkBreakdownStructure::class;
+    
+    public function definition()
+    {
+        return [
+            'project_id' => Project::factory()
+        ];
+    }
+    
+}

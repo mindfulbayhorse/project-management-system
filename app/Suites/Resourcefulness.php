@@ -1,5 +1,8 @@
 <?php 
-namespace App;
+namespace App\Suites;
+
+use App\Models\Resource;
+use App\Models\ResourceType;
 
 trait Resourcefulness{
 

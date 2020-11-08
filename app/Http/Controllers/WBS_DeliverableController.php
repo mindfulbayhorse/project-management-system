@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Deliverable;
-use App\project;
+use App\Models\Deliverable;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\DeliverableRequest;
 

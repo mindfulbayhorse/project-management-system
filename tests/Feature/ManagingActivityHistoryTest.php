@@ -5,12 +5,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\WorkBreakdownStructure;
-use App\Project;
-use App\Deliverable;
-use Facades\Tests\Setup\ProjectFactory;
-use Facades\Tests\Setup\WorkBreakdownStructureFactory;
-use Facades\Tests\Setup\DeliverableFactory;
+use App\Models\WorkBreakdownStructure;
+use App\Models\Project;
+use App\Models\Deliverable;
 
 class ManagingActivityHistoryTest extends TestCase
 {
@@ -26,18 +23,16 @@ class ManagingActivityHistoryTest extends TestCase
         
         $this->signIn();
         
-        $this->project = ProjectFactory::managedBy($this->user)->create();
+        $this->project = Project::factory()->create(['user_id' => $this->user]);
         
-        $this->wbs = WorkBreakdownStructureFactory::withinProject($this->project->id)->create();
+        $this->wbs = WorkBreakdownStructure::factory()->create(['project_id'=>$this->project->id]);
     }
     
     /** @test */
     public function wbs_has_deliverable_created_history()
     {
-        $this->withoutExceptionHandling();
         
-        DeliverableFactory::withinWBS($this->wbs->id)
-            ->create();
+        Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
         
         $this->actingAs($this->user)
             ->get($this->wbs->path())

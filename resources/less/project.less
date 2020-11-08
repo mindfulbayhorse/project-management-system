@@ -1,0 +1,36 @@
+.project{
+  
+  width: 60%;
+  
+  .long_field:extend(form .field){
+    
+    input {
+      display: block;
+      min-width: 150px;
+    }
+    
+    &.title input{
+      width: 100%;
+      flex-shrink: 1;
+    }
+    
+    &_date:extend(form .field){
+      min-width: auto;
+      
+      .day{
+        width: 40px;
+      }
+      
+      .year{
+        width: 60px;
+      }
+      
+    }
+  }
+  
+  &_dashboard{
+    padding: 20px;
+  }
+
+  
+}

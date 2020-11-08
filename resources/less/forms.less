@@ -1,0 +1,87 @@
+form{
+    padding: 0px;
+    
+    .field{
+      padding: 0px 0px 20px;
+    }
+    
+    fieldset{
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      padding: 0px;
+      margin: $padding;
+      border: none;
+      
+      &.date{
+        
+        .group{
+          margin-right: 20px;
+        }
+      }
+      
+      legend{
+         font-weight: 600;
+         font-size: 16px;
+         padding: 5px 0px 10px;
+      }
+      
+    }
+    
+    input, select, textarea {
+        border: 1px solid @border;
+        padding: 4px 5px 4px 8px;
+        font-size: 14px;
+        font-family: Tahoma;
+        line-height: 100%;
+        text-align: left;
+        color: #000000;
+        outline: none;
+    }
+
+    button, input[type="submit"] , input[type="reset"]{
+        min-width: 100px;
+        max-width: 100%;
+        background-color: rgb(0, 51, 0);
+        color: #ffffff;
+        padding: 8px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        font-family: @basic_font;
+        font-size: @basic_font_size;
+        border: 0px solid #fff;
+        cursor: pointer;
+        display: inline-block;
+        border-radius: 8px;
+        
+        &.delete{
+          background: #ff3333;
+        }
+    }
+    
+    label, p{
+        font-size: 16px;
+        font-family: "Arial";
+        color: rgb(0, 0, 51);
+        line-height: 100%;
+        text-align: left;
+    }
+    
+}
+
+.group{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  
+  .long_field &{
+    justify-content: space-between;
+  }
+}
+
+#userInput{
+   .long_text(){
+      width: 95%;
+    }
+}

@@ -3,14 +3,14 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Status;
+use App\Models\Status;
 
 class StatusTest extends TestCase
 {
     /** @test */
     public function it_has_a_path()
     {
-        $status = factory(Status::class)->create();
+        $status = Status::factory()->create();
         
         $this->assertEquals('/statuses/'.$status->id, $status->path());
         

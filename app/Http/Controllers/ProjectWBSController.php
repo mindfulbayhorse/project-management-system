@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
-use App\WorkBreakdownStructure;
+use App\Models\Project;
+use App\Models\WorkBreakdownStructure;
 use Illuminate\Http\Request;
-use App\Deliverable;
+use App\Models\Deliverable;
 use \Illuminate\Support\Facades\Auth;
 
 class ProjectWBSController extends Controller

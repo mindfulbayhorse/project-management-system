@@ -2,14 +2,11 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use \Tests\TestCase;
-use \App\Project;
-use \App\Deliverable;
+use Tests\TestCase;
+use App\Models\Project;
+use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
-use Facades\Tests\Setup\ProjectFactory;
-use App\Status;
-use Facades\Tests\Setup\WorkBreakdownStructureFactory;
-use Facades\Tests\Setup\DeliverableFactory;
+use App\Models\Status;
 
 class ManagingProjectsTest extends TestCase{
     
@@ -22,8 +19,7 @@ class ManagingProjectsTest extends TestCase{
         
         $this->signIn();
         
-        $attributes = ProjectFactory::managedBy($this->user)
-        	->newAttributes();
+        $attributes = Project::factory()->raw(['user_id' => $this->user]);
         
         $response = $this->post('/projects', $attributes);
         
@@ -37,7 +33,7 @@ class ManagingProjectsTest extends TestCase{
     /** @test  */
     function guests_cannot_create_projects(){
         
-    	$attributes = ProjectFactory::newAttributes();
+    	$attributes = Project::factory()->raw();
         
     	$this->post('/projects', $attributes)->assertRedirect('/login');   
     	$this->get('/projects/create')->assertRedirect('/login');    
@@ -48,9 +44,10 @@ class ManagingProjectsTest extends TestCase{
         
     	$this->signIn();
     	
-    	$attributes = ProjectFactory::managedBy($this->user)
-    		->withTitle('')
-    		->newAttributes();
+    	$attributes = Project::factory()->raw([
+    	    'user_id'=>$this->user,
+    	    'title' =>''
+    	]);
 
         $this->post('/projects', $attributes)->assertSessionHasErrors('title');
         
@@ -61,7 +58,7 @@ class ManagingProjectsTest extends TestCase{
         
     	$this->signIn();
         
-    	$project = ProjectFactory::create();
+    	$project = Project::factory()->create();
         
         $this->get($project->path())->assertSee($project->title);
         
@@ -70,7 +67,7 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     function guests_cannot_view_a_project(){
     	
-    	$project = ProjectFactory::create();
+    	$project = Project::factory()->create();
     	
     	$this->get($project->path())->assertRedirect('/login');
     	
@@ -79,9 +76,9 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     public function guests_cannot_initialize_project_wbs(){
     	
-    	$project = ProjectFactory::create();
+    	$project = Project::factory()->create();
     	
-    	$deliverable = factory(Deliverable::class)->raw();
+    	$deliverable = Deliverable::factory()->raw();
     	
     	$this->call('POST', $project->path().'/wbs', $deliverable)
     		->assertStatus(403);
@@ -93,9 +90,10 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     public function only_manager_can_edit_the_project(){
     	
-    	$project = ProjectFactory::create();
-    	$projectChanges = ProjectFactory::managedBy($project->manager)
-    		->newAttributes();
+    	$project = Project::factory()->create();
+    	$projectChanges = Project::factory()->raw([
+    	    'user_id'=>$project->manager
+    	]);
     	
     	$this->actingAs($project->manager)
     		->patch($project->path(),$projectChanges);
@@ -112,8 +110,10 @@ class ManagingProjectsTest extends TestCase{
         
         $this->signIn();
         
-        $project = ProjectFactory::managedBy($this->user)->create();
-        $status = factory(Status::class)->create();
+        $project = Project::factory()->create([
+                'user_id'=>$this->user
+        ]);
+        $status = Status::factory()->create();
         
         $response = $this->patch($project->path(), [
             'title' => $project->title,
@@ -132,13 +132,15 @@ class ManagingProjectsTest extends TestCase{
     {
         
         $this->withoutExceptionHandling();
-        $project = ProjectFactory::create();
+        $project = Project::factory()->create();
         
         $this->actingAs($project->manager)
         ->get('/projects')
         ->assertDontSeeText('WBS');
         
-        DeliverableFactory::withinWBS($project->wbs()->actual()[0]->id)->create();
+        Deliverable::factory()->create([
+            'wbs_id' => $project->wbs()->actual()[0]->id
+        ]);
         
         $this->actingAs($project->manager)
             ->get('/projects')

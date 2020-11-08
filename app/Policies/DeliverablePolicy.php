@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Deliverable;
-use App\User;
+use App\Models\Deliverable;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 

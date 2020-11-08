@@ -13,7 +13,7 @@
       >
         
         @include('projects.wbs.deliverables.form',  [
-            'deliverable' => new App\Deliverable,
+            'deliverable' => new App\Models\Deliverable,
             'btnTitle' => 'Create'
         ])
         

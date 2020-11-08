@@ -1,10 +1,11 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Resource;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Resource;
 use Faker\Generator as Faker;
-use App\User;
+use App\Models\User;
 
 $factory->define(Resource::class, function (Faker $faker) {
     return [

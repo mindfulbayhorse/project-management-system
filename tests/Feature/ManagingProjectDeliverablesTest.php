@@ -3,14 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Project;
-use App\WorkBreakdownStructure;
-use App\Deliverable;
+use App\Models\Project;
+use App\Models\WorkBreakdownStructure;
+use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Facades\Tests\Setup\ProjectFactory;
-use Facades\Tests\Setup\DeliverableFactory;
-use Facades\Tests\Setup\WorkBreakdownStructureFactory;
 
 class ManagingProjectDeliverablesTest extends TestCase
 {
@@ -24,10 +21,9 @@ class ManagingProjectDeliverablesTest extends TestCase
 		
 		parent::setUp();
 		
-		$this->project = ProjectFactory::create();
+		$this->project = Project::factory()->create();
 		
-		$this->wbs = WorkBreakdownStructureFactory::withinProject($this->project->id)
-		    ->create();
+		$this->wbs = WorkBreakdownStructure::factory()->create(['project_id'=>$this->project->id]);
 	
 	}
 	
@@ -38,7 +34,7 @@ class ManagingProjectDeliverablesTest extends TestCase
         
         $this->signIn();
         
-    	$deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
+    	$deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
     	
     	$changedTitle = $this->faker->sentence();
     	
@@ -60,7 +56,7 @@ class ManagingProjectDeliverablesTest extends TestCase
     {
         $this->signIn();
         
-        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
+        $deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
         
         $this->patch(
             $deliverable->path(),[
@@ -80,7 +76,7 @@ class ManagingProjectDeliverablesTest extends TestCase
     {
         $this->signIn();
         
-        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
+        $deliverable = Deliverable::factory()->create(['wbs_id' => $this->wbs->id]);
         
         $this->patch(
             $deliverable->path(),[
@@ -105,7 +101,7 @@ class ManagingProjectDeliverablesTest extends TestCase
     function guests_cannot_update_deliverable()
     {
         
-        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
+        $deliverable = Deliverable::factory()->create(['wbs_id' => $this->wbs->id]);
         $titleNew = $this->faker->sentence;
         
         $response = $this->patch($deliverable->path(),[
@@ -121,7 +117,7 @@ class ManagingProjectDeliverablesTest extends TestCase
         
         $this->signIn();
         
-        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
+        $deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
         
         $this->patch(
             $deliverable->path(),[

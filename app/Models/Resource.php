@@ -1,13 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use \App\ResourceType;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class Resource extends Model
 {
+    use HasFactory;
+    
 	protected $table = 'resources';
 	protected $guarded = [];
 	public $timestamps = false;

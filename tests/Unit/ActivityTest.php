@@ -3,13 +3,11 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\WorkBreakdownStructure;
-use App\Deliverable;
-use Facades\Tests\Setup\WorkBreakdownStructureFactory;
-use Facades\Tests\Setup\DeliverableFactory;
+use App\Models\WorkBreakdownStructure;
+use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use PhpParser\Node\Stmt\UseUse;
+
 
 class ActivityTest extends TestCase
 {
@@ -20,13 +18,14 @@ class ActivityTest extends TestCase
     protected function setUp():void
     {
         parent::setUp();
-        $this->wbs =  WorkBreakdownStructureFactory::create();
+        $this->wbs =  WorkBreakdownStructure::factory()->create();
     }
     
     /** @test */
     public function wbs_is_created()
     {
-
+        $this->withoutExceptionHandling();
+        
         tap($this->wbs->activities->last(), function($activity){
             $this->assertEquals('created', $activity->description);
             $this->assertInstanceOf(WorkBreakdownStructure::class, $activity->subject);
@@ -38,7 +37,7 @@ class ActivityTest extends TestCase
     public function deliverable_is_created()
     {
         
-        DeliverableFactory::withinWBS($this->wbs->id)->create();
+        Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
         
         $this->wbs->refresh();
 
@@ -59,7 +58,7 @@ class ActivityTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
+        $deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
 
         $originalTitle = $deliverable->title;
         
@@ -89,7 +88,7 @@ class ActivityTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
+        $deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
         
         $deliverable->delete();
         

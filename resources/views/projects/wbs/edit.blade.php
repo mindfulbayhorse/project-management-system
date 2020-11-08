@@ -18,7 +18,7 @@
             <input type="hidden" name="id" value="{{$wbs->id}}" />
             
              @include('projects.wbs.deliverables.form',  [
-                    'deliverable' => new App\Deliverable,
+                    'deliverable' => new App\Models\Deliverable,
                     'btnTitle' => 'Create'
              ])
         </form>  

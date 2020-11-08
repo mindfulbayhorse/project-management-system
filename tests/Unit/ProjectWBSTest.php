@@ -3,9 +3,9 @@ namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use \App\Project;
-use \App\WorkBreakdownStructure;
-use \App\Deliverable;
+use App\Models\Project;
+use App\Models\WorkBreakdownStructure;
+use App\Models\Deliverable;
 use Tests\Setup\ProjectFactory;
 
 class ProjectWBSTest extends TestCase
@@ -26,9 +26,9 @@ class ProjectWBSTest extends TestCase
         parent::setUp();
         
         //new project is created
-        $this->project = app(ProjectFactory::class)->create();
+        $this->project = Project::factory()->create();
         
-        $newWbs = factory(WorkBreakdownStructure::class)->make();
+        $newWbs = WorkBreakdownStructure::factory()->make();
         
         $this->project->initializeWBS($newWbs);
         $this->project->actualizeWBS($newWbs);
@@ -107,7 +107,7 @@ class ProjectWBSTest extends TestCase
     /** @test */
     public function its_deliverable_can_be_deleted()
     {
-    	$deliverables = factory(Deliverable::class, 2)->make();
+    	$deliverables = Deliverable::factory()->count(2)->make();
     	
     	$deliverable1 = $this->firstWBS->add($deliverables->first());
     	

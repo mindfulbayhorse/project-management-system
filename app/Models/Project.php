@@ -1,15 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\ProjectResource;
-use App\User;
-use App\WorkBreakdownStructure;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Project extends Model
 {
+    use HasFactory;
+    
     protected $guarded = [];
     
     public $wbsLimit = 2;

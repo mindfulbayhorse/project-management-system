@@ -5,11 +5,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use \App\Project;
-use \App\WorkBreakdownStructure;
-use \App\Deliverable;
-use Facades\Tests\Setup\ProjectFactory;
-use Facades\Tests\Setup\DeliverableFactory;
+use App\Models\Project;
+use App\Models\WorkBreakdownStructure;
+use App\Models\Deliverable;
 
 class ManagingProjectWBSTest extends TestCase
 {
@@ -23,9 +21,9 @@ class ManagingProjectWBSTest extends TestCase
 		
 		parent::setUp();
 		
-		$this->project = ProjectFactory::create();
+		$this->project = Project::factory()->create();
 		
-		$this->wbs = factory(WorkBreakdownStructure::class)->create([
+		$this->wbs = WorkBreakdownStructure::factory()->create([
 			'project_id' => $this->project->id
 		]);
 		
@@ -36,7 +34,7 @@ class ManagingProjectWBSTest extends TestCase
     	
         $this->signIn();
         
-        $deliverable = DeliverableFactory::withTitle('')->new();
+        $deliverable = Deliverable::factory()->raw(['title'=>'']);
     	
     	$this->call('PATCH', $this->wbs->path(), $deliverable)
     		->assertSessionHasErrors('title');
@@ -47,7 +45,7 @@ class ManagingProjectWBSTest extends TestCase
     public function guests_cannot_initiate_wbs()
     {
         
-        $deliverable = DeliverableFactory::new();
+        $deliverable = Deliverable::factory()->raw();
         
         $this->get($this->project->path().'/wbs/create')->assertStatus(403);
         $this->post($this->project->path().'/wbs', $deliverable)->assertStatus(403);
@@ -59,7 +57,7 @@ class ManagingProjectWBSTest extends TestCase
     public function guests_cannot_add_new_first_level_deliverables()
     {
         
-        $deliverable = DeliverableFactory::new();
+        $deliverable = Deliverable::factory()->raw();
         
         $this->patch(
             $this->wbs->path(),
@@ -73,7 +71,7 @@ class ManagingProjectWBSTest extends TestCase
     /** test */
     public function wbs_is_initialized_after_project_is_created(){
         
-        $this->project = ProjectFactory::create();
+        $project = Project::factory()->create();
         
         $this->assertCount(1, $project->wbs);
         

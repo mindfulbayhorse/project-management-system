@@ -3,11 +3,9 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Deliverable;
-use App\Project;
-use App\WorkBreakdownStructure;
-use Facades\Tests\Setup\ProjectFactory;
-use Facades\Tests\Setup\DeliverableFactory;
+use App\Models\Deliverable;
+use App\Models\Project;
+use App\Models\WorkBreakdownStructure;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DeliverableTest extends TestCase
@@ -22,11 +20,11 @@ class DeliverableTest extends TestCase
     
         parent::setUp();
         
-        $this->project = ProjectFactory::create();
+        $this->project = Project::factory()->create();
         
         $this->wbs = WorkBreakdownStructure::find($this->project->fresh()->wbs->first()->id);
         
-        $this->deliverable = DeliverableFactory::withinWBS($this->wbs->id)->create();
+        $this->deliverable = Deliverable::factory()->create(['wbs_id' => $this->wbs->id]);
 
     }
     

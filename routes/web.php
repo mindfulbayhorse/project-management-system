@@ -22,6 +22,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('projects', ProjectController::class)->names([
+    'update' => 'project.update',
+    'show' => 'project.show',
+    'store' => 'project.create'
+])->middleware(['auth']);
+
 
 
 Route::resource('projects.wbs', ProjectWBSController::class)->parameters([
@@ -30,8 +36,7 @@ Route::resource('projects.wbs', ProjectWBSController::class)->parameters([
     
 Route::resource('projects.deliverables', WBS_DeliverableController::class);
 
-
-
+Route::resource('statuses', StatusController::class)->middleware(['auth']);
 
 Route::resource('work_units', WorkAmountController::class);
 

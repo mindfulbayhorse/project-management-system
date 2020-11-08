@@ -1,22 +1,210 @@
 body {
   background: rgba(204, 255, 153, 0.16);
   text-align: left;
-  font-size: 16px;
+  font-size: 14px;
   font-family: Tahoma;
-  color: #333333;
+  color: #000000;
+  line-height: 14px;
+}
+body h1 {
+  font-size: 20px;
+  font-family: 'Trebuchet MS';
+  font-weight: 600;
+  margin: 20px 0px;
+}
+body a {
+  color: #003300;
+  text-decoration: none;
+}
+body a:hover {
+  text-decoration: underline;
+}
+body div,
+body p,
+body a,
+body span,
+section body + body {
+  margin: 0px;
+  padding: 0px;
+}
+.center_part {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+.center_part .center_part {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin: 0px;
+}
+.wide_screen.dashboard .center_part {
+  margin-rigth: 0px;
+}
+.wide_screen {
+  width: 100%;
+}
+.wide_screen.dashboard {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+#WBS {
+  display: none;
+}
+.deliverable {
+  width: 60%;
+}
+.deliverable .long_field input {
+  width: 95%;
+}
+.deliverable .long_field_complex {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.deliverable .long_field_button {
+  padding: 0px;
+}
+.deliverable .long_field_button input {
+  width: 50%;
+}
+.deliverable .detail_field {
+  width: 40%;
+  padding: 0px 0px 0px 0px;
+}
+.deliverable .detail_field input {
+  width: 60%;
+}
+.deliverable .detail_field_horizontal {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.deliverable label,
+.deliverable input {
+  display: block;
+}
+.status {
+  width: 60%;
+}
+.status .field input,
+.status .field textarea {
+  width: 95%;
+}
+.status .field_btn {
+  padding: 0px;
+}
+.status .field_btn input {
+  width: 50%;
+}
+.project {
+  width: 60%;
+}
+.project .long_field input {
+  display: block;
+  min-width: 150px;
+}
+.project .long_field.title input {
+  width: 100%;
+  flex-shrink: 1;
+}
+.project .long_field_date {
+  min-width: auto;
+}
+.project .long_field_date .day {
+  width: 40px;
+}
+.project .long_field_date .year {
+  width: 60px;
+}
+.project_dashboard {
+  padding: 20px;
+}
+form,
+.status {
+  padding: 0px;
+}
+form .field,
+.deliverable .long_field,
+.deliverable .long_field_complex,
+.status .field,
+.project .long_field,
+.project .long_field_date {
+  padding: 0px 0px 20px;
+}
+form fieldset {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+form fieldset.date .group {
+  margin-right: 20px;
+}
+form fieldset legend {
+  font-weight: 600;
+  font-size: 16px;
+  padding: 5px 0px 10px;
+}
+form input,
+form select,
+form textarea {
+  border: 1px solid #662d91;
+  padding: 4px 5px 4px 8px;
+  font-size: 14px;
+  font-family: Tahoma;
+  line-height: 100%;
+  text-align: left;
+  color: #000000;
+  outline: none;
+}
+form button,
+form input[type="submit"],
+form input[type="reset"] {
+  min-width: 100px;
+  max-width: 100%;
+  background-color: #003300;
+  color: #ffffff;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: Tahoma;
+  font-size: 14px;
+  border: 0px solid #fff;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 8px;
+}
+form button.delete,
+form input[type="submit"].delete,
+form input[type="reset"].delete {
+  background: #ff3333;
+}
+form label,
+form p {
+  font-size: 16px;
+  font-family: "Arial";
+  color: #000033;
+  line-height: 100%;
+  text-align: left;
+}
+.group {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+.long_field .group {
+  justify-content: space-between;
 }
 p,
 h1,
 h2 {
   margin: 0px;
-}
-h1 {
-  font-size: 24px;
-  font-family: Verdana, Tahoma;
-  color: #000033;
-  font-weight: bold;
-  line-height: 0.75;
-  margin: 20px 0px;
 }
 h2 {
   font-size: 16px;
@@ -56,15 +244,6 @@ h2 {
   color: #993300;
   font-weight: bold;
   padding: 5px;
-}
-.center_part {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-}
-.wide_screen {
-  width: 100%;
 }
 .left_nav {
   width: 25%;
@@ -116,49 +295,6 @@ nav a {
 .err {
   border: 1px solid #EF8579;
 }
-input,
-select,
-textarea {
-  border-width: 1px;
-  border-color: #662d91;
-  border-style: solid;
-  border-radius: 8px;
-  background-color: #ffffff;
-  padding: 4px 5px 4px 8px;
-  font-size: 14px;
-  font-family: "Tahoma";
-  line-height: 100%;
-  text-align: left;
-  color: #000000;
-  outline: none;
-}
-button,
-input[type="submit"],
-input[type="reset"],
-.btn {
-  min-width: 100px;
-  max-width: 100%;
-  background-color: #003300;
-  color: #ffffff;
-  padding: 8px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: bold;
-  font-family: Tahoma;
-  font-size: 12px;
-  border: 0px solid #fff;
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 8px;
-}
-label,
-p {
-  font-size: 16px;
-  font-family: "Arial";
-  color: #000033;
-  line-height: 100%;
-  text-align: left;
-}
 table {
   border-collapse: collapse;
   width: 100%;
@@ -203,9 +339,6 @@ table td input {
 }
 table caption {
   display: none;
-}
-form {
-  padding: 0px;
 }
 .bottom_space {
   padding: 0px 0px 15px 0px;
@@ -273,9 +406,6 @@ form {
   -moz-justify-content: space-between;
   -ms-justify-content: space-between;
   justify-content: space-between;
-}
-.center_area {
-  width: 60%;
 }
 .action_panel {
   background: #9999ff;

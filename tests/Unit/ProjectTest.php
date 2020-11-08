@@ -5,12 +5,10 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use \App\Project;
-use \App\Status;
-use Illuminate\Database\Eloquent\Collection;
-use \App\WorkBreakdownStructure;
-use \App\Resource;
-use Facades\Tests\Setup\ProjectFactory;
+use App\Models\Project;
+use App\Models\Status;
+use App\Models\WorkBreakdownStructure;
+use App\Models\Resource;
 
 class ProjectTest extends TestCase
 {
@@ -30,7 +28,7 @@ class ProjectTest extends TestCase
         parent::setUp();
         
         //new project is created
-        $this->project = ProjectFactory::create();
+        $this->project = Project::factory()->create();
         
         $this->project->refresh();
    
@@ -69,7 +67,7 @@ class ProjectTest extends TestCase
     /** @test */
     public function it_can_have_status_added()
     {
-        $status = factory(Status::class)->create(['name' => 'Initiated']);
+        $status = Status::factory()->create(['name' => 'Initiated']);
         
         $this->project->status_id = $status->id;
         $this->project->save();
@@ -91,7 +89,7 @@ class ProjectTest extends TestCase
         
         $this->assertCount(1, $this->project->wbs()->actual());
         
-        $wbsNew = factory(WorkBreakdownStructure::class)->make();
+        $wbsNew = WorkBreakdownStructure::factory()->make();
         
         $this->project->initializeWBS($wbsNew);
 
@@ -105,7 +103,7 @@ class ProjectTest extends TestCase
     /** @test */
     public function it_can_has_a_limit_for_new_created_wbs()
     {
-        $wbsNew = factory(WorkBreakdownStructure::class)->make();
+        $wbsNew = WorkBreakdownStructure::factory()->make();
         
     	$this->assertCount(1, $this->project->wbs);
     	
@@ -115,7 +113,7 @@ class ProjectTest extends TestCase
     	
     	$this->assertCount(2, $this->project->wbs);
     	
-    	$wbsThird = factory(WorkBreakdownStructure::class)->make();
+    	$wbsThird = WorkBreakdownStructure::factory()->make();
         
         $this->expectException('Exception');
         $this->project->initializeWBS($wbsThird);
@@ -128,7 +126,7 @@ class ProjectTest extends TestCase
     public function it_can_limit_several_new_created_wbs()
     {
     	
-    	$wbs = factory(WorkBreakdownStructure::class, 2)->make();
+    	$wbs = WorkBreakdownStructure::factory()->count(2)->make();
     	
     	$this->expectException('Exception');
     	$this->project->initializeWBS($wbs);

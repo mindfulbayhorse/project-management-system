@@ -13,7 +13,7 @@
         @include('show_err') 
         
         @include('projects.form', [
-            'project' => new App\Project,
+            'project' => new App\Models\Project,
             'btnText' => 'Create'
         ])
         

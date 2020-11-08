@@ -16,6 +16,15 @@ class UserFactory extends Factory
             'title' => $thi->faker->sentence(3, true)
         ];
     }
+    
+    public function suspended()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'account_status' => 'suspended',
+            ];
+        });
+    }
      
 }
 /*$factory->define(Deliverable::class, function (Faker $faker) {

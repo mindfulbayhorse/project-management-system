@@ -8,6 +8,7 @@ use App\Models\WorkBreakdownStructure;
 use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
 
 class ManagingProjectDeliverablesTest extends TestCase
 {
@@ -15,6 +16,7 @@ class ManagingProjectDeliverablesTest extends TestCase
 	
 	private $project;
 	private $wbs;
+	private $deliverable;
 	public $user;
 	
 	protected function setUp(): void{
@@ -24,6 +26,10 @@ class ManagingProjectDeliverablesTest extends TestCase
 		$this->project = Project::factory()->create();
 		
 		$this->wbs = WorkBreakdownStructure::factory()->create(['project_id'=>$this->project->id]);
+		
+		$this->deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
+		
+		$this->user = User::factory()->create();
 	
 	}
 	
@@ -32,21 +38,15 @@ class ManagingProjectDeliverablesTest extends TestCase
     public function it_can_be_updated_with_new_title()
     {
         
-        $this->signIn();
-        
-    	$deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
-    	
     	$changedTitle = $this->faker->sentence();
     	
-    	$this->patch(
-    		$this->wbs->deliverables[0]->path(),[
-    		    'title' => $changedTitle,
-    	    ]
+    	$this->actingAs($this->user)
+    	    ->patch($this->deliverable->path(),['title' => $changedTitle]
     	);
     	
     	$this->assertDatabaseHas('deliverables', [
     	    'title' => $changedTitle,
-    	    'id' => $deliverable->id
+    	    'id' => $this->deliverable->id
     	]);
     	
     }
@@ -56,17 +56,16 @@ class ManagingProjectDeliverablesTest extends TestCase
     {
         $this->signIn();
         
-        $deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
-        
-        $this->patch(
-            $deliverable->path(),[
-                'package' => true,
-                'title' => $deliverable->title
-        ]);
+        $this->actingAs($this->user)
+            ->patch($this->deliverable->path(),
+                [
+                    'package' => true,
+                    'title' => $this->deliverable->title
+                ]);
         
         $this->assertDatabaseHas('deliverables', [
             'package'=>true,
-            'id' => $deliverable->id
+            'id' => $this->deliverable->id
         ]);
         
     }
@@ -74,24 +73,21 @@ class ManagingProjectDeliverablesTest extends TestCase
     /** @test */
     public function it_can_be_marked_as_not_package()
     {
-        $this->signIn();
-        
-        $deliverable = Deliverable::factory()->create(['wbs_id' => $this->wbs->id]);
-        
-        $this->patch(
-            $deliverable->path(),[
+       
+        $this->actingAs($this->user)
+            ->patch($this->deliverable->path(),[
                 'package' => true,
-                'title' => $deliverable->title
+                'title' => $this->deliverable->title
             ]);
         
         $this->patch(
-            $deliverable->path(),[
-                'title' => $deliverable->title
+            $this->deliverable->path(),[
+                'title' => $this->deliverable->title
             ]);
         
         $this->assertDatabaseHas('deliverables', [
             'package' => false,
-            'id' => $deliverable->id
+            'id' => $this->deliverable->id
         ]);
         
     }
@@ -101,12 +97,10 @@ class ManagingProjectDeliverablesTest extends TestCase
     function guests_cannot_update_deliverable()
     {
         
-        $deliverable = Deliverable::factory()->create(['wbs_id' => $this->wbs->id]);
         $titleNew = $this->faker->sentence;
         
-        $response = $this->patch($deliverable->path(),[
-            'title' => $titleNew
-        ])->assertStatus(302)
+        $this->patch($this->deliverable->path(),['title' => $titleNew])
+            ->assertStatus(302)
             ->assertRedirect('/login');
          
     }
@@ -114,23 +108,41 @@ class ManagingProjectDeliverablesTest extends TestCase
     /** @test */
     public function it_can_be_marked_as_milestone()
     {
-        $this->withoutExceptionHandling();
         
-        $this->signIn();
-        
-        $deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
-        
-        $this->patch(
-            $deliverable->path(),[
+        $this->actingAs($this->user)
+            ->patch($this->deliverable->path(),[
                 'milestone' => true,
-                'title' => $deliverable->title
+                'title' => $this->deliverable->title
             ]);
         
         $this->assertDatabaseHas('deliverables', [
             'milestone'=>true,
-            'id' => $deliverable->id
+            'id' => $this->deliverable->id
         ]);
         
+    }
+    
+    /** @test */
+    public function order_can_be_updated()
+    {
+        $this->withoutExceptionHandling();
+        
+        $this->assertEquals(0, $this->deliverable->order);
+        
+        $this->actingAs($this->user)
+            ->patch($this->deliverable->path(),[
+            'order' => 1,
+            'title' =>$this->deliverable->title
+        ]);
+            
+        $this->assertDatabaseHas('deliverables', [
+            'order'=>1
+        ]);
+        
+        $this->deliverable->refresh();
+        
+        $this->assertEquals(1, $this->deliverable->order);
+            
     }
     
     

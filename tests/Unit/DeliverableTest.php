@@ -64,7 +64,7 @@ class DeliverableTest extends TestCase
           
     }
     
-      /** @test */
+    /** @test */
     public function it_can_be_marked_as_not_a_package()
     {
         
@@ -75,4 +75,5 @@ class DeliverableTest extends TestCase
         $this->assertFalse($this->deliverable->fresh()->package);
         
     }
+    
 }

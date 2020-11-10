@@ -10,6 +10,8 @@ use App\Models\Status;
 use App\Models\WorkBreakdownStructure;
 use App\Models\Resource;
 use App\Models\User;
+use App\Models\ProjectTeam;
+use PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity;
 
 class ProjectTest extends TestCase
 {
@@ -146,8 +148,13 @@ class ProjectTest extends TestCase
     /** @test */
     public function it_has_a_team()
     {
-        $this->project->addMember(User::factory()->create());
-        $this->assertCount(1, $this->team);
+        $team = ProjectTeam::factory()->create([
+            'project_id'=>$this->project->id
+        ]);
+        
+        $this->assertInstanceOf(User::class, $this->project->team[0]);
+        
+        $this->assertDatabaseHas('project_team', $team->toArray());
     }
    
 }

@@ -77,4 +77,14 @@ class Project extends Model
         $this->actualizeWBS($wbs);
     }
     
+    public function team()
+    {
+        return $this->belongsToMany(User::class, 'project_team');
+    }
+    
+    public function addMember(User $user)
+    {
+        $this->team()->save($user);
+    }
+    
 }

@@ -12,7 +12,7 @@ class DeliverableFactory extends Factory
     public function definition()
     {
         return [ 
-            'title' => $this->faker->sentence(3, true),
+            'title' => $this->faker->word,
             'package' => false,
             'milestone' => false
         ];

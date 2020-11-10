@@ -1,0 +1,1 @@
+The {{ $changes }} of deliverable is changed from {{ $activity->changes['before'][$changes] }} to {{ $activity->changes['after'][$changes] }}

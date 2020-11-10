@@ -47,8 +47,13 @@ class ManagingProjectWBSTest extends TestCase
         
         $deliverable = Deliverable::factory()->raw();
         
-        $this->get($this->project->path().'/wbs/create')->assertStatus(403);
-        $this->post($this->project->path().'/wbs', $deliverable)->assertStatus(403);
+        $this->get($this->project->path().'/wbs/create')
+            ->assertStatus(302)
+            ->assertRedirect('/login');
+        
+        $this->post($this->project->path().'/wbs', $deliverable)
+            ->assertStatus(302)
+            ->assertRedirect('/login');
         
         $this->assertDatabaseMissing('deliverables', $deliverable);
     }
@@ -62,7 +67,8 @@ class ManagingProjectWBSTest extends TestCase
         $this->patch(
             $this->wbs->path(),
             $deliverable
-        )->assertStatus(403);
+       )->assertStatus(302)
+            ->assertRedirect('/login');
         
         $this->assertDatabaseMissing('deliverables', $deliverable);
             

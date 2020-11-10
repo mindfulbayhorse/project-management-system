@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Status;
 use App\Models\WorkBreakdownStructure;
 use App\Models\Resource;
+use App\Models\User;
 
 class ProjectTest extends TestCase
 {
@@ -139,6 +140,14 @@ class ProjectTest extends TestCase
     public function it_has_a_manager()
     {
     	$this->assertEquals($this->project->user_id, $this->project->manager->id);
+    }
+    
+    
+    /** @test */
+    public function it_has_a_team()
+    {
+        $this->project->addMember(User::factory()->create());
+        $this->assertCount(1, $this->team);
     }
    
 }

@@ -23,7 +23,7 @@
              ])
         </form>  
         
-       @include('projects.activity.history');
+       @include('projects.activity.history')
          
         <table>
             <caption>Work Breakdown structure</caption>

@@ -28,6 +28,7 @@ class DeliverableRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'order' => 'nullable'
         ];
     }
 }

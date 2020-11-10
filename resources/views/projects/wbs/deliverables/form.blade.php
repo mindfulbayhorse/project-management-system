@@ -1,6 +1,15 @@
 @csrf
 
 <input type="hidden" name="project_id" value="{{$project->id}}" />
+
+<div class="long_field">
+    <label for="order">Order:</label>
+    <input type="text" 
+        name="order" 
+        id="order"
+        value="{{$deliverable->order}}"
+    />
+</div>  
   
 <div class="long_field">
     <label for="title">Title:</label>

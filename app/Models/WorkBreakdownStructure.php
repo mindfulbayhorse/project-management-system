@@ -73,7 +73,7 @@ class WorkBreakdownStructure extends Model
     }
     
     public function activityRecords(){
-        return $this->hasMany(Activity::class,'wbs_id')->latest();
+        return $this->hasMany(Activity::class,'wbs_id')->oldest()->limit(15);
     }
     
     public function activityDescription($event){

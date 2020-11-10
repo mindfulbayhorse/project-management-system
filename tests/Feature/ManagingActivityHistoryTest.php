@@ -38,4 +38,21 @@ class ManagingActivityHistoryTest extends TestCase
             ->get($this->wbs->path())
             ->assertSee('deliverable is created');
     }
+    
+    /** @test */
+    public function wbs_has_deliverable_updated_history()
+    {
+        $deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
+        
+        $oldTitle = $deliverable->title;
+        $newTitle = $this->faker->word;
+        
+        $deliverable->update(['title' => $newTitle]);        
+        
+        $this->actingAs($this->user)
+            ->get($this->wbs->path())
+            ->assertSeeText('The title of deliverable is changed from '
+                .$oldTitle.' to '.$newTitle
+       );  
+    }
 }

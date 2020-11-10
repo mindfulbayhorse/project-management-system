@@ -106,7 +106,8 @@ class ManagingProjectDeliverablesTest extends TestCase
         
         $response = $this->patch($deliverable->path(),[
             'title' => $titleNew
-        ])->assertStatus(403);
+        ])->assertStatus(302)
+            ->assertRedirect('/login');
          
     }
     

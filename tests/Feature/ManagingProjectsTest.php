@@ -81,7 +81,8 @@ class ManagingProjectsTest extends TestCase{
     	$deliverable = Deliverable::factory()->raw();
     	
     	$this->call('POST', $project->path().'/wbs', $deliverable)
-    		->assertStatus(403);
+    		->assertStatus(302)
+    		->assertRedirect('/login');
     	
     	$this->assertDatabaseMissing('deliverables', $deliverable);
     	

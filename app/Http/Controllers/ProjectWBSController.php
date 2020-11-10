@@ -32,9 +32,6 @@ class ProjectWBSController extends Controller
      */
     public function create(Project $project)
     {
-        if (!auth::check()) {
-            abort(403);
-        }
         
         return view('projects.wbs.create',[
             'project' => $project
@@ -50,9 +47,6 @@ class ProjectWBSController extends Controller
      */
     public function store(Request $request, Project $project)
     {    	
-    	if (!auth::check()) {
-    		abort(403);
-    	}
     		
     	$request->validate(['title'=>'required']);
     		
@@ -111,9 +105,6 @@ class ProjectWBSController extends Controller
      */
     public function update(Request $request, Project $project, WorkBreakdownStructure $wbs)
     {
-        if (!auth::check()) {
-            abort(403);
-        }
         
     	$request->validate(['title'=>'required']);
     	

@@ -22,23 +22,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('projects', ProjectController::class)->names([
-    'update' => 'project.update',
-    'show' => 'project.show',
-    'store' => 'project.create'
-])->middleware(['auth']);
-
-
-
-Route::resource('projects.wbs', ProjectWBSController::class)->parameters([
-                    'wbs' => 'wbs'
-])->scoped();
+Route::group(['middleware'=>'auth'], function(){
     
-Route::resource('projects.deliverables', WBS_DeliverableController::class);
-
-Route::resource('statuses', StatusController::class)->middleware(['auth']);
-
-Route::resource('work_units', WorkAmountController::class);
-
+    Route::resource('projects', ProjectController::class);
+    
+    Route::resource('projects.wbs', ProjectWBSController::class)->parameters([
+        'wbs' => 'wbs'
+    ])->scoped();
+    
+    Route::resource('projects.deliverables', WBS_DeliverableController::class);
+    
+    Route::resource('statuses', StatusController::class);
+    
+    Route::resource('work_units', WorkAmountController::class);
+    
+});
 
 Auth::routes();

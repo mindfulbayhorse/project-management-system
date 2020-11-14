@@ -7,15 +7,15 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\DeliverableRequest;
 
-class WBS_DeliverableController extends Controller
+class DeliverableController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\WorkBreakdownStructure  $workBreakdownStructure
+     * @param  \App\Models\WorkBreakdownStructure  $wbs
      * @return \Illuminate\Http\Response
      */
-    public function index(WorkBreakdownStructure $wbs)
+    public function index(Project $project)
     {
         
     	return view('projects.wbs.index',[
@@ -26,10 +26,10 @@ class WBS_DeliverableController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \App\WorkBreakdownStructure  $workBreakdownStructure
+     * @param  \App\Models\WorkBreakdownStructure  $workBreakdownStructure
      * @return \Illuminate\Http\Response
      */
-    public function create(WorkBreakdownStructure $workBreakdownStructure)
+    public function create(Project $project)
     {
         //
     }
@@ -38,22 +38,31 @@ class WBS_DeliverableController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\WorkBreakdownStructure  $workBreakdownStructure
+     * @param  \App\Models\WorkBreakdownStructure  $wbs
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, WorkBreakdownStructure $workBreakdownStructure)
+    public function store(DeliverableRequest $request, Project $project)
     {
-        //
+        $this->authorize('create', Deliverable::class);
+        
+        //$deliverable = new Deliverable($request->validated());
+        
+        
+        $project->wbs()->actual()[0]->add($request->validated());
+        
+        //dd($project->wbs()->actual()[0]->deliverables);
+        
+        return redirect($project->wbs()->actual()[0]->path());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\WorkBreakdownStructure  $workBreakdownStructure
+     * @param  \App\Models\Project  $project
      * @param  \App\Deliverable  $deliverable
      * @return \Illuminate\Http\Response
      */
-    public function show(WorkBreakdownStructure $workBreakdownStructure, Deliverable $deliverable)
+    public function show(Project $project, Deliverable $deliverable)
     {
         //
     }
@@ -101,11 +110,11 @@ class WBS_DeliverableController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\WorkBreakdownStructure  $workBreakdownStructure
-     * @param  \App\Deliverable  $deliverable
+     * @param  \App\Models\  $project
+     * @param  \App\Models\Deliverable  $deliverable
      * @return \Illuminate\Http\Response
      */
-    public function destroy(WorkBreakdownStructure $workBreakdownStructure, Deliverable $deliverable)
+    public function destroy(Project $project, Deliverable $deliverable)
     {
         //
     }

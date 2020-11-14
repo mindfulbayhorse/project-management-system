@@ -14,7 +14,8 @@ class DeliverableFactory extends Factory
         return [ 
             'title' => $this->faker->word,
             'package' => false,
-            'milestone' => false
+            'milestone' => false,
+            'order' => $this->faker->randomNumber(1)
         ];
     }
      

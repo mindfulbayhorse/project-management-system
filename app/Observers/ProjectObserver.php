@@ -9,7 +9,7 @@ class ProjectObserver
     /**
      * Handle the project "created" event.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Models\Project  $project
      * @return void
      */
     public function created(Project $project)

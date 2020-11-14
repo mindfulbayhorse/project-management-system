@@ -27,17 +27,18 @@ class ManagingProjectWBSTest extends TestCase
 			'project_id' => $this->project->id
 		]);
 		
+		$this->wbs->actualize();
+		
 	}    
     
     /** @test */
     public function first_level_deliverable_must_have_a_title(){
-    	
-        $this->signIn();
         
         $deliverable = Deliverable::factory()->raw(['title'=>'']);
     	
-    	$this->call('PATCH', $this->wbs->path(), $deliverable)
-    		->assertSessionHasErrors('title');
+        $this->actingAs($this->project->manager)
+            ->call('PATCH', $this->wbs->path(), $deliverable)
+            ->assertSessionHasErrors('title', null, 'deliverable');
     
     }
     
@@ -74,12 +75,21 @@ class ManagingProjectWBSTest extends TestCase
             
     }
     
-    /** test */
-    public function wbs_is_initialized_after_project_is_created(){
+    /** @test */
+    public function first_level_deliverable_can_have_custom_order()
+    {
+        $this->withoutExceptionHandling();
         
-        $project = Project::factory()->create();
+        $deliverable = Deliverable::factory()->raw(['order'=>8]);
         
-        $this->assertCount(1, $project->wbs);
+        $this->actingAs($this->project->manager)
+            ->followingRedirects()
+            ->post($this->wbs->project->path().'/deliverables', $deliverable)
+            ->assertSee($deliverable['title']);
+            
+        //dd($response);
         
+        $this->assertDatabaseHas('deliverables', $deliverable);
     }
+    
 }

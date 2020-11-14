@@ -5,7 +5,8 @@
 @section('left_sidebar')
 
 <section class="project_dashboard">
-    <a href="/projects/{{$project->id}}/wbs">Work breakdown structure</a>
+    <a href="{{$project->path()}}/wbs">Work breakdown structure</a>
+    <a href="{{$project->path()}}/team">Team</a>
 </section>
 
 @endsection

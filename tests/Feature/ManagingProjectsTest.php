@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Status;
+use App\Models\User;
 
 class ManagingProjectsTest extends TestCase{
     
@@ -116,7 +117,7 @@ class ManagingProjectsTest extends TestCase{
         ]);
         $status = Status::factory()->create();
         
-        $response = $this->patch($project->path(), [
+        $this->patch($project->path(), [
             'title' => $project->title,
             'status_id' => $status->id,
             'user_id' =>$project->manager->id
@@ -132,7 +133,7 @@ class ManagingProjectsTest extends TestCase{
     public function project_card_contains_link_to_active_wbs()
     {
         
-        $this->withoutExceptionHandling();
+        
         $project = Project::factory()->create();
         
         $this->actingAs($project->manager)
@@ -147,6 +148,28 @@ class ManagingProjectsTest extends TestCase{
             ->get('/projects')
             ->assertSee($project->wbs()->actual()[0]->path())
             ->assertSeeText('WBS');
+        
+    }
+    
+    /** @test */
+    public function project_card_contains_link_to_team()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn();
+        
+        $project = Project::factory()->create(['user_id'=>$this->user]);
+        
+        $this->actingAs($project->manager)
+        ->get('/projects')
+        ->assertDontSee('Team');
+        
+        $member = User::factory()->create();
+        $project->addMember($member);
+        
+        $this->actingAs($project->manager)
+            ->get('/projects')
+            ->assertSee($project->path().'/team')
+            ->assertSee('Team');
         
     }
 }

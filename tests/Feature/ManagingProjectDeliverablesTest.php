@@ -29,7 +29,7 @@ class ManagingProjectDeliverablesTest extends TestCase
 	
     
     /** @test */
-    public function it_can_be_updated_with_new_title()
+    public function the_title_of_deliverable_can_be_updated()
     {
         
         $this->signIn();
@@ -132,6 +132,24 @@ class ManagingProjectDeliverablesTest extends TestCase
         ]);
         
     }
-    
-    
+
+    /** @test */
+    public function order_can_be_updated()
+    {
+        
+        $this->actingAs($this->user)
+            ->patch($this->deliverable->path(),[
+            'order' => 1,
+            'title' =>$this->deliverable->title
+        ]);
+            
+        $this->assertDatabaseHas('deliverables', [
+            'order'=>1
+        ]);
+        
+        $this->deliverable->refresh();
+        
+        $this->assertEquals(1, $this->deliverable->order);
+            
+    }
 }

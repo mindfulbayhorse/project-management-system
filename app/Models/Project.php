@@ -84,7 +84,7 @@ class Project extends Model
     
     public function addMember(User $user)
     {
-        $this->team()->save($user);
+        $this->team()->attach($user);
     }
     
 }

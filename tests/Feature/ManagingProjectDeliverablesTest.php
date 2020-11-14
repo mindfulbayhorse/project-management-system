@@ -32,10 +32,9 @@ class ManagingProjectDeliverablesTest extends TestCase
 		$this->user = User::factory()->create();
 	
 	}
-	
     
     /** @test */
-    public function it_can_be_updated_with_new_title()
+    public function the_title_of_deliverable_can_be_updated()
     {
         
     	$changedTitle = $this->faker->sentence();
@@ -92,7 +91,6 @@ class ManagingProjectDeliverablesTest extends TestCase
         
     }
     
-    
     /** @test  */
     function guests_cannot_update_deliverable()
     {
@@ -121,13 +119,10 @@ class ManagingProjectDeliverablesTest extends TestCase
         ]);
         
     }
-    
+
     /** @test */
     public function order_can_be_updated()
     {
-        $this->withoutExceptionHandling();
-        
-        $this->assertEquals(0, $this->deliverable->order);
         
         $this->actingAs($this->user)
             ->patch($this->deliverable->path(),[
@@ -144,6 +139,4 @@ class ManagingProjectDeliverablesTest extends TestCase
         $this->assertEquals(1, $this->deliverable->order);
             
     }
-    
-    
 }

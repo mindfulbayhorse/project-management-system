@@ -9,7 +9,7 @@
         @csrf 
         
         @include('projects.statuses.form', [
-            'status' => new App\Status,
+            'status' => new App\Models\Status,
             'btnText' => 'Create'
         ])
          

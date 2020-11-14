@@ -1,6 +1,7 @@
-@if ($errors->any())
+
+@if ($errors->{$bug ?? 'default'}->any())
     <div class="err_info">    
-        @foreach($errors->all() as $error)
+        @foreach($errors->{$bug ?? 'default'}->all() as $error)
             <p>{{ $error }}</p>
         @endforeach
     </div>

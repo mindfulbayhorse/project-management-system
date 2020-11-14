@@ -10,12 +10,12 @@
         <form id="deliverable" 
             name="deliverable" 
             method="POST" 
-            action="{{ $wbs->path() }}"
+            action="{{ $wbs->project->path() }}/deliverables"
             class="deliverable new">
         
             @method('PATCH')
              
-            <input type="hidden" name="id" value="{{$wbs->id}}" />
+            
             
              @include('projects.wbs.deliverables.form',  [
                     'deliverable' => new App\Models\Deliverable,

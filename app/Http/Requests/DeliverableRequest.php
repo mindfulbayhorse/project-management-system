@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class DeliverableRequest extends FormRequest
 {
+    
+    protected $errorBag = 'deliverable';
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,7 +31,7 @@ class DeliverableRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'order' => 'nullable'
+            'order' => 'nullable|integer'
         ];
     }
 }

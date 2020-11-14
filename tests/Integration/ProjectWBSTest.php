@@ -26,7 +26,7 @@ class ProjectWBSTest extends TestCase
 	}
     
 	/** @test */
-    public function project_can_initialize_wbs_by_new_deliverable()
+    public function project_can_initialize_actual_wbs_by_new_deliverable()
     {
         $this->withoutExceptionHandling();
         
@@ -34,11 +34,11 @@ class ProjectWBSTest extends TestCase
     	
         $deliverable = Deliverable::factory()->raw(['title'=>$title]);
 
-        $this->post($this->project->path().'/wbs', $deliverable);
+        $this->followingRedirects()
+            ->post($this->project->path().'/deliverables', $deliverable)
+            ->assertSee($title);
         
-        $this->project->refresh();
-        
-        $this->get($this->project->path().'/wbs/'.$this->project->wbs->last()->id)->assertSee($title);
+        $this->assertCount(1, $this->project->wbs()->actual());
 
     }
 }

@@ -6,7 +6,6 @@ use Tests\TestCase;
 use App\Models\Project;
 use App\Models\WorkBreakdownStructure;
 use App\Models\Deliverable;
-use Tests\Setup\ProjectFactory;
 
 class ProjectWBSTest extends TestCase
 {
@@ -38,45 +37,30 @@ class ProjectWBSTest extends TestCase
     }
     
     /** @test */
-    public function its_deliverables_are_ordered()
+    public function its_deliverables_are_ordered_by_auto_incresed_order()
     {
         
-        $deliverable = new Deliverable(['title'=>'Prototype']);
-        
-        $deliverable2 = new Deliverable([
-                        'title' => 'Web-based prototypes',
-                        'order' => 1
+        Deliverable::factory()->create([
+            'wbs_id' => $this->firstWBS->id,
+            'order' => ''
         ]);
         
-        $deliverable3 = new Deliverable([
-                        'title' => 'Back-end realization',
-                        'order' => 2
+        Deliverable::factory()->create([
+            'wbs_id' => $this->firstWBS->id,
+            'order' => ''
         ]);
         
-        $actualWBS = WorkBreakdownStructure::find($this->firstWBS->id);
-        
-        $actualWBS->add($deliverable);
-        
-        $actualWBS->add($deliverable2);
-        
-        $actualWBS->add($deliverable3);
-        
-        $deliverables = $actualWBS->deliverables->toArray();
+        $deliverables =  $this->firstWBS->deliverables->toArray();
         
         $this->assertEquals(0, key($deliverables));
-        $this->assertEquals(0, current($deliverables)['order']);
+        $this->assertEquals(1, current($deliverables)['order']);
         
         next($deliverables);
         
         $this->assertEquals(1, key($deliverables));
         
-        $this->assertEquals(1, current($deliverables)['order']);
-        
-        next($deliverables);
-        
-        $this->assertEquals(2, key($deliverables));
-        
         $this->assertEquals(2, current($deliverables)['order']);
+        
     }
     
     /** @test */
@@ -107,16 +91,32 @@ class ProjectWBSTest extends TestCase
     /** @test */
     public function its_deliverable_can_be_deleted()
     {
-    	$deliverables = Deliverable::factory()->count(2)->make();
+        $numberDeliverables = $this->firstWBS->deliverables->count();
     	
-    	$deliverable1 = $this->firstWBS->add($deliverables->first());
+    	$deliverable = Deliverable::factory()->raw(['wbs_id'=>'']);
     	
-    	$this->firstWBS->add($deliverables->last());
+    	$this->firstWBS->add($deliverable);
+    	$this->firstWBS->refresh();
+
+    	$newCount = $numberDeliverables+1;
     	
-    	$this->assertCount(2, $this->firstWBS->deliverables);
+    	$this->assertCount($newCount, $this->firstWBS->deliverables);
+
+    	$this->firstWBS->discard($this->firstWBS->deliverables->last());
+    	$this->firstWBS->refresh();
     	
-    	$this->delete($deliverables->last());
+    	$this->assertCount($numberDeliverables, $this->firstWBS->deliverables);
     	
-    	$this->assertEquals($deliverable1->id, $this->firstWBS->deliverables->first()->id);
     }
+    
+    /** test */
+    public function wbs_is_initialized_after_project_is_created(){
+        
+        $project = Project::factory()->create();
+        
+        $this->assertCount(1, $project->wbs);
+        
+    }
+    
+   
 }

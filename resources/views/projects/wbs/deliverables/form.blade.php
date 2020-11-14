@@ -1,5 +1,7 @@
 @csrf
 
+@include('show_err', ['bug' => 'deliverable'])
+
 <input type="hidden" name="project_id" value="{{$project->id}}" />
 
 <div class="long_field">

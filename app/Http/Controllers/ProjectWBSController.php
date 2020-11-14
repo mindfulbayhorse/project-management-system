@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\WorkBreakdownStructure;
-use Illuminate\Http\Request;
+use App\Http\Requests\DeliverableRequest;
 use App\Models\Deliverable;
 use \Illuminate\Support\Facades\Auth;
 
@@ -42,19 +42,17 @@ class ProjectWBSController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Project  $project
+     * @param  \App\Http\Requests\DeliverableRequest  $project
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Project $project)
+    public function store(DeliverableRequest $request, Project $project)
     {    	
-    		
-    	$request->validate(['title'=>'required']);
+        $this->authorize('create', Deliverable::class);
+        
+        $deliverable = new Deliverable($request->validated()); 
     		
     	$wbs = new WorkBreakdownStructure();
     	$project->initializeWBS($wbs);
-    		
-    	$deliverable = new Deliverable();
-    	$deliverable->title = $request->title;
     		
     	$wbs->add($deliverable);
     		
@@ -98,25 +96,23 @@ class ProjectWBSController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\DeliverableRequest  $request
      * @param  \App\Project  $project
      * @param  \App\WorkBreakdownStructure  $workBreakdownStructure
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project, WorkBreakdownStructure $wbs)
+    public function update(DeliverableRequest $request, Project $project, WorkBreakdownStructure $wbs)
     {
+        /*$this->authorize('create', Deliverable::class);
         
-    	$request->validate(['title'=>'required']);
-    	
-    	$deliverable = new Deliverable();
-    	$deliverable->title = $request->title;
+        $deliverable = new Deliverable($request->validated());    	
     	
     	$wbs->add($deliverable);
     	
     	return view('projects.wbs.edit',[
     		'project' => $project,
     		'wbs' => $wbs
-    	]);
+    	]);*/
     }
 
     /**

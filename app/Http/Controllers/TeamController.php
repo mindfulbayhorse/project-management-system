@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Team;
+use App\Models\ProjectTeam;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Project;
 
 class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
-        //
+        
+        return view('projects.team.index', compact('project'));
     }
 
     /**
@@ -30,21 +34,27 @@ class TeamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param  \App\Models\Project  $project
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Project  $project)
     {
-        //
+        $attr = $request->validate(['user_id'=>'required']);
+        if (!$attr) return;
+        
+        $project->addMember(User::find($attr['user_id']));
+        
+        return redirect($project->path().'/team');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\ProjectTeam  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
+    public function show(ProjectTeam $team)
     {
         //
     }
@@ -52,33 +62,27 @@ class TeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\Project  $project
+     * @param  \App\Models\ProjectTeam  $team
      * @return \Illuminate\Http\Response
      */
-    public function edit(Team $team)
+    public function edit(ProjectTeam $team, Project  $project)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Team $team)
-    {
-        //
+        $userList = User::all();
+        
+        return view('projects.team.add_member', [
+            'project' => $project,
+            'users' => $userList
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\ProjectTeam  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
+    public function destroy(ProjectTeam $team)
     {
         //
     }

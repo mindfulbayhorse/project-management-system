@@ -12,4 +12,5 @@ class ProjectTeam extends Pivot
     public $timestamps = false;
     
     protected $table = 'project_team';
+    
 }

@@ -1,14 +1,13 @@
-@extends('layout')
-
 @section('title','Create new project')
 
-@section('content')
+@extends('layout')
 
-<main class='center_area'>
-   
-   <form method="POST" 
+@section('content')
+    <main>
+    
+        <form method="POST" 
         action="/projects"
-        class="project">
+        class="project new">
         
         @include('show_err') 
         
@@ -18,6 +17,7 @@
         ])
         
     </form>
-  
-</main>
+    
+   </main>
+   
 @endsection

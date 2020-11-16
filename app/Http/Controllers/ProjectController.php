@@ -60,7 +60,7 @@ class ProjectController extends Controller
         
         $this->authorize('show', $project);
         
-        return view('projects.show', compact('project'));
+        return view('projects.info', compact('project'));
     }
 
     /**

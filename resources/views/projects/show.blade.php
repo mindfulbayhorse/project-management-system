@@ -1,13 +1,13 @@
 @extends('layout')
 
+@section('title','Project indicators')
+
 @section('left_sidebar')
-	@section('section_title') Work breakdown structure @endsection
-	@section('title') {{$project->title}} @endsection
+	 @include('projects.dashboard') 
 @endsection
 
 @section('content')
 <main>
-	@include('projects.info')
-    
+    @yield('indicators')
 </main>
 @endsection

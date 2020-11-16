@@ -1,65 +1,16 @@
-#WBS {
-  display: none;
-}
+@import 'deliverable.less';
 
-.deliverable {
+.wbs-section-panel{
   
-  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 0px 20px 0px;
   
-  .long_field:extend(form .field){
-    
-    input{
-      #userInput.long_text();
-    }
-    
-    &_complex:extend(form .field){
-      display: flex;
-      flex-flow: row nowrap;
-    }
-    
-    &_button{
-      padding: 0px;
-      
-      input{
-        width: 50%;
-      }
-    }
+  form.deliverable{
+    width: 60%;
   }
   
- .detail_field{
-    width: 40%;
-    padding: 0px 0px 0px 0px; 
-    
-    input{
-      width: 60%;
-    }
-    
-     &_horizontal{
-      display: flex;
-      flex-flow: row nowrap;
-    }
+  section.history{
+    width: 30%;
   }
-  
-  label, input{
-      display: block;
-  }  
-}
-
-.status:extend(form){
-  width: 60%;
-  
-  .field:extend(form .field){
-    input, textarea{
-      #userInput.long_text();
-    }
-    
-    &_btn{
-      padding: 0px;
-      
-      input{
-        width: 50%;
-      }
-    }
-  }
-
 }

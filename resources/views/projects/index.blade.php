@@ -8,13 +8,17 @@
     <div class="projects_groups">
         @forelse ($projects as $project)
                 
-	        <div class="card" style="width: 25%;">
-	              <div class="card-body">
-                    <a href="{{$project->path()}}" class="card-title">{{$project->title}}</a>
+	        <div class="card">
+                <a href="{{$project->path()}}" 
+                    class="title">{{$project->title}}</a>
+                <div class="card-body">
                     <div class="card-text">
                         <p>@if ($project->status) {{ $project->status->name }} @endif</p>
                         <p>{{ $project->started }}</p>
                         <p>{{ $project->finished }}</p>
+                    </div>
+                  
+                    <nav>
                         @if ($project->wbs()->actual()[0]->deliverables->count() > 0)
                             <a href="{{ $project->wbs()->actual()[0]->path() }}">WBS</a>
                         @endif
@@ -22,8 +26,10 @@
                         @if ($project->team->count() > 0)
                             <a href="{{ $project->path() }}/team">Team</a>
                         @endif
-                    </div>
-	              </div>
+                    
+                    </nav>
+                   
+                </div>
 	        </div>
         @empty
             <div>No projects have been added yet.</div>

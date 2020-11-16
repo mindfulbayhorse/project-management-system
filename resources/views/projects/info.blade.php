@@ -1,26 +1,15 @@
-<div class="groupped flex_block one_row flex_width">
-    <div class="flex_block fld_space_20 around_space">
-    	<div class="flex_block one_column fld_space_100">
-        	<label for="status">Status:</label>
-        	<p>@if ($project->status) {{$project->status->name}} @endif</p>
-        </div>
-    </div>
+@extends('projects.show')
+
+@section('indicators')
     
-    <div class="flex_block fld_space_20 bottom_top_space">
-    	<div class="flex_block one_column fld_space_100">
-        	<label for="started">Start date:</label>
-        	<p>{{$project->started}}</p>
-        </div>
-    </div> 
+    <div class="project">
+        <p><b>Status:</b>@if ($project->status) {{$project->status->name}} @endif</p>
+   
+    	<p><b>Start date:</b>{{$project->started}}</p>
     
-    <div class="flex_block fld_space_20 bottom_top_space">
-    	<div class="flex_block one_column fld_space_100">
-        	<label for="finished">Comletion date:</label>
-        	<p>{{$project->finished}}</p>
-        </div>
-    </div>
+    	<p><b>Comletion date:</b>{{$project->finished}}</p>
     
-    <div class="flex_block fld_space_20 around_space">
     	<a href="{{ $project->path() }}/edit" class="btn">Edit project</a>
     </div>
-</div>
+
+@endsection

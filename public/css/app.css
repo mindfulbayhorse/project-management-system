@@ -33,15 +33,8 @@ section body + body {
   margin-right: auto;
   text-align: left;
 }
-.center_part .center_part {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: flex-end;
-  margin: 0px;
-}
 .wide_screen.dashboard .center_part {
-  margin-rigth: 0px;
+  margin-right: 0px;
 }
 .wide_screen {
   width: 100%;
@@ -51,9 +44,6 @@ section body + body {
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
-}
-#WBS {
-  display: none;
 }
 .deliverable {
   width: 60%;
@@ -99,15 +89,23 @@ section body + body {
 .status .field_btn input {
   width: 50%;
 }
-.project {
+.wbs-section-panel {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 0px 20px 0px;
+}
+.wbs-section-panel form.deliverable {
   width: 60%;
+}
+.wbs-section-panel section.history {
+  width: 30%;
 }
 .project .long_field input {
   display: block;
   min-width: 150px;
 }
 .project .long_field.title input {
-  width: 100%;
+  width: 95%;
   flex-shrink: 1;
 }
 .project .long_field_date {
@@ -119,12 +117,51 @@ section body + body {
 .project .long_field_date .year {
   width: 60px;
 }
-.project_dashboard {
+.dashboard .project {
   padding: 20px;
 }
+.dashboard .project a {
+  display: block;
+  padding: 10px 0px 0px;
+}
+.new.project {
+  width: 50%;
+}
+.dashboard main .project {
+  width: 60%;
+}
+.project p {
+  padding: 10px 0px;
+}
+.actions {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin: 0px;
+}
+.projects_groups {
+  width: 100%;
+  display: -ms-Flexbox;
+  -ms-box-orient: horizontal;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.projects_groups .card {
+  width: 25%;
+}
+.projects_groups .card a.title {
+  font-weight: bold;
+  padding: 10px 0px;
+  display: block;
+}
 form,
-.status {
-  padding: 0px;
+.status,
+.new.project,
+.dashboard main .project {
+  padding: 0px 0px 20px 0px;
 }
 form .field,
 .deliverable .long_field,
@@ -379,34 +416,6 @@ table caption {
 .fld_space_20 {
   width: 20%;
 }
-.one_row {
-  flex-flow: row nowrap;
-}
-.one_column {
-  flex-flow: column nowrap;
-  -webkit-justify-content: flex-end;
-  -moz-justify-content: flex-end;
-  -ms-content: flex-end;
-  justify-content: flex-end;
-}
-.grid_rows {
-  flex-flow: row wrap;
-}
-.row_center {
-  -moz-justify-content: center;
-  -ms-justify-content: center;
-  justify-content: center;
-}
-.row_wide {
-  -moz-align-items: stretch;
-  -ms-align-items: stretch;
-  align-items: stretch;
-}
-.flex_width {
-  -moz-justify-content: space-between;
-  -ms-justify-content: space-between;
-  justify-content: space-between;
-}
 .action_panel {
   background: #9999ff;
 }
@@ -424,13 +433,4 @@ table tr.active {
 }
 .user_profile {
   float: right;
-}
-.projects_groups {
-  width: 100%;
-  display: -ms-Flexbox;
-  -ms-box-orient: horizontal;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: flex;
-  flex-flow: row nowrap;
 }

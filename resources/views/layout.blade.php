@@ -18,9 +18,7 @@
         <div class="center_part">
 			<h1>@yield('title')</h1>
 		
-		
 		      @yield('content')
-				
 		</div>
 
 	</div>

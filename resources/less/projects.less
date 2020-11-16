@@ -1,0 +1,84 @@
+.project{
+
+  .long_field:extend(form .field){
+    
+    input {
+      display: block;
+      min-width: 150px;
+    }
+    
+    &.title input{
+      width: 95%;
+      flex-shrink: 1;
+    }
+    
+    &_date:extend(form .field){
+      min-width: auto;
+      
+      .day{
+        width: 40px;
+      }
+      
+      .year{
+        width: 60px;
+      }
+      
+    }
+  }
+  
+  .dashboard &{
+    padding: 20px;
+    
+    a{
+      display: block;
+      padding: 10px 0px 0px;
+    }
+  }
+  
+  .new&:extend(form){
+    width: 50%;
+  }
+  
+  .dashboard main &:extend(form){
+    width: 60%;
+  }
+  
+  p {padding: 10px 0px;}
+
+}
+
+.actions {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  
+  margin: 0px;
+}
+
+.projects_groups{
+  width: 100%;
+  
+  display: -ms-Flexbox;
+    -ms-box-orient: horizontal;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
+    
+  -webkit-flex-flow: row nowrap;
+  -moz-flex-flow: row nowrap;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  
+  .card{
+    width: 25%;
+    
+    a.title{
+      font-weight: bold;
+      padding: 10px 0px;
+      display: block;
+    }
+  }
+  
+}

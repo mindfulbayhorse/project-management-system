@@ -10,11 +10,14 @@
 </head>
 <body>
 	@include('blocks.header')
-	<div class="wide_screen @hasSection('left_sidebar') dashboard @endif">
-		@hasSection('left_sidebar')
-				@yield('left_sidebar')
-		@endif
-		
+	<div class="wide_screen dashboard">
+        @if (Auth::check()) 
+            @hasSection('left_sidebar')
+                @yield('left_sidebar') 
+            @else 
+                @include('blocks.primary_menu')
+            @endif
+        @endif
         <div class="center_part">
 			<h1>@yield('title')</h1>
 		

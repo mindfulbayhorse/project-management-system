@@ -10,7 +10,7 @@ body {
     font-size: @basic_font_size;
     font-family: @basic_font;
     color: @basic_font_color;
-    line-height: $font-size;
+    line-height: @basic_font_size;
     
     h1 {
         font-size: @basic_font_large;
@@ -34,7 +34,7 @@ body {
     }
 }
 
-@screen_wide: wide_screen;
+@screen_width: wide_screen;
 @width_main: 80%;
 @width_screen: 100%;
 
@@ -44,12 +44,14 @@ body {
     margin-right: auto;
     text-align: left;
     
-    .@{screen_wide}.dashboard &{
+    .@{screen_width}.dashboard &{
       margin-right: 0px;
+      width: 80%;
+      flex-shrink: 0;
     }
 }
 
-.@{screen_wide} {
+.@{screen_width} {
     width: @width_screen;
     
     &.dashboard{
@@ -60,17 +62,12 @@ body {
     }    
 }
 
-
-@height_slogan: 60px;
-
 @btn: btn;
 @errors: err_info;
 @color_res: #78A058;
 @color_inf: #F2F2F2;
 @btn_radius: 8px;
 @border: rgb(102, 45, 145);
-@header_back: #9966ff;
-@header_id: top_slogan;
 @add_flex_style: flex_block;
 @flex_one_row: one_row;
 @flex_one_column: one_column;
@@ -87,6 +84,8 @@ body {
 @import 'wbs.less';
 @import 'projects.less';
 @import 'forms.less';
+@import 'header.less';
+@import 'primary_menu.less';
 
 
 p, h1, h2{
@@ -101,26 +100,6 @@ h2{
   font-weight: normal;
 }
 
-
-#@{header_id} {
-    width: @width_screen;
-    height: @height_slogan;
-    border-width: 0px;
-    border-color: rgb(0, 0, 102);
-    border-style: solid;
-    background-color: @header_back;
-    padding: 30px 0px 0px 0px;
-    border-bottom: 4px solid #6633cc;
-    
-    p.title {
-        font-size: 24px;
-        font-family: "Century Schoolbook";
-        color: rgb(255, 255, 204);
-        line-height: 0.75;
-        text-align: left;
-        margin: 0px;
-    }
-}
 
 .@{border_group} {
     border-width: 1px;

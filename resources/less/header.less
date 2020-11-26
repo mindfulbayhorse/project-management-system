@@ -1,0 +1,28 @@
+@header_back: #9966ff;
+@header_id: top_slogan;
+@height_slogan: 60px;
+
+#@{header_id} {
+    width: @width_screen;
+    height: @height_slogan;
+    border-width: 0px;
+    border-color: rgb(0, 0, 102);
+    border-style: solid;
+    background-color: @header_back;
+    padding: 30px 0px 0px 0px;
+    border-bottom: 4px solid #6633cc;
+    
+    p.title {
+        font-size: 24px;
+        font-family: "Century Schoolbook";
+        color: rgb(255, 255, 204);
+        line-height: 0.75;
+        text-align: left;
+        margin: 0px;
+    }
+    
+    &.shortcut{
+      height: 30px;
+      padding: 0px;
+    }
+}

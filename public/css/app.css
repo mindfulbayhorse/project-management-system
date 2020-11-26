@@ -170,7 +170,8 @@ form .field,
 .deliverable .long_field_complex,
 .status .field,
 .project .long_field,
-.project .long_field_date {
+.project .long_field_date,
+.registration .field {
   padding: 0px 0px 20px;
 }
 form fieldset {
@@ -271,6 +272,16 @@ form p {
 nav ul,
 .primary_menu ul {
   list-style-type: none;
+}
+.registration {
+  width: 60%;
+  max-width: 400px;
+}
+.registration label {
+  display: block;
+}
+.registration .field input {
+  width: 100%;
 }
 p,
 h1,

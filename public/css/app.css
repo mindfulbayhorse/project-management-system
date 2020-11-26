@@ -35,6 +35,8 @@ section body + body {
 }
 .wide_screen.dashboard .center_part {
   margin-right: 0px;
+  width: 80%;
+  flex-shrink: 0;
 }
 .wide_screen {
   width: 100%;
@@ -238,18 +240,6 @@ form p {
 .long_field .group {
   justify-content: space-between;
 }
-p,
-h1,
-h2 {
-  margin: 0px;
-}
-h2 {
-  font-size: 16px;
-  font-family: "Myriad Pro", Tahoma;
-  color: #000033;
-  line-height: 1.125;
-  font-weight: normal;
-}
 #top_slogan {
   width: 100%;
   height: 60px;
@@ -267,6 +257,32 @@ h2 {
   line-height: 0.75;
   text-align: left;
   margin: 0px;
+}
+#top_slogan.shortcut {
+  height: 30px;
+  padding: 0px;
+}
+.primary_menu {
+  width: 20%;
+}
+.primary_menu ul li {
+  padding: 0px 0px 15px;
+}
+nav ul,
+.primary_menu ul {
+  list-style-type: none;
+}
+p,
+h1,
+h2 {
+  margin: 0px;
+}
+h2 {
+  font-size: 16px;
+  font-family: "Myriad Pro", Tahoma;
+  color: #000033;
+  line-height: 1.125;
+  font-weight: normal;
 }
 .groupped {
   border-width: 1px;

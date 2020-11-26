@@ -127,23 +127,23 @@ let Calendar = class {
     let tbody = document.createElement('tbody')
     
     let week = document.createElement('tr');
-    let firstWeek = false;
+    let firstWeek = true;
     
     this.monthCalendar.forEach((day, ind)=>{
       
-      if (day.dayWeek > 0 && !firstWeek){
-        for (let i=0; i<=day.dayWeek-1; i++){
+      if (day.dayWeek!==1 && ind===0){
+        for (let i=1; i<this.#numberWeekdays-day.dayWeek; i++){
           let weekday = document.createElement('td');
           week.appendChild(weekday);
         }
-        firstWeek = true;
+        firstWeek = false;
       }
       
       let weekday = document.createElement('td');
       weekday.textContent = day.dayNumber;
       week.appendChild(weekday);
       
-      if (ind%this.#numberWeekdays===0) {
+      if (day.dayWeek===0) {
         tbody.appendChild(week);
         week = document.createElement('tr');
       }
@@ -151,7 +151,8 @@ let Calendar = class {
     });
     
     let lastDay = this.monthCalendar[this.monthCalendar.length-1].dayWeek;
-    for (let i=lastDay+1; i<=this.#lastWeekday; i++){
+
+    for (let i=this.#numberWeekdays-lastDay; i>0; i--){
       let weekday = document.createElement('td');
       week.appendChild(weekday);
     }

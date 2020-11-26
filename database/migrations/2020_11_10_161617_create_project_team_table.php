@@ -16,6 +16,8 @@ class CreateProjectTeamTable extends Migration
         Schema::create('project_team', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
             $table->foreignId('project_id')->constrained();
+            
+            $table->primary(['user_id', 'project_id']);
         });
     }
 

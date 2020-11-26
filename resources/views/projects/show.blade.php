@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title','Project indicators')
+@section('title', $project->title)
 
 @section('left_sidebar')
 	 @include('projects.dashboard') 

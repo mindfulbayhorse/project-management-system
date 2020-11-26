@@ -55,13 +55,15 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test */
-    function a_user_can_view_a_project(){
+    function authenticated_user_can_see_a_project(){
         
-    	$this->signIn();
+        $this->withoutExceptionHandling();
         
     	$project = Project::factory()->create();
         
-        $this->get($project->path())->assertSee($project->title);
+    	$status = $this->actingAs($project->manager)
+            ->get($project->path())
+            ->assertSee($project->title);
         
     }
     

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectTeamTable extends Migration
+class CreateProjectResourceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateProjectTeamTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_team', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
+        Schema::create('project_resource', function (Blueprint $table) {
+            $table->foreignId('resource_id')->constrained();
             $table->foreignId('project_id')->constrained();
             
-            $table->primary(['user_id', 'project_id']);
+            $table->primary(['resource_id', 'project_id']);
         });
     }
 
@@ -28,6 +28,6 @@ class CreateProjectTeamTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_team');
+        Schema::dropIfExists('project_resource');
     }
 }

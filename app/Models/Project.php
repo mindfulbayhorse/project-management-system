@@ -87,4 +87,14 @@ class Project extends Model
         $this->team()->attach($user);
     }
     
+    public function resources()
+    {
+        return $this->belongsToMany(Resource::class, 'project_resource');
+    }
+    
+    public function addResource(Resource $resource)
+    {
+        $this->resources()->attach($resource);
+    }
+    
 }

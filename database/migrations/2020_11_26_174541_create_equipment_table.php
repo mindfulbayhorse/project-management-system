@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResource extends Migration
+class CreateEquipmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateResource extends Migration
      */
     public function up()
     {
-        Schema::create('resources', function (Blueprint $table) {
-
+        Schema::create('equipment', function (Blueprint $table) {
             $table->id();
-			$table->unsignedSmallInteger('type_id');
-			$table->unsignedBigInteger('valuable_id');
-			$table->string('valuable_type');
-			
-			$table->foreign('type_id')->references('id')->on('resource_types')->onDelete('cascade');
-
-		});
+            $table->string('model');
+            $table->string('type');
+            $table->string('name');
+            $table->unsignedFloat('cost',8,2);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -32,6 +30,6 @@ class CreateResource extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resources');
+        Schema::dropIfExists('equipment');
     }
 }

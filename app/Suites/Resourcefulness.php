@@ -12,7 +12,7 @@ trait Resourcefulness{
             'type_id' => $type->id,
         ]);
         
-        $this->resourceful()->save($resource);
+        return $this->resourceful()->save($resource);
         
     }
     

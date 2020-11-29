@@ -6,10 +6,17 @@
 
 @include('show_err')
 
-    <form name="authonticate" method="POST" action="/password/reset"  class="groupped flex_block row_wide">
+    @if (session('status'))
+        <div class="mb-4 font-medium text-sm text-green-600">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    <form name="authonticate" method="POST" action="/forgot-password"  
+        class="reset_password">
 
         @csrf
-        <input type="hidden" name="token" value="{{ $token }}" /> 
+        <input type="hidden" name="token" value="{{ request()->route('token') }}" /> 
         
 	        <div class="flex_block fld_space_100">
 	        

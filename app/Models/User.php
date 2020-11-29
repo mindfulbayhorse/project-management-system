@@ -8,10 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Suites\Resourcefulness;
 use App\Models\Project;
+use Illuminate\Auth\Passwords\CanResetPassword;
+
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, Resourcefulness;
+    use HasFactory, Notifiable, Resourcefulness, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.

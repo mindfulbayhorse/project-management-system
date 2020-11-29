@@ -1,36 +1,50 @@
 @extends('layout')
 
-@section('title','List of projects')
+@section('title','Sign in')
 
 @section('content')
 
-    <p>This is form to sign in.</p>
-
 	@include('show_err')
 
-    <form name="authonticate" method="POST" class="groupped center_area">
+    <form name="authonticate" method="POST" class="login">
 
         @csrf
         
-        <div class="flex_block grid_rows around_space">
+        <div class="field">
 
-	        <div class="flex_block one_column fld_space_100 bottom_space">
-                <label for="title">User email:</label>
-                <input type="text" name="email" value="{{ old('email') }}" />	        
-	        </div>
+            <label for="title">User email:</label>
+            <input type="text" name="email" value="{{ old('email') }}" />	        
+
 	    </div>
 	    
-	    <div class="flex_block grid_rows around_space">
-	        <div class="flex_block one_column fld_space_100 bottom_space">
-                <label for="cost">Password:</label>
-                <input type="password" name="password" value=""/> 
-	        </div>
+	    <div class="field">
+
+            <label for="password">Password:</label>
+            <input type="password" 
+                name="password"
+                id="password" 
+                value=""/> 
+
 	    </div>
+        
+        <div class="field">
+            <input type="checkbox" 
+                value="" 
+                name="remember" 
+                id="remember"/>
+            <label for="cost">Remember</label>
+        </div>
+        
+        <div class="field">
+            <a href="/forgot-password">Forgot the password</a>
+        </div>
 	    
-	     <div class="flex_block grid_rows bottom_space">
-	         <div class="flex_block grid_rows">
+	     <div class="field_submit">
                 <input type="submit" name="login" value="Sing in" />
-	         </div>
-    	</div>
+    	 </div>
+        
+        <div class="field">
+            <a href="/register">Don't have an account? Sign up</a>
+        </div>
     </form>
 @endsection

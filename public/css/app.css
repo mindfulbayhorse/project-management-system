@@ -170,8 +170,7 @@ form .field,
 .deliverable .long_field_complex,
 .status .field,
 .project .long_field,
-.project .long_field_date,
-.registration .field {
+.project .long_field_date {
   padding: 0px 0px 20px;
 }
 form fieldset {
@@ -273,7 +272,8 @@ nav ul,
 .primary_menu ul {
   list-style-type: none;
 }
-.registration {
+.registration,
+.login {
   width: 60%;
   max-width: 400px;
 }
@@ -281,6 +281,23 @@ nav ul,
   display: block;
 }
 .registration .field input {
+  width: 100%;
+}
+.login {
+  width: 60%;
+  max-width: 400px;
+}
+.login .field_submit {
+  display: flex;
+  align-content: flex-end;
+}
+.login .field_submit input {
+  margin: 0px 0px 0px auto;
+}
+.login label {
+  display: block;
+}
+.login .field input {
   width: 100%;
 }
 p,

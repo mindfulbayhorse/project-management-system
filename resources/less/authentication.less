@@ -7,10 +7,25 @@
     display: block;
   }
   
-  .field:extend(form .field){
-    
+  .field{
     input{
       width: 100%;
     }
   }
+  
+}
+
+.login:extend(.registration){
+  
+  .field_submit{
+    display: flex;
+    align-content: flex-end;
+    
+    input{
+      margin: 0px 0px 0px auto;
+    }
+  }
+  
+  .registration();
+  
 }

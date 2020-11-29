@@ -6,7 +6,8 @@
 
 @include('show_err')
 
-    <form name="authonticate" method="POST" action="/password/email"  class="groupped flex_block one_row">
+    <form name="authonticate" method="POST" action="/forgot-password"  
+    class="email_link">
 
         @csrf
 

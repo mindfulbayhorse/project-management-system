@@ -37,14 +37,12 @@ class CandidatesController extends Controller
     public function store(Request $request)
     {
         $newUser = $request->validate([
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required'
-        ]);
-        
-        if (!$newUser) return;
+        ]);   
             
-        $candidate  = new User($newUser);
-        $candidate->save();
+        User::create($newUser);
         
         return redirect('/candidates');
     }
@@ -55,9 +53,9 @@ class CandidatesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $candidate)
     {
-        //
+        return view('candidates.edit', compact('candidate'));
     }
 
     /**
@@ -68,7 +66,7 @@ class CandidatesController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**

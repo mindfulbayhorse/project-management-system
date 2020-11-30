@@ -21,7 +21,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -49,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Project::class,'user_id');
     }
+    
+    public function path()
+    {
+        return '/candidates/'.$this->id;
+    }
+    
 }

@@ -3,9 +3,17 @@
 <div class="long_field title">
     <label for="title">Name:</label>
     <input type="text" 
-        name="name" 
+        name="first_name" 
         id="title"
-        value="{{ $candidate->name }}" />
+        value="{{ old('first_name', $candidate->first_name) }}" />
+</div>
+
+<div class="long_field title">
+    <label for="title">Last name:</label>
+    <input type="text" 
+        name="last_name" 
+        id="title"
+        value="{{ old('last_name',$candidate->last_name) }}" />
 </div>
 
 <div class="long_field title">
@@ -13,7 +21,7 @@
     <input type="text" 
         name="email" 
         id="title"
-        value="{{ $candidate->email }}" />
+        value="{{ old('email', $candidate->email) }}" />
 </div>
 
 <div class="">

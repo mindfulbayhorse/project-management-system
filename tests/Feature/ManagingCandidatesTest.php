@@ -22,20 +22,26 @@ class ManagingCandidatesTest extends TestCase
         $this->project = Project::factory()->create();
     }
     
-    
     /** @test */
-    public function project_manager_can_see_all_candidates()
+    public function new_candidate_must_have_name_and_surname()
     {
+        
+        $candidate = User::factory()->raw([
+            'first_name'=>'',
+            'last_name' =>''
+        ]);
+        
         $this->actingAs($this->project->manager)
-            ->get('/candidates')
-            ->assertStatus(200)
-            ->assertSee($this->user->name)
-            ->assertSee($this->user->email);
+            ->post('/candidates', $candidate)
+            ->assertSessionHasErrors(['first_name','last_name']);
+        
     }
     
     /** @test */
     public function project_manager_can_add_candidate()
     {
+
+        $this->withoutExceptionHandling();
         
         $this->actingAs($this->project->manager)
             ->get('/candidates/create')
@@ -43,13 +49,31 @@ class ManagingCandidatesTest extends TestCase
         
         $candidate = User::factory()->raw();
         
-        $this->actingAs($this->project->manager)
+        $this->actingAs($this->project->manager)->followingRedirects()
             ->post('/candidates', $candidate)
-            ->assertRedirect('/candidates');
-        
+            ->assertStatus(200)
+            ->assertSee($candidate['first_name'])
+            ->assertSee($candidate['last_name']);
+
         $this->assertDatabaseHas('users', [
-            'name' => $candidate['name'],
-            'email' => $candidate['email']
+            'first_name' => $candidate['first_name'],
+            'last_name' => $candidate['last_name']
         ]);
     }
+    
+    
+    /** @test */
+    public function candidate_can_be_edited(){
+        
+        $this->withoutExceptionHandling();
+        
+        $candidate = User::factory()->create();
+        
+        $this->actingAs($this->project->manager)
+            ->get($candidate->path())
+            ->assertStatus(200);
+        
+    }
+    
+   
 }

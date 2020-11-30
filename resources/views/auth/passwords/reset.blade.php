@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title','List of projects')
+@section('title','Reset password')
 
 @section('content')
 
@@ -12,7 +12,7 @@
         </div>
     @endif
 
-    <form name="authonticate" method="POST" action="/forgot-password"  
+    <form name="authonticate" method="POST" action="/reset-password"  
         class="reset_password">
 
         @csrf
@@ -22,7 +22,7 @@
 	        
 	            <div class="flex_block one_column  one_column fld_space_50_left"">
 	                <label for="title">User email:</label>
-	                <input type="text" name="email" value="{{ $email }}" />
+	                <input type="text" name="email" value="{{ old('email', $request->email) }}" />
 	            </div> 	
 	            	        
 	        </div>

@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title','List of projects')
+@section('title','Password reset link')
 
 @section('content')
 

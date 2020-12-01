@@ -76,9 +76,18 @@ class CandidatesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $candidate)
     {
-        //
+        $changes = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required'
+        ]);   
+        
+        $candidate->update($changes);
+        
+        return redirect($candidate->path());
+        
     }
 
     /**

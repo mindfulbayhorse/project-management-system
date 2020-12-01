@@ -19,6 +19,8 @@
             @endif
         @endif
         <div class="center_part">
+            @yield('breadcrumbs')
+            
 			<h1>@yield('title')</h1>
 		
 		      @yield('content')

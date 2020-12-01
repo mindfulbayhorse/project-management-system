@@ -1,14 +1,14 @@
 @csrf
 
-<div class="long_field title">
-    <label for="title">Name:</label>
+<div class="field">
+    <label for="field">Name:</label>
     <input type="text" 
         name="first_name" 
         id="title"
         value="{{ old('first_name', $candidate->first_name) }}" />
 </div>
 
-<div class="long_field title">
+<div class="field">
     <label for="title">Last name:</label>
     <input type="text" 
         name="last_name" 
@@ -16,7 +16,7 @@
         value="{{ old('last_name',$candidate->last_name) }}" />
 </div>
 
-<div class="long_field title">
+<div class="field">
     <label for="title">Email:</label>
     <input type="text" 
         name="email" 

@@ -6,10 +6,11 @@ use Tests\TestCase;
 use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class ManagingCandidatesTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     
     public $user;
     protected $project;
@@ -73,7 +74,25 @@ class ManagingCandidatesTest extends TestCase
             ->get($candidate->path())
             ->assertStatus(200);
         
+        $lastnameNew = $this->faker->lastName;
+        
+        $this->actingAs($this->project->manager)
+            ->followingRedirects()
+            ->patch($candidate->path(),[
+                'first_name' => $candidate->first_name,
+                'email' => $candidate->email,
+                'last_name' => $lastnameNew
+            ])->assertStatus(200);
+            
+        tap($candidate, function ($candidate) use  ($lastnameNew){
+            
+            $this->assertEquals($lastnameNew, $candidate->fresh()->last_name);
+            $this->assertDatabaseHas('users', [
+                'id' => $candidate->id,
+                'last_name' => $lastnameNew
+            ]);
+        });
+
     }
-    
    
 }

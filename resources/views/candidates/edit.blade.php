@@ -5,18 +5,17 @@
 @section('content')
 
 <main class='center_area'>
+
+   @include('blocks.breadcrumbs')
    
    @include('show_err')
    
    <form method="POST" 
-        action="/candidates"
+        action="{{ $candidate->path() }}"
         class="candidate">
         
-        <input type="hidden"
-            value="{{ $candidate->id }}" />
-        
-        
-        
+        @method('PATCH')
+       
         @include('candidates.form', [
             'candidate' => $candidate,
             'btnText' => 'Create'

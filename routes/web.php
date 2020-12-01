@@ -46,7 +46,7 @@ Route::group(['middleware'=>'auth'], function(){
     
     Route::resource('candidates', CandidatesController::class)->parameters([
         'candidate' => 'candidate'
-    ])->scoped();;
+    ])->scoped();
     
 });
 

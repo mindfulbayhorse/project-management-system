@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\SectionTitle;
+use Illuminate\Support\Facades\Route;
 
 class CandidatesController extends Controller
 {
@@ -15,7 +17,13 @@ class CandidatesController extends Controller
     public function index()
     {
         $candidates = User::all();
-        return view('candidates.index', compact('candidates'));
+        
+        $routeTitle = SectionTitle::where('code',Route::currentRouteName())->FirstOrFail();
+        
+        return view('candidates.index', [
+            'candidates' => $candidates,
+            'sectionTitle' => $routeTitle->title
+        ]);
     }
 
     /**

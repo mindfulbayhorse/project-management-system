@@ -18,11 +18,9 @@ class CandidatesController extends Controller
     {
         $candidates = User::all();
         
-        $routeTitle = SectionTitle::where('code',Route::currentRouteName())->FirstOrFail();
-        
         return view('candidates.index', [
             'candidates' => $candidates,
-            'sectionTitle' => $routeTitle->title
+            'section' => $this->getSection()
         ]);
     }
 
@@ -63,7 +61,10 @@ class CandidatesController extends Controller
      */
     public function show(User $candidate)
     {
-        return view('candidates.edit', compact('candidate'));
+        return view('candidates.edit', [
+            'candidate' => $candidate,
+            'section' => $this->getSection()
+        ]);
     }
 
     /**
@@ -107,5 +108,11 @@ class CandidatesController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    
+    public function getSection(){
+        
+        return SectionTitle::where('code', Route::currentRouteName())->get();
     }
 }

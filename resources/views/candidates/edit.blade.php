@@ -6,7 +6,9 @@
 
 <main class='center_area'>
 
-   @include('blocks.breadcrumbs')
+   @if ($section->count())
+    @include('blocks.breadcrumbs', compact('section'))
+   @endif
    
    @include('show_err')
    

@@ -1,3 +1,3 @@
 
-<a href="{{ route('candidates.index') }}">Candidates</a> / 
+<a href="{{ route($section->code) }}">{{ $section->title }}</a> / 
 @yield('title') 

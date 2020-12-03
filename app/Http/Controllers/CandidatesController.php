@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\SectionTitle;
-use Illuminate\Support\Facades\Route;
+use App\Suites\Navigation;
+use App\Http\Requests\CandidateRequest;
 
 class CandidatesController extends Controller
 {
+    use Navigation;
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +33,7 @@ class CandidatesController extends Controller
      */
     public function create()
     {
-        return view('candidates.create');
+        return view('candidates.create', ['section' => $this->getSection()]);
     }
 
     /**
@@ -40,15 +42,10 @@ class CandidatesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $newUser = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required'
-        ]);   
+    public function store(CandidateRequest $request)
+    { 
             
-        User::create($newUser);
+        User::create($request->validated());
         
         return redirect('/candidates');
     }
@@ -81,19 +78,14 @@ class CandidatesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\CandidateRequest  $request
+     * @param  \App\Models\User  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $candidate)
+    public function update(CandidateRequest $request, User $candidate)
     {
-        $changes = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required'
-        ]);   
         
-        $candidate->update($changes);
+        $candidate->update($request->validated());
         
         return redirect($candidate->path());
         
@@ -110,9 +102,5 @@ class CandidatesController extends Controller
         //
     }
     
-    
-    public function getSection(){
-        
-        return SectionTitle::where('code', Route::currentRouteName())->get();
-    }
+
 }

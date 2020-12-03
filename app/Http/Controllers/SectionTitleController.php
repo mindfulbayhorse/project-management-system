@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SectionTitle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class SectionTitleController extends Controller
 {
@@ -14,7 +15,11 @@ class SectionTitleController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('admin.sections.index',[
+            'sections' => SectionTitle::all(),
+            'section' => $this->getSection()
+        ]);
     }
 
     /**
@@ -24,7 +29,7 @@ class SectionTitleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sections.create');
     }
 
     /**
@@ -35,7 +40,13 @@ class SectionTitleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $section = SectionTitle::create($request->validate([
+            'code' => 'required',
+            'title' => 'required'
+        ]));
+        
+        return redirect(action([get_class($this), 'edit'], ['section' => $section]));
+        
     }
 
     /**
@@ -52,12 +63,12 @@ class SectionTitleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SectionTitle  $sectionTitle
+     * @param  \App\Models\SectionTitle  $section
      * @return \Illuminate\Http\Response
      */
-    public function edit(SectionTitle $sectionTitle)
+    public function edit(SectionTitle $section)
     {
-        //
+        return view('admin.sections.edit', compact('section'));
     }
 
     /**
@@ -81,5 +92,10 @@ class SectionTitleController extends Controller
     public function destroy(SectionTitle $sectionTitle)
     {
         //
+    }
+    
+    public function getSection(){
+        
+        return SectionTitle::where('code', Route::currentRouteName())->get()->first();
     }
 }

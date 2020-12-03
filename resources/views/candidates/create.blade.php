@@ -2,9 +2,9 @@
 
 @section('title','Add new candidate')
 
-@section('breadcrumbs')
-    @include('blocks.breadcrumbs')
-@endsection
+@if ($section)
+    @include('blocks.breadcrumbs', compact('section'))
+@endif
 
 @section('content')
 

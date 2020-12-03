@@ -6,27 +6,54 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\SectionTitle;
+use phpDocumentor\Reflection\Types\Void_;
+use App\Http\Controllers\SectionTitleController;
 
 class ManagingBreadcrumbsTest extends TestCase
 {
+    use RefreshDatabase;
+    
     public $user;
+    
+    protected function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->signIn();
+    }
     
     /** @test */
     public function it_can_show_section_title()
     {
         $this->withoutExceptionHandling();
         
-        
-        $section = SectionTitle::factory()->create([
+        SectionTitle::factory()->create([
             'code'=>'candidates.index',
             'title' => 'Candidates'
         ]);
         
-        $routeTitle = SectionTitle::where('code','candidates.index')->FirstOrFail();
+        $section = SectionTitle::where('code','candidates.index')->get()->first();
         
-        $this->signIn();
+        $this->actingAs($this->user)->get('/candidates')
+            ->assertViewHas('section', $section);
+    }
+      
+    /** @test */
+    public function it_can_be_created_on_admin_page()
+    {
         
-        $response = $this->actingAs($this->user)->get('/candidates')
-         ->assertViewHas('sectionTitle', $routeTitle->title);
+        $this->withoutExceptionHandling();
+        
+        $newSectionTitle = SectionTitle::factory()->raw();
+        
+        $this->get('admin/sections/create')
+            ->assertStatus(200);
+        
+        $this->actingas($this->user)->followingRedirects()
+            ->post('admin/sections', $newSectionTitle)
+            ->assertStatus(200);
+        
+        $this->assertDatabaseHas('section_titles', $newSectionTitle);
+
     }
 }

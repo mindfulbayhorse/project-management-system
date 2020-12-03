@@ -2,6 +2,10 @@
 
 @section('title','List of candidates')
 
+@if ($section)
+    @include('blocks.breadcrumbs', compact('section'))
+@endif
+   
 @section('content')
 
 <a href="/candidates/create" class="btn">Add candidate</a>

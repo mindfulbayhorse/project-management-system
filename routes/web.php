@@ -8,6 +8,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\WorkAmountController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\CandidatesController;
+use App\Http\Controllers\SectionTitleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,4 +51,10 @@ Route::group(['middleware'=>'auth'], function(){
     
 });
 
+Route::group(['middleware'=>'auth'], function(){
+
+    Route::resource('admin/sections', SectionTitleController::class)->parameters([
+        'section' => 'section'
+    ]);
+});
 //Auth::routes();

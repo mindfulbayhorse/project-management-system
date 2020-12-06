@@ -14,7 +14,9 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        //
+        $equipment = Equipment::all();
+        
+        return view('equipment.index', compact('equipment'));
     }
 
     /**
@@ -24,7 +26,8 @@ class EquipmentController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('equipment.create');
     }
 
     /**
@@ -35,7 +38,15 @@ class EquipmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $equipment = Equipment::create($request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'model' => 'required',
+            'cost' => 'required|numeric'
+        ]));
+        
+        return redirect(action([get_class($this), 'edit'], 
+                ['equipment' => $equipment]));
     }
 
     /**

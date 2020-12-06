@@ -20,11 +20,7 @@ class ProjectTest extends TestCase
     protected $project;
     private $projectWbs;
     private $wbsNew;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     protected function setUp(): void
     {
         
@@ -32,7 +28,6 @@ class ProjectTest extends TestCase
         
         //new project is created
         $this->project = Project::factory()->create();
-        
         $this->project->refresh();
    
     }

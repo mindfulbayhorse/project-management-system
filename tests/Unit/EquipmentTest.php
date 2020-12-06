@@ -14,8 +14,9 @@ class EquipmentTest extends TestCase
     use RefreshDatabase;
     
     /** @test */
-    public function project_has_equipment_as_resource()
+    public function project_has_equipment_as_a_resource()
     {
+        Project::unsetEventDispatcher();
         $project = Project::factory()->create();
         
         $equipment = Equipment::factory()->create();
@@ -34,8 +35,8 @@ class EquipmentTest extends TestCase
         
         $this->assertDatabaseHas('resources', $resource->toArray());
         
-        $project->addResource($resource);
-        $project->addResource($resource2);
+        $project->assign($resource);
+        $project->assign($resource2);
         
         $this->assertCount(1, $project->resources()->type($equipment));
     }

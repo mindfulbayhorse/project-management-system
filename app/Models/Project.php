@@ -44,7 +44,6 @@ class Project extends Model
         $wbs->actualize();
     }
     
-    
     public function initializeWBS($wbs)
     {
         
@@ -92,7 +91,7 @@ class Project extends Model
         return $this->belongsToMany(Resource::class, 'project_resource');
     }
     
-    public function addResource(Resource $resource)
+    public function assign($resource)
     {
         $this->resources()->attach($resource);
     }

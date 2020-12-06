@@ -9,6 +9,7 @@ use App\Http\Controllers\WorkAmountController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\CandidatesController;
 use App\Http\Controllers\SectionTitleController;
+use App\Http\Controllers\EquipmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('candidates', CandidatesController::class)->parameters([
         'candidate' => 'candidate'
     ])->scoped();
+     
+    Route::resource('equipment', EquipmentController::class);
     
 });
 

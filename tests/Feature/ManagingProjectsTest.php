@@ -8,12 +8,20 @@ use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Status;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class ManagingProjectsTest extends TestCase{
     
     use WithFaker, Refreshdatabase;
     
     public $user;
+    private $project;
+    
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->project = Project::factory()->create();
+    }
     
     /** @test  */
     function it_can_be_created_by_authenticated_user(){
@@ -57,13 +65,9 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     function authenticated_user_can_see_a_project(){
         
-        $this->withoutExceptionHandling();
-        
-    	$project = Project::factory()->create();
-        
-    	$status = $this->actingAs($project->manager)
-            ->get($project->path())
-            ->assertSee($project->title);
+        $this->actingAs($this->project->manager)
+            ->get($this->project->path())
+            ->assertSee($this->project->title);
         
     }
     
@@ -156,23 +160,30 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     public function project_card_contains_link_to_team()
     {
-        $this->withoutExceptionHandling();
-        $this->signIn();
         
-        $project = Project::factory()->create(['user_id'=>$this->user]);
-        
-        $this->actingAs($project->manager)
-        ->get('/projects')
-        ->assertDontSee('Team');
+        $this->actingAs($this->project->manager)
+            ->get('/projects')
+            ->assertDontSee('Team');
         
         $member = User::factory()->create();
-        $project->addMember($member);
+        $this->project->addMember($member);
         
-        $this->actingAs($project->manager)
+        $this->actingAs($this->project->manager)
             ->get('/projects')
-            ->assertSee($project->path().'/team')
+            ->assertSee($this->project->path().'/team')
             ->assertSee('Team');
         
+    }
+       
+    /** @test */
+    public function project_is_accessed_by_its_slug()
+    {
+        $this->withoutExceptionHandling();
+        
+        $this->actingAs($this->project->manager)
+            ->get('/projects/'.$this->project->slug)
+            ->assertStatus(200)
+            ->assertSee('<h1>'.$this->project->title.'</h1>', false);
     }
 }
 ?>

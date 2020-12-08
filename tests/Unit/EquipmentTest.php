@@ -16,7 +16,7 @@ class EquipmentTest extends TestCase
     /** @test */
     public function project_has_equipment_as_a_resource()
     {
-        Project::unsetEventDispatcher();
+      
         $project = Project::factory()->create();
         
         $equipment = Equipment::factory()->create();

@@ -68,9 +68,9 @@ class ProjectWBSTest extends TestCase
     {
         $this->firstWBS->path();
         $this->assertEquals(
-            '/projects/'.$this->firstWBS->project_id.'/wbs/'
-            .$this->firstWBS->id,
-            $this->firstWBS->path());
+            $this->firstWBS->project->path().'/wbs/'.$this->firstWBS->id,
+            $this->firstWBS->path()
+       );
     }
            
     /** @test */

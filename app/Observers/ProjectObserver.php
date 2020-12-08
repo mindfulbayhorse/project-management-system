@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Project;
+use Illuminate\Support\Str;
 
 class ProjectObserver
 {
@@ -18,11 +19,23 @@ class ProjectObserver
         $project->createWBS();
 
     }
+    
+    public function creating(Project $project)
+    {
+        
+        $project->slug = Str::slug($project->title);
+        
+    }
+    
+    public function updating(Project $project)
+    {
+        $project->slug = Str::slug($project->title);
+    }
 
     /**
      * Handle the project "updated" event.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Models\Project  $project
      * @return void
      */
     public function updated(Project $project)

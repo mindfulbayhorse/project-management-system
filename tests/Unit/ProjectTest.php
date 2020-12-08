@@ -35,7 +35,9 @@ class ProjectTest extends TestCase
     /** @test*/
     public function it_has_a_path()
     {
-        $this->assertEquals('/projects/'.$this->project->id, 
+        $this->withoutExceptionHandling();
+        
+        $this->assertEquals('/projects/'.$this->project->slug, 
                         $this->project->path());
     }
         

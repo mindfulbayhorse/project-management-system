@@ -16,14 +16,16 @@ class CreateProjectsTable extends Migration
         
         Schema::create('projects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->unsignedSmallInteger('status_id')->nullable();
+            $table->string('title')->unique();
+            $table->string('slug');
+            
             $table->string('url')->nullable();
             
             $table->date('started')->nullable();
             $table->date('finished')->nullable();
             $table->timestamps();
             
+            $table->unsignedSmallInteger('status_id')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('statuses');
          

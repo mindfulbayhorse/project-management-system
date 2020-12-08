@@ -15,9 +15,14 @@ class Project extends Model
     
     protected $dateFormat = 'Y-m-d';
     
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+    
     public function path()
     {
-        return "/projects/".$this->id;
+        return "/projects/".$this->slug;
     }
     
     public function wbs()

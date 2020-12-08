@@ -37,6 +37,7 @@ class DeliverableObserver
         } else {
             $deliverable->order = 1;
         }
+        
     }
 
     /**

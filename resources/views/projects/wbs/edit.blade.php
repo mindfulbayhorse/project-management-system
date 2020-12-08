@@ -13,8 +13,7 @@
                 action="{{ $wbs->project->path() }}/deliverables"
                 class="deliverable new">
             
-                @method('PATCH')
-                 
+            <input type="hidden" name="wbs_id" value="{{ $wbs->id }}" />     
                 @include('projects.wbs.deliverables.form',  [
                         'deliverable' => new App\Models\Deliverable,
                         'btnTitle' => 'Create'
@@ -46,7 +45,7 @@
                         </td>
                         <td>
                             <div class="flex_block one_row field">
-                                <a href="{{ $project->path() }}/deliverables/{{ $deliverable->id}}/edit"
+                                <a href="{{ $project->path() }}/deliverables/{{ $deliverable->id}}"
                                     >{{$deliverable->title}}</a>
                             </div>
                         </td>

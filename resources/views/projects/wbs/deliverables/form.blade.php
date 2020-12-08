@@ -1,6 +1,8 @@
 @csrf
 
-@include('show_err', ['bug' => 'deliverable'])
+@if ($errors->deliverable->any())
+    The following errors occured during the form submittion
+@endif
 
 <input type="hidden" name="project_id" value="{{$project->id}}" />
 
@@ -15,6 +17,9 @@
   
 <div class="long_field">
     <label for="title">Title:</label>
+    @error('title', 'deliverable')
+        {{ $errors->deliverable->first('title') }}
+    @enderror
     <input type="text" 
         name="title" 
         id="title"

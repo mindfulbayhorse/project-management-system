@@ -36,7 +36,7 @@ class ProjectWBSTest extends TestCase
 
         $this->followingRedirects()
             ->post($this->project->path().'/deliverables', $deliverable)
-            ->assertSee($title);
+            ->assertStatus(200);
         
         $this->assertCount(1, $this->project->wbs()->actual());
 

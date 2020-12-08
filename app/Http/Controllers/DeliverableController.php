@@ -6,6 +6,7 @@ use App\Models\Deliverable;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\DeliverableRequest;
+use App\Models\WorkBreakdownStructure;
 
 class DeliverableController extends Controller
 {
@@ -19,7 +20,7 @@ class DeliverableController extends Controller
     {
         
     	return view('projects.wbs.index',[
-    		'project'=> $wbs,
+    	    'project'=> $project
     	]);
     }
 
@@ -45,14 +46,14 @@ class DeliverableController extends Controller
     {
         $this->authorize('create', Deliverable::class);
         
-        //$deliverable = new Deliverable($request->validated());
+        if (empty($request->wbs_id)) {
+            $wbs = $project->initializeWBS(new WorkBreakdownStructure());
+            $wbs->add($request->validated());
+        } else {
+            Deliverable::create($request->validated());
+        }
         
-        
-        $project->wbs()->actual()[0]->add($request->validated());
-        
-        //dd($project->wbs()->actual()[0]->deliverables);
-        
-        return redirect($project->wbs()->actual()[0]->path());
+        return back();
     }
 
     /**
@@ -64,7 +65,10 @@ class DeliverableController extends Controller
      */
     public function show(Project $project, Deliverable $deliverable)
     {
-        //
+        return view('projects.wbs.deliverables.show',[
+            'project' => $project,
+            'deliverable' => $deliverable
+        ]);
     }
 
     /**

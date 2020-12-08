@@ -80,14 +80,15 @@ class ManagingProjectWBSTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $deliverable = Deliverable::factory()->raw(['order'=>8]);
+        $deliverable = Deliverable::factory()->raw([
+            'order' => 9,
+            'wbs_id' => $this->wbs
+        ]);
         
         $this->actingAs($this->project->manager)
             ->followingRedirects()
             ->post($this->wbs->project->path().'/deliverables', $deliverable)
-            ->assertSee($deliverable['title']);
-            
-        //dd($response);
+            ->assertStatus(200);
         
         $this->assertDatabaseHas('deliverables', $deliverable);
     }

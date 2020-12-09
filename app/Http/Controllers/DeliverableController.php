@@ -108,7 +108,10 @@ class DeliverableController extends Controller
         
         $deliverable->$milestone();
         
-        return redirect($deliverable->path().'/edit');
+        return redirect(route('projects.deliverables.edit', [
+            'project' => $project, 
+            'deliverable' => $deliverable
+        ]));
     }
 
     /**

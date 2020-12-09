@@ -13,7 +13,7 @@ class ProjectFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->word,
+            'title' => $this->faker->unique()->word,
             'user_id' => User::factory()
         ];
     }

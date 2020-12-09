@@ -33,7 +33,7 @@ class DeliverableTest extends TestCase
     {
 
         $this->assertEquals(
-            $this->project->path().'/deliverables/'.$this->deliverable->id, 
+            url($this->project->path().'/deliverables/'.$this->deliverable->id), 
             $this->deliverable->path()
         );   
            

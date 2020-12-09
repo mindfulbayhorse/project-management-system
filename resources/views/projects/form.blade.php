@@ -31,13 +31,13 @@
 
 <div class="long_field_date">
        @include('blocks.date', [
-        'name_date' => 'start_date', 
+        'nameDate' => 'start_date', 
         'legend' => 'Start date'] )
 </div>
 
 <div class="long_field_date">
     @include('blocks.date', [
-        'name_date' => 'finish_date', 
+        'nameDate' => 'finish_date', 
         'legend' => 'Finish date'] )
 </div>
 

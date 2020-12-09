@@ -7,20 +7,9 @@
 @include('show_err') 
     <main>
         <div class="wbs-section-panel">
-            <form id="deliverable" 
-                name="deliverable" 
-                method="POST" 
-                action="{{ $wbs->project->path() }}/deliverables"
-                class="deliverable new">
-            
-            <input type="hidden" name="wbs_id" value="{{ $wbs->id }}" />     
-                @include('projects.wbs.deliverables.form',  [
-                        'deliverable' => new App\Models\Deliverable,
-                        'btnTitle' => 'Create'
-                ])
-            </form>  
-            
-           @include('projects.activity.history')
+            @include('projects.wbs.deliverables.create')
+
+            @include('projects.activity.history')
         </div>
  
          

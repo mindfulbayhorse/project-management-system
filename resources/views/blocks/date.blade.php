@@ -2,19 +2,19 @@
         <legend>{{ $legend }}</legend>
         
         <div class="group">
-            <label for="{{ $name_date }}_day">Day:</label>
+            <label for="{{ $nameDate }}_day">Day:</label>
             <input type="text" 
-                name="{{ $name_date }}_day"
-                id="{{ $name_date }}_day" 
+                name="{{ $nameDate }}_day"
+                id="{{ $nameDate }}_day" 
                 maxlength="2"
                 class="day"
-                value="" />
+                value="{{ old('{$nameDate}') }}" />
         </div>
         
         <div class="group">
-            <label for="{{ $name_date }}_month">Month:</label>
-            <select name="{{ $name_date }}_month"
-                id="{{ $name_date }}_month"
+            <label for="{{ $nameDate }}_month">Month:</label>
+            <select name="{{ $nameDate }}_month"
+                id="{{ $nameDate }}_month"
                 class="month">
                 <option value="0">January</option>
                 <option value="1">February</option>
@@ -31,11 +31,11 @@
             </select>
         </div>
         
-        <div>
-            <label for="{{ $name_date }}_year">Year:</label>
+        <div class="group">
+            <label for="{{ $nameDate }}_year">Year:</label>
             <input type="text" 
-                name="{{ $name_date }}_year" 
-                id="{{ $name_date }}_year"
+                name="{{ $nameDate }}_year" 
+                id="{{ $nameDate }}_year"
                 maxlength="4"
                 class="year"
                 value="" />

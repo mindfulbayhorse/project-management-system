@@ -1,16 +1,28 @@
 .deliverable {
   
-  width: 60%;
+  .wbs-section-panel &.new{
+    
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    
+    .form_section{
+        
+        width: 28%;
+        margin-right: 10px;
+        
+        &.dates{
+          flex-shrink: 0;
+          width: auto;
+        }
+    }
+  }
   
   .long_field:extend(form .field){
     
     input{
       #userInput.long_text();
-    }
-    
-    &_complex:extend(form .field){
-      display: flex;
-      flex-flow: row nowrap;
     }
     
     &_button{
@@ -22,15 +34,16 @@
     }
   }
   
- .detail_field{
-    width: 40%;
-    padding: 0px 0px 0px 0px; 
+  .detail_field:extend(form .field){
+    width: auto;
     
-    input{
-      width: 60%;
+    &.title{
+        input{
+          min-width: 90%;
+        }
     }
     
-     &_horizontal{
+     &_horizontal:extend(form .complex .double){
       display: flex;
       flex-flow: row nowrap;
     }
@@ -38,6 +51,11 @@
   
   label, input{
       display: block;
+      width: 70%;
+      
+      &#order{
+        width: 40px
+      }
   }  
 }
 
@@ -57,5 +75,4 @@
       }
     }
   }
-
 }

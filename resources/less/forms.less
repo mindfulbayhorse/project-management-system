@@ -68,12 +68,32 @@ form{
         text-align: left;
     }
     
+    & .complex{
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      
+      .double:extend(form .field){
+        width: 45%;
+      }
+    }
+    
 }
 
 .group{
   display: flex;
   justify-content: flex-start;
   flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  
+  .day{
+    width: 30px;
+  }
+  
+  .year{
+      width: 40px;
+    }
   
   .long_field &{
     justify-content: space-between;

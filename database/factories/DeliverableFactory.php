@@ -12,8 +12,7 @@ class DeliverableFactory extends Factory
     public function definition()
     {
         return [ 
-            'title' => $this->faker->word,
-            'order' => $this->faker->randomNumber(1)
+            'title' => $this->faker->word
         ];
     }
      

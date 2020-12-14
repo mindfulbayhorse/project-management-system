@@ -10,7 +10,7 @@
         <div class="detail_field title">
             <label for="title">Title: <span>*</span></label>
                 @error('title', 'deliverable')
-                    {{ $errors->deliverable->first('title') }}
+                    {{ $message }}
                 @enderror
                 <input type="text" 
                     name="title" 
@@ -22,13 +22,10 @@
         <div class="complex">
             <div class="detail_field double">
                 <label for="title">Cost:</label>
-                @error('cost', 'deliverable')
-                    {{ $errors->deliverable->first('title') }}
-                @enderror
                 <input type="text" 
-                    name="title" 
-                    id="title"
-                    value="{{$deliverable->title}}"
+                    name="cost" 
+                    id="cost"
+                    value="{{$deliverable->cost}}"
                 />
             </div>  
             

@@ -26,6 +26,8 @@ class ManagingProjectsTest extends TestCase{
     /** @test  */
     function it_can_be_created_by_authenticated_user(){
         
+        $this->withoutExceptionHandling();
+        
         $this->signIn();
         
         $attributes = Project::factory()->raw(['user_id' => $this->user]);

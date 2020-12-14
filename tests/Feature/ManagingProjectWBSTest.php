@@ -63,12 +63,16 @@ class ManagingProjectWBSTest extends TestCase
     public function guests_cannot_add_new_first_level_deliverables()
     {
         
-        $deliverable = Deliverable::factory()->raw();
+        $deliverable = Deliverable::factory()->raw([
+            'wbs_id' => $this->wbs->id
+        ]);
         
-        $this->patch(
-            $this->wbs->path(),
-            $deliverable
-       )->assertStatus(302)
+        $this->get(route('projects.deliverables.index',['project'=>$this->project]))
+            ->assertStatus(302)
+            ->assertRedirect('/login');
+        
+        $this->post(route('projects.deliverables.index', $this->project), $deliverable)
+            ->assertStatus(302)
             ->assertRedirect('/login');
         
         $this->assertDatabaseMissing('deliverables', $deliverable);
@@ -92,5 +96,22 @@ class ManagingProjectWBSTest extends TestCase
         
         $this->assertDatabaseHas('deliverables', $deliverable);
     }
+    
+    /** @test */
+    public function authenticated_users_can_add_new_first_level_deliverables()
+    {
+        
+        $deliverable = Deliverable::factory()->raw([
+            'wbs_id' => $this->wbs->id
+        ]);
+        
+        $this->actingAs($this->project->manager)->followingRedirects()
+            ->post(route('projects.deliverables.index', $this->project),$deliverable
+            )->assertStatus(200);
+            
+        $this->assertDatabaseHas('deliverables', $deliverable);
+            
+    }
+    
     
 }

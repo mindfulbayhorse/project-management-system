@@ -20,9 +20,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::latest('updated_at')->get();
-        
-        return view('projects.index', compact('projects'));
+
+        return view('projects.index', [
+            'projects' => Project::latest('updated_at')->get()
+            ]);
     }
 
     /**
@@ -32,8 +33,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $statuses = $this->listStatuses();
-        return view('projects.create', compact('statuses'));
+        return view('projects.create', [
+            'statuses' => $this->listStatuses()
+            ]
+        );
     }
 
     /**
@@ -46,7 +49,7 @@ class ProjectController extends Controller
     {
         $project = auth()->user()->projects()->create($request->validated());
         
-        return redirect($project->path().'/edit');
+        return redirect(route('projects.edit',['project' =>$project]));
     }
 
     /**
@@ -105,7 +108,7 @@ class ProjectController extends Controller
     {
         $project->delete();
         
-        return redirect('/projects');
+        return redirect(route('projects.index'));
     }
     
     /*

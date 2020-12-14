@@ -153,8 +153,7 @@ class ManagingProjectDeliverablesTest extends TestCase
         ]);
         
         $deliverable = Deliverable::factory()->raw([
-            'wbs_id' => $wbs->id,
-            'order' => $this->deliverable->order+1
+            'wbs_id' => $wbs->id
         ]);
         
         $this->actingAs($this->project->manager)->post(
@@ -164,8 +163,7 @@ class ManagingProjectDeliverablesTest extends TestCase
      
         $this->assertCount(1, $wbs->deliverables);
     }
-    
-    
+     
     /** @test */
     public function manager_can_break_down_deliverable()
     {

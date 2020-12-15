@@ -11,13 +11,13 @@
 <body>
 	@include('blocks.header')
 	<div class="wide_screen dashboard">
-        @if (Auth::check()) 
+        @auth 
             @hasSection('left_sidebar')
                 @yield('left_sidebar') 
             @else 
                 @include('blocks.primary_menu')
             @endif
-        @endif
+        @endauth
         <div class="center_part">
             @yield('breadcrumbs')
             

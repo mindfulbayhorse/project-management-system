@@ -26,7 +26,6 @@ class EquipmentController extends Controller
      */
     public function create()
     {
-
         return view('equipment.create');
     }
 
@@ -57,7 +56,7 @@ class EquipmentController extends Controller
      */
     public function show(Equipment $equipment)
     {
-        //
+        return view('equipment.info', compact('equipment'));
     }
 
     /**
@@ -68,7 +67,7 @@ class EquipmentController extends Controller
      */
     public function edit(Equipment $equipment)
     {
-        //
+        return view('equipment.edit', compact('equipment'));
     }
 
     /**

@@ -17,13 +17,11 @@ class ManagingEquipmentTest extends TestCase
         
         parent::setUp();
         
-        
     }
     
     /** @test */
     public function authenticated_user_can_see_equipment()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
         $this->actingAs($this->user)->get('/equipment')->assertStatus(200);
            
@@ -34,9 +32,21 @@ class ManagingEquipmentTest extends TestCase
     {
         $equipment = Equipment::factory()->raw();
         $this->signIn();
+        
         $this->actingAs($this->user)->get('/equipment/create')->assertStatus(200);
-        $this->actingAs($this->user)->post('/equipment/', $equipment);
+        
+        $this->actingAs($this->user)->followingRedirects()->post('/equipment/', $equipment)
+            ->assertStatus(200)
+            ->assertSee($equipment['name']);
+        
         $this->assertDatabaseHas('equipment', $equipment);
+        
+        $equipmentSaved = Equipment::where([
+            'name'=> $equipment['name'],
+            'model' => $equipment['model']
+        ])->first();
+               
+        $this->actingAs($this->user)->get($equipmentSaved->path())->assertSeeInOrder($equipment);
         
     }
     
@@ -46,4 +56,5 @@ class ManagingEquipmentTest extends TestCase
         $this->get('/equipment')->assertRedirect('/login');
         
     }
+    
 }

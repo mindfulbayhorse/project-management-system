@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\SectionTitle;
 use App\Suites\Navigation;
 use App\Http\Requests\CandidateRequest;
 

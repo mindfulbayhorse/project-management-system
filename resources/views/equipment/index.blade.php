@@ -3,14 +3,14 @@
 @section('title','Equipment')
 
 @section('content')
-<a href="/projects/create" class="btn">Add equipment</a>
+<a href="{{ route('equipment.create') }}" class="btn">Add equipment</a>
 <main>
     <div class="projects_groups">
         @forelse ($equipment as $item)
                 
             <div class="card">
-                <a href="{{$project->path()}}" 
-                    class="title">{{$item->name}}</a>
+                <a href="{{ $item->path() }}" 
+                    class="title">{{ $item->name }}</a>
                 <div class="card-body">
                     <div class="card-text">
                         <p>{{ $item->type }}</p>

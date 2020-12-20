@@ -13,4 +13,8 @@ class Equipment extends Model
     protected $table = 'equipment';
     
     protected $guarded = [];
+    
+    public function path(){
+        return '/equipment/'.$this->id;
+    }
 }

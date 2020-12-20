@@ -13,24 +13,30 @@ class EquipmentTest extends TestCase
 {
     use RefreshDatabase;
     
+    private $equipment;
+    
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->equipment = Equipment::factory()->create();
+    }
+    
     /** @test */
     public function project_has_equipment_as_a_resource()
     {
       
         $project = Project::factory()->create();
         
-        $equipment = Equipment::factory()->create();
-        
         $gear = Equipment::factory()->create();
         
-        $this->assertDatabaseHas('equipment', $equipment->toArray());
+        $this->assertDatabaseHas('equipment', $this->equipment->toArray());
         
         $resourceType = ResourceType::factory()->create(['name'=>'equipment']);
         $resourceType2 = ResourceType::factory()->create(['name'=>'gear']);
         
         $this->assertDatabaseHas('resource_types', $resourceType->toArray());
         
-        $resource = $equipment->value($resourceType);
+        $resource = $this->equipment->value($resourceType);
         $resource2 = $gear->value($resourceType2);
         
         $this->assertDatabaseHas('resources', $resource->toArray());
@@ -38,6 +44,13 @@ class EquipmentTest extends TestCase
         $project->assign($resource);
         $project->assign($resource2);
         
-        $this->assertCount(1, $project->resources()->type($equipment));
+        $this->assertCount(1, $project->resources()->type($this->equipment));
+    }
+    
+    /** @test */
+    public function it_has_a_path()
+    {
+        $this->withoutExceptionHandling();
+        $this->assertEquals('/equipment/'.$this->equipment->id, $this->equipment->path());
     }
 }

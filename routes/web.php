@@ -23,7 +23,7 @@ use App\Http\Controllers\EquipmentController;
 */
 
 Route::get('/', function () {
-    $container = new App\Suites\Container();
+    /*$container = new App\Suites\Container();
     
     $container->bind('jwplayer', function(){
         return new App\Suites\Jwplayer();
@@ -31,7 +31,7 @@ Route::get('/', function () {
     
     $jwplayer = $container->resolve('jwplayer');
     
-    ddd($jwplayer);
+    ddd($jwplayer);*/
     return view('welcome');
 });
 

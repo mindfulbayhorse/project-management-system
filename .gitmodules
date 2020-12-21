@@ -1,9 +1,3 @@
-[submodule "multilevel_structure"]
-	path = resources/js/multilevel_structure
-	url = git@github.com:mindfulbayhorse/multilevel_structure.git
-[submodule "resources/js/components/calensar"]
-	path = resources/js/components/calensar
-	url = git@github.com:mindfulbayhorse/calendar.git
 [submodule "resources/js/components\\calendar"]
 	path = resources/js/components\\calendar
 	url = git@github.com:mindfulbayhorse/calendar.git

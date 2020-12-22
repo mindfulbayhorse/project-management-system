@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectResource;
 use Illuminate\Http\Request;
+use App\Models\Project;
 
 class ProjectResourceController extends Controller
 {
@@ -12,9 +13,16 @@ class ProjectResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
-        //
+        //$resources = $project->resources;
+        
+        return view('projects.resources.index', compact('project'));
+    }
+    
+    public function add(Project $project)
+    {
+        
     }
 
     /**

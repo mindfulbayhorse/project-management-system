@@ -141,6 +141,14 @@ class ProjectTest extends TestCase
     	$this->assertEquals($this->project->user_id, $this->project->manager->id);
     }
     
+    /** @test */
+    public function it_has_unique_slug()
+    {
+        $project = Project::factory()->create('example');
+        
+        $this->assertEquals('example-2', $project->createUniqueSlug('example'));
+        
+    }
     
     /** @test */
     public function it_has_a_team()

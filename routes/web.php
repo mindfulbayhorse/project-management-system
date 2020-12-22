@@ -10,6 +10,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\CandidatesController;
 use App\Http\Controllers\SectionTitleController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\ProjectResourceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ Route::group(['middleware'=>'auth'], function(){
     ])->scoped();
     
     Route::resource('projects.deliverables', DeliverableController::class);
+    
+    Route::get('/projects/{project}/resources/equipment', [ProjectResourceController::class, 'index']);
     
     Route::post('/projects/{project}/team', [TeamController::class, 'store']);
     

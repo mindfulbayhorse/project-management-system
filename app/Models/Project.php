@@ -101,4 +101,12 @@ class Project extends Model
         $this->resources()->attach($resource);
     }
     
+    public function createUniqueSlug(string $title, string $key = 'title'): string
+    {
+        if (static::where('slug', $slug)->exists()){
+            $latest = $this->where($key, $title)->latest('id')->value('slug');
+            $postfix = $this->getIncrement($slug);
+        }
+    }
+    
 }

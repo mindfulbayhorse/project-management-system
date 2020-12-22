@@ -25,6 +25,10 @@ class ProjectObserver
         
         $project->slug = Str::slug($project->title);
         
+        if (count(Project::where('slug', $project->slug)->get())>0){
+            $project->slug = $project->slug.'-copy';
+        }
+        
     }
     
     public function updating(Project $project)

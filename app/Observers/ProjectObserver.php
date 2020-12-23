@@ -23,11 +23,7 @@ class ProjectObserver
     public function creating(Project $project)
     {
         
-        $project->slug = Str::slug($project->title);
-        
-        if (count(Project::where('slug', $project->slug)->get())>0){
-            $project->slug = $project->slug.'-copy';
-        }
+        $project->slug = $project->createUniqueSlug($project->title);
         
     }
     

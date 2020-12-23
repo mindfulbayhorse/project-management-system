@@ -21,4 +21,9 @@ class Resource extends Model
 	public function scopeType($query, $type){
 	    return $query->where('type_id', $type->id)->get();
 	}
+	
+	public function resourceful()
+	{
+	    return $this->morphTo();
+	}
 }

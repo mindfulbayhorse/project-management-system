@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ProjectResource;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Equipment;
+use App\Models\ResourceType;
 
 class ProjectResourceController extends Controller
 {
@@ -19,20 +21,15 @@ class ProjectResourceController extends Controller
         
         return view('projects.resources.index', compact('project'));
     }
-    
-    public function add(Project $project)
-    {
-        
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -89,5 +86,29 @@ class ProjectResourceController extends Controller
     public function destroy(ProjectResource $projectResource)
     {
         //
+    }
+    
+    public function assignEquipmentToProject(Request $request, Project $project)
+    {
+        $validated = $request->validate([
+            'equipment_id' => 'required',
+            'type_id' => 'required',
+        ]);
+        
+        $equipment = Equipment::find($validated['equipment_id']);
+        $type = ResourceType::find($validated['type_id']);
+        
+        $equipment->value($type);
+        
+        $project->assign($equipment);
+        
+        redirect(route('projectEquipment', ['project' => $project]));
+    }
+    
+    
+    public function addEquipment(Project $project)
+    {
+        $equipment = Equipment::all();
+        return view
     }
 }

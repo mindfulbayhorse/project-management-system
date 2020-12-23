@@ -7,11 +7,12 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Project;
 use App\Models\Equipment;
+use App\Models\ResourceType;
 
 class ManagingProjectResourcesTest extends TestCase
 {
     /** @test */
-    public function authenticated_user_can_add_an_equipment_to_project()
+    public function authenticated_user_can_assign_an_equipment_to_a_project()
     {
         $this->withoutExceptionHandling();
         
@@ -19,19 +20,18 @@ class ManagingProjectResourcesTest extends TestCase
         
         $equipment = Equipment::factory()->create();
         
-        //$resourceType = ResourceType::factory()->create(['name'=>'Equipment']);
-        
-        //$equipment->value($resourceType);
-        
-        //$project->addResource($equipment);
+        $resourceType = ResourceType::factory()->create();
         
         $this->actingAs($project->manager)
             ->get($project->path().'/resources/equipment/add')
             ->assertStatus(200);
         
         $this->actingAs($project->manager)
-            ->patch($project->path().'/resources/equipment/add',
-                ['resource_id'=> $equipment->id])
+            ->followingRedirects()
+            ->post($project->path().'/resources/equipment/',[
+                    'equipment_id' => $equipment->id,
+                    'type_id' => $resourceType->id
+            ])
             ->assertStatus(200);
         
         $this->assertCount(1, $project->resources);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipment;
 use Illuminate\Http\Request;
+use App\Models\ResourceType;
 
 class EquipmentController extends Controller
 {
@@ -92,4 +93,5 @@ class EquipmentController extends Controller
     {
         //
     }
+    
 }

@@ -35,7 +35,10 @@ class ResourceTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ResourceType::create($request->validate([
+            'name' => 'required'
+        ]));
+        
     }
 
     /**

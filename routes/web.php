@@ -53,10 +53,12 @@ Route::group(['middleware'=>'auth'], function(){
             [ProjectResourceController::class, 'index'])
             ->name('projectEquipment');
     
+    Route::get('/projects/{project}/resources/equipment/assign',
+        [ProjectResourceController::class, 'chooseEquipment']);
+    
     Route::post('/projects/{project}/resources/equipment', 
             [ProjectResourceController::class, 'assignEquipmentToProject']);
             
-    
     Route::post('/projects/{project}/team', [TeamController::class, 'store']);
     
     Route::get('/projects/{project}/team', [TeamController::class, 'index']);

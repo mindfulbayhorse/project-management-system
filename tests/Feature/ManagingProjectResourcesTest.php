@@ -23,7 +23,7 @@ class ManagingProjectResourcesTest extends TestCase
         $resourceType = ResourceType::factory()->create();
         
         $this->actingAs($project->manager)
-            ->get($project->path().'/resources/equipment/add')
+            ->get($project->path().'/resources/equipment/assign')
             ->assertStatus(200);
         
         $this->actingAs($project->manager)

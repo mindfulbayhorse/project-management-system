@@ -101,14 +101,18 @@ class ProjectResourceController extends Controller
         $equipment->value($type);
         
         $project->assign($equipment);
-        
+         
         redirect(route('projectEquipment', ['project' => $project]));
     }
     
-    
-    public function addEquipment(Project $project)
+    public function chooseEquipment(Project $project)
     {
         $equipment = Equipment::all();
-        return view
+        $typesEquipment = ResourceType::all();
+        return view('projects.resources.assign', [
+            'equipment' => $equipment,
+            'project' => $project,
+            'types' => $typesEquipment
+        ]);
     }
 }

@@ -1,12 +1,13 @@
 @extends('layout')
 
-@section('title','List of project resources')
+@section('title', "Project's equipment")
+
 @section('content')
-<a href="{{ $project->path() }}/resources/equipment">add new resource</a>
+<a href="{{ $project->path() }}/resources/equipment/assign">Choose an equipment</a>
 <main>
     @if ($project->resources->count() > 0)
         <table>
-            <caption>List of all project resources</caption>
+            <caption>Project equipment</caption>
             <thead>
                 <th>Title</th>
             </thead>
@@ -22,7 +23,7 @@
         
         </table>
     @else
-        There have been no resources added yet.
+        Project has no assigned equipment yet
     @endif
 <p>Total: {{ $project->resources->count() }}</p>  
 </main>

@@ -88,6 +88,11 @@ class ProjectResourceController extends Controller
         //
     }
     
+    /**
+     * Assign equipment to a project
+     * @param Request $request
+     * @param Project $project
+     */
     public function assignEquipmentToProject(Request $request, Project $project)
     {
         $validated = $request->validate([
@@ -98,9 +103,12 @@ class ProjectResourceController extends Controller
         $equipment = Equipment::find($validated['equipment_id']);
         $type = ResourceType::find($validated['type_id']);
         
-        $equipment->value($type);
+        $resource = $equipment->value($type);
         
-        $project->assign($equipment);
+        if (ProjectResource::where('project_id', $project->id)->where('resource_id', $resource->id)->get()->count() 
+            ==0) {
+                $project->assign($equipment);
+            }
          
         redirect(route('projectEquipment', ['project' => $project]));
     }

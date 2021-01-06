@@ -37,6 +37,7 @@ class EquipmentTest extends TestCase
         $this->assertDatabaseHas('resource_types', $resourceType->toArray());
         
         $resource = $this->equipment->value($resourceType);
+
         $resource2 = $gear->value($resourceType2);
         
         $this->assertDatabaseHas('resources', $resource->toArray());

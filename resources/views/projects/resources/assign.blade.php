@@ -30,7 +30,7 @@
                             <td>
                                 <select>
                                     @forelse ($types as $type)
-                                        <option name="{{type_id[$item->id]}}" 
+                                        <option name="{{$type[$item->type_id]}}" 
                                             value={{ $type->id }}>{{ $type->name }}</select>
                                     @empty
                                         <option>Choose type</option>

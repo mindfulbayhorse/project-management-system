@@ -8,9 +8,12 @@ use Tests\TestCase;
 use App\Models\Project;
 use App\Models\Equipment;
 use App\Models\ResourceType;
+use App\Models\ProjectResource;
 
 class ManagingProjectResourcesTest extends TestCase
 {
+    use RefreshDatabase;
+    
     /** @test */
     public function authenticated_user_can_assign_an_equipment_to_a_project()
     {
@@ -25,7 +28,7 @@ class ManagingProjectResourcesTest extends TestCase
         $this->actingAs($project->manager)
             ->get($project->path().'/resources/equipment/assign')
             ->assertStatus(200);
-        
+            
         $this->actingAs($project->manager)
             ->followingRedirects()
             ->post($project->path().'/resources/equipment/',[

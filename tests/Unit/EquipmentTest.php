@@ -22,6 +22,18 @@ class EquipmentTest extends TestCase
     }
     
     /** @test */
+    public function equipment_has_resource_type()
+    {
+        $resourceType = ResourceType::factory()->create(['name'=>'camera']);
+        $camera = Equipment::factory()->create(['resource_type_id' => $resourceType->id]);
+        
+        $this->assertDatabaseHas('equipment', [
+            'name' => $camera->name,
+            'resource_type_id' => $resourceType->id
+        ]);
+    }
+    
+    /** @test */
     public function project_has_equipment_as_a_resource()
     {
       

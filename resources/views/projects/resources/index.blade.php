@@ -2,6 +2,10 @@
 
 @section('title', "Project's equipment")
 
+@section('left_sidebar')
+     @include('projects.dashboard') 
+@endsection
+
 @section('content')
 <a href="{{ $project->path() }}/resources/equipment/assign">Choose an equipment</a>
 <main>

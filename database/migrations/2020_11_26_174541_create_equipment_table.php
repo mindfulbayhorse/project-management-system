@@ -16,10 +16,11 @@ class CreateEquipmentTable extends Migration
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
             $table->string('model');
-            $table->string('type');
             $table->string('name');
             $table->unsignedFloat('cost',8,2);
             $table->timestamps();
+            
+            $table->foreignId('resource_type_id')->nullable()->constrained();
         });
     }
 

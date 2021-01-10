@@ -16,11 +16,8 @@ class CreateResource extends Migration
         Schema::create('resources', function (Blueprint $table) {
 
             $table->id();
-			$table->unsignedBigInteger('type_id');
 			$table->unsignedBigInteger('valuable_id');
 			$table->string('valuable_type');
-			
-			$table->foreign('type_id')->references('id')->on('resource_types')->onDelete('cascade');
 
 		});
     }

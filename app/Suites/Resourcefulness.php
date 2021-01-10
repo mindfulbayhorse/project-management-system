@@ -6,13 +6,9 @@ use App\Models\ResourceType;
 
 trait Resourcefulness{
 
-    public function value(ResourceType $type){
+    public function value(){
         
-        $resource =  new Resource([
-            'type_id' => $type->id,
-        ]);
-        
-        return $this->resourceful()->save($resource);
+        return $this->resourceful()->save(new Resource());
         
     }
     
@@ -26,20 +22,18 @@ trait Resourcefulness{
             ->count();
     }
     
-    public function devalue(ResourceType $type){
+    public function devalue(){
         
-        $this->resourceful()
-            ->where('type_id', $type->id)
-            ->delete();
+        $this->resourceful()->delete();
     }
     
-    public function toggleCredit(ResourceType $type){
+    public function toggleCredit(){
     	
     	if ($this->isResource()){
-    		return $this->devalue($type);
+    		return $this->devalue();
     	}
     	
-    	return $this->value($type);
+    	return $this->value();
     }
     
 }

@@ -17,4 +17,9 @@ class Equipment extends Model
     public function path(){
         return '/equipment/'.$this->id;
     }
+    
+    public function type()
+    {
+        return $this->hasOne(ResourceType::class, 'id');
+    }
 }

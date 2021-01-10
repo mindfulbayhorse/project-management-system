@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Equipment;
+use App\Models\ResourceType;
 
 class ManagingEquipmentTest extends TestCase
 {
@@ -16,8 +17,7 @@ class ManagingEquipmentTest extends TestCase
     protected function setUp(): void{
         
         parent::setUp();
-        
-        
+
     }
     
     /** @test */
@@ -36,22 +36,27 @@ class ManagingEquipmentTest extends TestCase
     }
     
     /** @test */
-    public function user_must_choose_type_for_new_equipment()
+    public function user_can_choose_type_for_new_equipment()
     {
         $this->withoutExceptionHandling();
         
-        $equipment = Equipment::factory()->raw();
+        $type = ResourceType::factory()->create();
+        
+        $equipment = Equipment::factory()->raw([
+            'resource_type_id' => $type->id
+        ]);
         
         $this->signIn();
         
-        $response= $this->actingAs($this->user)->followingRedirects()
+        $this->actingAs($this->user)->followingRedirects()
             ->post('/equipment/', $equipment);
         
-            //$response->assertJsonValidationErrors(['type_id']);
-            $response->assertSessionHasErrors(['type_id']);
+        $this->assertEquals($type->name, $equipment->type->name);
         
-        $this->assertDatabaseMissing('equipment', $equipment);
-        //dd($response);
+        $this->assertDatabaseHas('equipment', [
+            'name' => $equipment->name,
+            'resource_type_id' => $type->id
+        ]);
     }
     
     /** @test */

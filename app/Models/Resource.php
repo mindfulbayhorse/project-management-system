@@ -14,11 +14,4 @@ class Resource extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 	
-	public function type(){
-		$this->hasOne(ResourceType::class, 'type_id');
-	}
-	
-	public function scopeType($query, $type){
-	    return $query->where('type_id', $type->id)->get();
-	}
 }

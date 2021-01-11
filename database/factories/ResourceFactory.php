@@ -15,7 +15,6 @@ class ResourceFactory extends Factory
     public function definition()
     {
         return [
-        	'type_id' => ResourceType::factory()->create()->id,
         	'valuable_id' => User::factory()->create()->id,
         	'valuable_type' => User::Class
         ];

@@ -97,18 +97,19 @@ class ProjectResourceController extends Controller
     {
         $validated = $request->validate([
             'equipment_id' => 'required',
-            'type_id' => 'required',
+            'type_id' => 'nullable',
         ]);
         
         $equipment = Equipment::find($validated['equipment_id']);
-        $type = ResourceType::find($validated['type_id']);
+        $equipment->value();
+        //$type = ResourceType::find($validated['type_id']);
         
-        $resource = $equipment->value($type);
+        //$resource = 
         
-        if (ProjectResource::where('project_id', $project->id)->where('resource_id', $resource->id)->get()->count() 
-            ==0) {
-                $project->assign($equipment);
-            }
+        //if (ProjectResource::where('project_id', $project->id)->where('resource_id', $resource->id)->get()->count() 
+        //    ==0) {
+        //        $project->assign($equipment);
+         //   }
          
         redirect(route('projectEquipment', ['project' => $project]));
     }

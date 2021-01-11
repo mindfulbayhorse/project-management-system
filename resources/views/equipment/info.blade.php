@@ -5,7 +5,7 @@
     <div class="project">
         <p><b>Name:</b>{{ $equipment->name }}</p>
    
-    	<p><b>Type:</b>{{ $equipment->type }}</p>
+    	<p><b>Type:</b>{{ $equipment->resource_type_id }}</p>
     
     	<p><b>Model:</b>{{ $equipment->model}}</p>
         

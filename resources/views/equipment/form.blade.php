@@ -12,9 +12,9 @@
 <div class="field">
     <label for="status">Type:</label>
     <input type="text" 
-        name="type" 
+        name="resource_type_id" 
         id="type"
-        value="{{ old('type', $equipment->type) }}" />
+        value="{{ old('resource_type_id', $equipment->resource_type_id) }}" />
 </div>
 
 <div class="field">

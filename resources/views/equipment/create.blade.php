@@ -1,4 +1,4 @@
-@section('title','Create new project')
+@section('title','Add new equipment')
 
 @extends('layout')
 

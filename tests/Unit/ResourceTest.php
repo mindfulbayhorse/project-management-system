@@ -25,7 +25,7 @@ class ResourceTest extends TestCase
     }
     
 	/** @test */
-	 public function resources_can_be_assigned_to_project()
+	 public function resources_can_be_assigned_to_a_project()
 	 {
 	 
 	     $this->withoutExceptionHandling();

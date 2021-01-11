@@ -51,10 +51,8 @@ class ManagingEquipmentTest extends TestCase
         $this->actingAs($this->user)->followingRedirects()
             ->post('/equipment/', $equipment);
         
-        $this->assertEquals($type->name, $equipment->type->name);
-        
         $this->assertDatabaseHas('equipment', [
-            'name' => $equipment->name,
+            'name' => $equipment['name'],
             'resource_type_id' => $type->id
         ]);
     }
@@ -62,6 +60,8 @@ class ManagingEquipmentTest extends TestCase
     /** @test */
     public function authenticated_user_can_add_an_equipment()
     {
+        $this->withoutExceptionHandling();
+        
         $equipment = Equipment::factory()->raw();
         
         $this->signIn();
@@ -79,6 +79,10 @@ class ManagingEquipmentTest extends TestCase
             'model' => $equipment['model']
         ])->first();
         
+        $this->actingAs($this->user)->get($equipmentSaved->path())->assertSee($equipmentSaved->name);
+        
+        $response = $this->actingAs($this->user)->get($equipmentSaved->path());
+
         $this->actingAs($this->user)->get($equipmentSaved->path())->assertSeeInOrder($equipment);
         
     }

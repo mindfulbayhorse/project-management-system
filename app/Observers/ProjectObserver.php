@@ -23,7 +23,7 @@ class ProjectObserver
     public function creating(Project $project)
     {
         
-        $project->slug = Str::slug($project->title);
+        $project->slug = $project->createUniqueSlug($project->title);
         
     }
     

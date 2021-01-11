@@ -14,4 +14,10 @@ class Resource extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 	
+	
+	public function resourceful()
+	{
+	    return $this->morphTo();
+	}
+
 }

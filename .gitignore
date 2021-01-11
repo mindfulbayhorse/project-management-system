@@ -19,3 +19,4 @@ public/css/app.css
 .editorconfig
 .buildpath
 .gitattributes
+docker-compose.override.yml

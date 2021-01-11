@@ -11,6 +11,7 @@ use App\Http\Controllers\CandidatesController;
 use App\Http\Controllers\SectionTitleController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ProjectResourceController;
+use App\Http\Controllers\ResourceTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,8 +47,18 @@ Route::group(['middleware'=>'auth'], function(){
     
     Route::resource('projects.deliverables', DeliverableController::class);
     
-    Route::get('/projects/{project}/resources/equipment', [ProjectResourceController::class, 'index']);
+    Route::resource('/resources_types/', ResourceTypeController::class);
     
+    Route::get('/projects/{project}/resources/equipment', 
+            [ProjectResourceController::class, 'index'])
+            ->name('projectEquipment');
+    
+    Route::get('/projects/{project}/resources/equipment/assign',
+        [ProjectResourceController::class, 'chooseEquipment']);
+    
+    Route::post('/projects/{project}/resources/equipment', 
+            [ProjectResourceController::class, 'assignEquipmentToProject']);
+            
     Route::post('/projects/{project}/team', [TeamController::class, 'store']);
     
     Route::get('/projects/{project}/team', [TeamController::class, 'index']);

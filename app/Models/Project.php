@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Suites\Sluggable;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
     
     protected $guarded = [];
     

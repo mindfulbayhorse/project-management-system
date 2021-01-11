@@ -144,9 +144,11 @@ class ProjectTest extends TestCase
     /** @test */
     public function it_has_unique_slug()
     {
-        $project = Project::factory()->create('example');
+        $project = Project::factory()->create(['title'=>'example']);
         
-        $this->assertEquals('example-2', $project->createUniqueSlug('example'));
+        $this->assertEquals(1, $project->getIncrement('example'));
+        
+        $this->assertEquals('example-1', $project->createUniqueSlug('example'));
         
     }
     

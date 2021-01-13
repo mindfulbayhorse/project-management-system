@@ -13,7 +13,7 @@ class ProjectPolicy
     
     public function update(User $user, Project $project){
         
-        return $user->is($project->manager);
+        return true;
     }
     
     public function show(User $user, Project $project){

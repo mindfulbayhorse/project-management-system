@@ -27,7 +27,7 @@ class ProjectRequest extends FormRequest
             'title'=>'required',
             'started' => 'nullable|date_format:Y-m-d',
             'status_id' => 'nullable',
-            'user_id' => 'required'
+            'manager_id' => 'nullable'
         ];
     }
 }

@@ -24,7 +24,6 @@ class EquipmentFactory extends Factory
     {
         return [
             'name'=> $this->faker->word,
-            'resource_type_id'=> ResourceType::factory(),
             'model' =>$this->faker->words(5, true),
             'cost'=> $this->faker->randomFloat(2, 1, 200000)
         ];

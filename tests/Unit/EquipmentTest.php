@@ -18,19 +18,18 @@ class EquipmentTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->equipment = Equipment::factory()->create();
+        
+        $this->equipment = Equipment::factory()
+            ->has(ResourceType::factory(), 'type')
+            ->create();
     }
     
     /** @test */
     public function equipment_has_resource_type()
     {
-        $resourceType = ResourceType::factory()->create(['name'=>'camera']);
-        $camera = Equipment::factory()->create(['resource_type_id' => $resourceType->id]);
         
-        $this->assertDatabaseHas('equipment', [
-            'name' => $camera->name,
-            'resource_type_id' => $resourceType->id
-        ]);
+        $this->assertDatabaseHas('equipment', $this->equipment->toArray());
+        $this->assertInstanceOf(ResourceType::class, $this->equipment->type);
     }
     
     /** @test */
@@ -39,12 +38,6 @@ class EquipmentTest extends TestCase
         $this->withoutExceptionHandling();
         
         $project = Project::factory()->create();
-        
-        $resourceType = ResourceType::factory()->create(['name'=>'equipment']);
-        
-        $this->assertDatabaseHas('equipment', $this->equipment->toArray());
-        
-        $this->assertDatabaseHas('resource_types', $resourceType->toArray());
         
         $resource = $this->equipment->value();
         

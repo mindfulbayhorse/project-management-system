@@ -14,7 +14,6 @@ class ProjectFactory extends Factory
     {
         return [
             'title' => $this->faker->unique()->word,
-            'user_id' => User::factory()
         ];
     }
     

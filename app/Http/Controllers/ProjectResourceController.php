@@ -17,7 +17,6 @@ class ProjectResourceController extends Controller
      */
     public function index(Project $project)
     {
-        //$resources = $project->resources;
         
         return view('projects.resources.index', compact('project'));
     }
@@ -101,15 +100,8 @@ class ProjectResourceController extends Controller
         ]);
         
         $equipment = Equipment::find($validated['equipment_id']);
-        $equipment->value();
-        //$type = ResourceType::find($validated['type_id']);
-        
-        //$resource = 
-        
-        //if (ProjectResource::where('project_id', $project->id)->where('resource_id', $resource->id)->get()->count() 
-        //    ==0) {
-        //        $project->assign($equipment);
-         //   }
+        $resource = $equipment->value();
+        $project->assign($resource);
          
         redirect(route('projectEquipment', ['project' => $project]));
     }

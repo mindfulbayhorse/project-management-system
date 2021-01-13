@@ -23,8 +23,6 @@ class ManagingProjectResourcesTest extends TestCase
         
         $equipment = Equipment::factory()->create();
         
-        $resourceType = ResourceType::factory()->create();
-        
         $this->actingAs($project->manager)
             ->get($project->path().'/resources/equipment/assign')
             ->assertStatus(200);
@@ -32,10 +30,8 @@ class ManagingProjectResourcesTest extends TestCase
         $this->actingAs($project->manager)
             ->followingRedirects()
             ->post($project->path().'/resources/equipment/',[
-                    'equipment_id' => $equipment->id,
-                    'type_id' => $resourceType->id
-            ])
-            ->assertStatus(200);
+                    'equipment_id' => $equipment->id
+            ])->assertStatus(200);
         
         $this->assertCount(1, $project->resources);
     }

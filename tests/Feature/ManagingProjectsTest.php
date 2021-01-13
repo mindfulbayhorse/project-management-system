@@ -20,7 +20,10 @@ class ManagingProjectsTest extends TestCase{
     protected function setUp(): void
     {
         parent::setUp();
-        $this->project = Project::factory()->create();
+        
+        $this->project = Project::factory()
+            ->for(User::factory(), 'manager')
+            ->create();
     }
     
     /** @test  */
@@ -30,7 +33,7 @@ class ManagingProjectsTest extends TestCase{
         
         $this->signIn();
         
-        $attributes = Project::factory()->raw(['user_id' => $this->user]);
+        $attributes = Project::factory()->raw();
         
         $response = $this->post('/projects', $attributes);
         
@@ -56,7 +59,6 @@ class ManagingProjectsTest extends TestCase{
     	$this->signIn();
     	
     	$attributes = Project::factory()->raw([
-    	    'user_id'=>$this->user,
     	    'title' =>''
     	]);
 
@@ -67,8 +69,9 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     function authenticated_user_can_see_a_project(){
         
-        $this->actingAs($this->project->manager)
-            ->get($this->project->path())
+        $this->signIn();
+        
+        $this->get($this->project->path())
             ->assertSee($this->project->title);
         
     }
@@ -76,9 +79,7 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     function guests_cannot_view_a_project(){
     	
-    	$project = Project::factory()->create();
-    	
-    	$this->get($project->path())->assertRedirect('/login');
+    	$this->get($this->project->path())->assertRedirect('/login');
     	
     }
     
@@ -89,7 +90,7 @@ class ManagingProjectsTest extends TestCase{
     	
     	$deliverable = Deliverable::factory()->raw();
     	
-    	$this->call('POST', $project->path().'/wbs', $deliverable)
+    	$this->post($project->path().'/wbs', $deliverable)
     		->assertStatus(302)
     		->assertRedirect('/login');
     	
@@ -98,20 +99,21 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test */
-    public function only_manager_can_edit_the_project(){
+    public function manager_can_edit_the_project(){
     	
-    	$project = Project::factory()->create();
-    	$projectChanges = Project::factory()->raw([
-    	    'user_id'=>$project->manager
+    	$projectChanges = ([
+    	    'manager_id'=>$this->project->manager->id,
+    	    'title' =>$this->faker->sentence
     	]);
     	
-    	$this->actingAs($project->manager)
-    		->patch($project->path(),$projectChanges);
+    	$this->actingAs($this->project->manager)
+    		->patch($this->project->path(), $projectChanges);
     	
-    	$this->assertDatabaseHas('projects', array_merge([
-    			'id' => $project->id
-    			], $projectChanges
-    		));
+    	$this->assertDatabaseHas('projects', [
+    		'id' => $this->project->id,
+    	    'manager_id'=>$projectChanges['manager_id'],
+    	    'title' =>$projectChanges['title']
+    	]);
     }
     
     /** @test */
@@ -120,19 +122,15 @@ class ManagingProjectsTest extends TestCase{
         
         $this->signIn();
         
-        $project = Project::factory()->create([
-                'user_id'=>$this->user
-        ]);
         $status = Status::factory()->create();
         
-        $this->patch($project->path(), [
-            'title' => $project->title,
-            'status_id' => $status->id,
-            'user_id' =>$project->manager->id
+        $this->patch($this->project->path(), [
+            'title' => $this->project->title,
+            'status_id' => $status->id
         ]);
         
         $this->assertDatabaseHas('projects',[
-            'id' => $project->id,
+            'id' => $this->project->id,
             'status_id' =>$status->id
         ]);
     }
@@ -141,20 +139,17 @@ class ManagingProjectsTest extends TestCase{
     public function project_card_contains_link_to_active_wbs()
     {
         
+        $this->signIn();
         
-        $project = Project::factory()->create();
-        
-        $this->actingAs($project->manager)
-        ->get('/projects')
-        ->assertDontSeeText('WBS');
+        $this->get('/projects')
+            ->assertDontSeeText('WBS');
         
         Deliverable::factory()->create([
-            'wbs_id' => $project->wbs()->actual()[0]->id
+            'wbs_id' => $this->project->wbs()->actual()[0]->id
         ]);
         
-        $this->actingAs($project->manager)
-            ->get('/projects')
-            ->assertSee($project->wbs()->actual()[0]->path())
+        $this->get('/projects')
+            ->assertSee($this->project->wbs()->actual()[0]->path())
             ->assertSeeText('WBS');
         
     }
@@ -162,16 +157,15 @@ class ManagingProjectsTest extends TestCase{
     /** @test */
     public function project_card_contains_link_to_team()
     {
+        $this->signIn();
         
-        $this->actingAs($this->project->manager)
-            ->get('/projects')
+        $this->get('/projects')
             ->assertDontSee('Team');
         
         $member = User::factory()->create();
         $this->project->addMember($member);
         
-        $this->actingAs($this->project->manager)
-            ->get('/projects')
+        $this->get('/projects')
             ->assertSee($this->project->path().'/team')
             ->assertSee('Team');
         
@@ -182,8 +176,9 @@ class ManagingProjectsTest extends TestCase{
     {
         $this->withoutExceptionHandling();
         
-        $this->actingAs($this->project->manager)
-            ->get('/projects/'.$this->project->slug)
+        $this->signIn();
+        
+        $this->get('/projects/'.$this->project->slug)
             ->assertStatus(200)
             ->assertSee('<h1>'.$this->project->title.'</h1>', false);
     }

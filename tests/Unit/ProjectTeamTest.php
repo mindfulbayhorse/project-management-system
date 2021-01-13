@@ -6,20 +6,21 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Project;
+use App\Models\User;
 
 class ProjectTeamTest extends TestCase
 {
     use RefreshDatabase, withFaker;
     
     private $project;
-    public $user;
+    private $user;
     
     protected function setUp(): void
     {
         parent::setUp();
         
-        $this->signIn();
-        $this->project = Project::factory()->create(['user_id' =>$this->user]);
+        $this->user = User::factory()->create();
+        $this->project = Project::factory()->create();
     }
     
     /** @test */

@@ -38,7 +38,7 @@ class Project extends Model
     
     public function manager()
     {
-    	return $this->belongsTo(User::class,'user_id');
+    	return $this->belongsTo(User::class,'manager_id');
     }
     
     public function actualizeWBS(WorkBreakdownStructure $wbs)

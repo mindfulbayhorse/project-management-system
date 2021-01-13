@@ -22,7 +22,7 @@ class ManagingProjectTeamTest extends TestCase
         
         $this->signIn();
         
-        $this->project = Project::factory()->create(['user_id' => $this->user]);
+        $this->project = Project::factory()->create();
     }
     
     /** @test */
@@ -31,8 +31,7 @@ class ManagingProjectTeamTest extends TestCase
         
         $user = User::factory()->create();
         
-        $this->actingAs($this->project->manager)
-            ->post($this->project->path().'/team', ['user_id' => $user->id]);
+        $this->post($this->project->path().'/team', ['user_id' => $user->id]);
         
         $this->assertDatabaseHas('project_team', [
             'user_id' => $user->id,
@@ -49,15 +48,14 @@ class ManagingProjectTeamTest extends TestCase
         
         User::factory()->create();
         
-        $this->actingAs($this->project->manager)
-            ->get($this->project->path().'/team/edit')
+        $this->get($this->project->path().'/team/edit')
             ->assertStatus(200)
             ->assertSeeInOrder(User::all()->first()->only(['id', 'name']));
         
     }
     
     /** @test */
-    public function team_link_is_on_the_project_page()
+    public function team_link_is_located_on_the_project_page()
     {
      
         $this->get($this->project->path().'/edit')

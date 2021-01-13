@@ -12,15 +12,15 @@ class ManagingCandidatesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
     
-    public $user;
     protected $project;
     
     protected function setUp():void
     {
         parent::setUp();
-        $this->signIn();
         
-        $this->project = Project::factory()->create();
+        $this->project = Project::factory()
+            ->for(User::factory(), 'manager')
+            ->create();
     }
     
     /** @test */
@@ -74,22 +74,22 @@ class ManagingCandidatesTest extends TestCase
             ->get($candidate->path())
             ->assertStatus(200);
         
-        $lastnameNew = $this->faker->lastName;
+        $lastNameNew = $this->faker->lastName;
         
         $this->actingAs($this->project->manager)
             ->followingRedirects()
             ->patch($candidate->path(),[
                 'first_name' => $candidate->first_name,
                 'email' => $candidate->email,
-                'last_name' => $lastnameNew
+                'last_name' => $lastNameNew
             ])->assertStatus(200);
             
-        tap($candidate, function ($candidate) use  ($lastnameNew){
+        tap($candidate, function ($candidate) use  ($lastNameNew){
             
-            $this->assertEquals($lastnameNew, $candidate->fresh()->last_name);
+            $this->assertEquals($lastNameNew, $candidate->fresh()->last_name);
             $this->assertDatabaseHas('users', [
                 'id' => $candidate->id,
-                'last_name' => $lastnameNew
+                'last_name' => $lastNameNew
             ]);
         });
 

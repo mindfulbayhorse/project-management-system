@@ -14,20 +14,22 @@ class ManagingProjectResourcesTest extends TestCase
 {
     use RefreshDatabase;
     
+    public $user;
+    
     /** @test */
     public function authenticated_user_can_assign_an_equipment_to_a_project()
     {
         $this->withoutExceptionHandling();
+        $this->signIn();
         
         $project = Project::factory()->create();
         
         $equipment = Equipment::factory()->create();
         
-        $this->actingAs($project->manager)
-            ->get($project->path().'/resources/equipment/assign')
+        $this->get($project->path().'/resources/equipment/assign')
             ->assertStatus(200);
             
-        $this->actingAs($project->manager)
+        $this->actingAs($this->user)
             ->followingRedirects()
             ->post($project->path().'/resources/equipment/',[
                     'equipment_id' => $equipment->id

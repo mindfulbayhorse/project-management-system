@@ -27,7 +27,9 @@ class ProjectTest extends TestCase
         parent::setUp();
         
         //new project is created
-        $this->project = Project::factory()->create();
+        $this->project = Project::factory()
+            ->for(User::factory(), 'manager')
+            ->create();
         $this->project->refresh();
    
     }
@@ -138,7 +140,8 @@ class ProjectTest extends TestCase
     /** @test */
     public function it_has_a_manager()
     {
-    	$this->assertEquals($this->project->user_id, $this->project->manager->id);
+    	$this->assertEquals($this->project->manager_id, $this->project->manager->id);
+    	$this->assertInstanceof(User::class, $this->project->manager);
     }
     
     /** @test */

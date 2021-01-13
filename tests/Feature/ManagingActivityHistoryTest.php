@@ -13,9 +13,8 @@ class ManagingActivityHistoryTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
     
-    private $project;
+    private $deliverable;
     public $user;
-    public $wbs;
     
     protected function setUp(): void
     {
@@ -23,34 +22,31 @@ class ManagingActivityHistoryTest extends TestCase
         
         $this->signIn();
         
-        $this->project = Project::factory()->create(['user_id' => $this->user]);
-        
-        $this->wbs = WorkBreakdownStructure::factory()->create(['project_id'=>$this->project->id]);
+        $this->deliverable = Deliverable::factory()
+            ->for(WorkBreakdownStructure::factory(),'wbs')
+            ->create();
     }
     
     /** @test */
     public function wbs_has_deliverable_created_history()
     {
         
-        Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
-        
         $this->actingAs($this->user)
-            ->get($this->wbs->path())
+            ->get($this->deliverable->wbs->path())
             ->assertSee('deliverable is created');
     }
     
     /** @test */
     public function wbs_has_deliverable_updated_history()
     {
-        $deliverable = Deliverable::factory()->create(['wbs_id'=>$this->wbs->id]);
         
-        $oldTitle = $deliverable->title;
+        $oldTitle = $this->deliverable->title;
         $newTitle = $this->faker->word;
         
-        $deliverable->update(['title' => $newTitle]);        
+        $this->deliverable->update(['title' => $newTitle]);        
         
         $this->actingAs($this->user)
-            ->get($this->wbs->path())
+            ->get($this->deliverable->wbs->path())
             ->assertSeeText('The title of deliverable is changed from '
                 .$oldTitle.' to '.$newTitle
        );  

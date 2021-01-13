@@ -13,7 +13,7 @@ class Deliverable extends Model
     
     protected $guarded = [];
     
-    protected $touches = ['projectWBS'];
+    protected $touches = ['wbs'];
     
     protected $casts = [
         'package' => 'boolean',
@@ -23,7 +23,7 @@ class Deliverable extends Model
     /*
     * Get the project to which all deliverables are linked
     */
-    public function projectWBS()
+    public function wbs()
     {
         return $this->belongsTo(WorkBreakdownStructure::class, 'wbs_id');
     }
@@ -51,12 +51,7 @@ class Deliverable extends Model
     
     public function path()
     {
-        
-        //return $this->projectWBS->project->path()."/deliverables/{$this->id}";
-        return route('projects.deliverables.show', [
-            'project' => $this->projectWBS->project, 
-            'deliverable' => $this
-        ]);
+        return $this->wbs->project->path().'/deliverables/'.$this->id;
     }
     
     public function makeAsPackage()

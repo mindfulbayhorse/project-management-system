@@ -47,7 +47,7 @@ trait RecordsActivity{
     {
         
         $this->activities()->create([
-            'wbs_id'=> class_basename($this) === 'WorkBreakdownStructure' ? $this->id : $this->projectWBS->id,
+            'wbs_id'=> class_basename($this) === 'WorkBreakdownStructure' ? $this->id : $this->wbs->id,
             'description' => $description,
             'changes' => $this->activityChanges()
         ]);

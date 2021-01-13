@@ -18,7 +18,8 @@ class ActivityTest extends TestCase
     protected function setUp():void
     {
         parent::setUp();
-        $this->wbs =  WorkBreakdownStructure::factory()->create();
+        $this->wbs =  WorkBreakdownStructure::factory()
+            ->create();
     }
     
     /** @test */
@@ -81,7 +82,6 @@ class ActivityTest extends TestCase
         
         $this->assertCount(3, $this->wbs->activityRecords);
     }
-    
     
     /** @test */
     public function deliverable_is_deleted()

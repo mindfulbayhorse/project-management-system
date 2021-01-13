@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Deliverable;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\WorkBreakdownStructure;
 
 class DeliverableFactory extends Factory
 {
@@ -12,7 +13,8 @@ class DeliverableFactory extends Factory
     public function definition()
     {
         return [ 
-            'title' => $this->faker->word
+            'title' => $this->faker->word,
+            'wbs_id' => WorkBreakdownStructure::factory()
         ];
     }
      

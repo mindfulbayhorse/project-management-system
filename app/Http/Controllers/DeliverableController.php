@@ -60,7 +60,7 @@ class DeliverableController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Project  $project
-     * @param  \App\sDeliverable  $deliverable
+     * @param  \App\Models\Deliverable  $deliverable
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project, Deliverable $deliverable)

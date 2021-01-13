@@ -20,11 +20,7 @@ class DeliverableTest extends TestCase
     
         parent::setUp();
         
-        $this->project = Project::factory()->create();
-        
-        $this->wbs = WorkBreakdownStructure::find($this->project->fresh()->wbs->first()->id);
-        
-        $this->deliverable = Deliverable::factory()->create(['wbs_id' => $this->wbs->id]);
+        $this->deliverable = Deliverable::factory()->create();
 
     }
     
@@ -33,7 +29,7 @@ class DeliverableTest extends TestCase
     {
 
         $this->assertEquals(
-            url($this->project->path().'/deliverables/'.$this->deliverable->id), 
+            $this->deliverable->wbs->project->path().'/deliverables/'.$this->deliverable->id, 
             $this->deliverable->path()
         );   
            
@@ -50,6 +46,18 @@ class DeliverableTest extends TestCase
         $this->assertTrue($this->deliverable->fresh()->package);
         
     }
+    
+    /** @test */
+    public function it_can_be_marked_as_not_a_package()
+    {
+        
+        $this->assertEmpty($this->deliverable->package);
+        
+        $this->deliverable->makeAsNotPackage();
+        
+        $this->assertFalse($this->deliverable->fresh()->package);
+        
+    }
         
     /** @test */
     public function it_can_be_marked_as_milestone()
@@ -64,16 +72,6 @@ class DeliverableTest extends TestCase
           
     }
     
-    /** @test */
-    public function it_can_be_marked_as_not_a_package()
-    {
-        
-        $this->assertEmpty($this->deliverable->package);
-        
-        $this->deliverable->makeAsNotPackage();
-        
-        $this->assertFalse($this->deliverable->fresh()->package);
-        
-    }
+    
     
 }

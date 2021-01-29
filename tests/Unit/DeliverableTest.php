@@ -7,10 +7,12 @@ use App\Models\Deliverable;
 use App\Models\Project;
 use App\Models\WorkBreakdownStructure;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Carbon\Carbon;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class DeliverableTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     
     private $project;
     private $wbs;
@@ -22,6 +24,13 @@ class DeliverableTest extends TestCase
         
         $this->deliverable = Deliverable::factory()->create();
 
+    }
+    
+    /** @test */
+    public function start_and_finish_dates_are_empty_by_default()
+    {
+        $this->assertNull($this->deliverable->start_date);
+        $this->assertNull($this->deliverable->end_date);
     }
     
     /** @test */
@@ -72,6 +81,17 @@ class DeliverableTest extends TestCase
           
     }
     
+    /** @test */
+    public function start_dates_can_be_formatted()
+    {
+        $this->deliverable->start_date  = Carbon::now();
+
+        $this->assertTrue(Carbon::hasFormat($this->deliverable->getStartDate(), 'd/m/Y'));
+    }
     
+    public function formatted_start_and_finish_dates_can_be_stored()
+    {
+        
+    }
     
 }

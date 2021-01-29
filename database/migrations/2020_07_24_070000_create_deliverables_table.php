@@ -19,7 +19,7 @@ class CreateDeliverablesTable extends Migration
             $table->foreignId('wbs_id')->constrained()->onDelete('cascade');
             $table->unsignedbigInteger('parent_id')->nullable();
             $table->string('title', 200);
-            $table->timestamp('start_date')->useCurrent();
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->float('cost',8,2)->default(0.0);
             $table->boolean('package')->default(false); 

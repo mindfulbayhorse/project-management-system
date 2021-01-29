@@ -14,7 +14,9 @@ class DeliverableFactory extends Factory
     {
         return [ 
             'title' => $this->faker->word,
-            'wbs_id' => WorkBreakdownStructure::factory()
+            'wbs_id' => WorkBreakdownStructure::factory(),
+            'start_date' => null,
+            'end_date' => null
         ];
     }
      

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Suites\RecordsActivity;
+use Carbon\Carbon;
+use App\Macros\DateFormatting;
 
 class Deliverable extends Model
 {
@@ -82,5 +84,14 @@ class Deliverable extends Model
     public function activities()
     {
         return $this->morphMany(Activity::class, "subject");
+    }
+    
+    
+    public function getStartDate()
+    {
+
+        Carbon::mixin(new DateFormatting());
+        
+        return $this->start_date->formatForUser();
     }
 }

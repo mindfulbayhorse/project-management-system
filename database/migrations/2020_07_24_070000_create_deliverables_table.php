@@ -27,7 +27,7 @@ class CreateDeliverablesTable extends Migration
             $table->unsignedSmallInteger('work_amount')->nullable();
             $table->unsignedSmallInteger('work_amount_id')->nullable();
             $table->unsignedSmallInteger('order')->default(0);
-            $table->timestamps();
+            $table->timestamps(6);
             
         });
     }

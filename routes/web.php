@@ -37,7 +37,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware'=>'auth'], function(){
+Route::middleware(['auth', 'verified'])->group(function(){
     
     Route::resource('projects', ProjectController::class);
     
@@ -77,10 +77,14 @@ Route::group(['middleware'=>'auth'], function(){
     
 });
 
-Route::group(['middleware'=>'auth'], function(){
+Route::middleware(['auth', 'verified' ])->group(function(){
 
     Route::resource('admin/sections', SectionTitleController::class)->parameters([
         'section' => 'section'
     ]);
 });
-//Auth::routes();
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+

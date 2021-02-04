@@ -11,7 +11,7 @@ use App\Models\Project;
 use Illuminate\Auth\Passwords\CanResetPassword;
 
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, Resourcefulness, CanResetPassword;
 
@@ -54,6 +54,11 @@ class User extends Authenticatable
     public function path()
     {
         return '/candidates/'.$this->id;
+    }
+    
+    public function sendEmailVerificationNotification(){
+        
+        //Mail should be sent to user
     }
     
 }

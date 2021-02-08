@@ -12,6 +12,7 @@ use App\Http\Controllers\SectionTitleController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ProjectResourceController;
 use App\Http\Controllers\ResourceTypeController;
+use App\Http\Controllers\SupplyerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +26,6 @@ use App\Http\Controllers\ResourceTypeController;
 */
 
 Route::get('/', function () {
-    /*$container = new App\Suites\Container();
-    
-    $container->bind('jwplayer', function(){
-        return new App\Suites\Jwplayer();
-    });
-    
-    $jwplayer = $container->resolve('jwplayer');
-    
-    ddd($jwplayer);*/
     return view('welcome');
 });
 
@@ -69,18 +61,28 @@ Route::group(['middleware'=>'auth'], function(){
     
     Route::resource('work_units', WorkAmountController::class);
     
-    Route::resource('candidates', CandidatesController::class)->parameters([
-        'candidate' => 'candidate'
-    ])->scoped();
-     
-    Route::resource('equipment', EquipmentController::class);
-    
 });
 
-Route::group(['middleware'=>'auth'], function(){
 
-    Route::resource('admin/sections', SectionTitleController::class)->parameters([
+Route::prefix('admin')->middleware(['middleware'=>'auth'])->group(function () {
+
+    Route::resource('sections', SectionTitleController::class)->parameters([
         'section' => 'section'
     ]);
 });
-//Auth::routes();
+
+Route::group(['middleware'=>'auth'], function(){
+    
+
+    Route::resource('supplyers', SupplyerController::class)->names([
+        'show' => 'supplyer'
+    ]);
+    
+    
+    Route::resource('candidates', CandidatesController::class)->parameters([
+        'candidate' => 'candidate'
+    ])->scoped();
+    
+    Route::resource('equipment', EquipmentController::class);
+
+});

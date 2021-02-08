@@ -10,25 +10,33 @@ use App\Models\Supplyer;
 
 class ManagingSupplyersTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
+    
+    private $user;
+    
+    protected function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->user = User::factory()->create();
+    }
     
     /** @test */
     public function authenticated_user_can_add_supplyer()
     {
         $this->withoutExceptionHandling();
         
-        $user = User::factory()->create();
         $supplyer = Supplyer::factory()->raw();
         
-        $this->actingAs($user)->get(route('supplyers.create'))
+        $this->actingAs($this->user)->get(route('supplyers.create'))
             ->assertStatus(200)
             ->assertDontSee($supplyer['name']);
         
-        tap($supplyer, function($supplyer) use ($user){
+        tap($supplyer, function($supplyer){
             
             $this->assertDatabaseMissing('supplyers', $supplyer);
             
-            $this->actingAs($user)->followingRedirects()
+            $this->actingAs($this->user)->followingRedirects()
                 ->post(route('supplyers.index'), $supplyer)
                 ->assertStatus(200);
             
@@ -37,7 +45,7 @@ class ManagingSupplyersTest extends TestCase
                'url'=>$supplyer['url']
             ])->get()->first();
             
-           $this->actingAs($user)->get(route('supplyer',$id))
+           $this->actingAs($this->user)->get(route('supplyer',$id))
                 ->assertStatus(200)
                 ->assertSee($supplyer['name']);
             
@@ -55,5 +63,44 @@ class ManagingSupplyersTest extends TestCase
         $supplyer = Supplyer::factory()->raw();
         $this->post(route('supplyers.index'), $supplyer)
             ->assertRedirect('/login');
+    }
+    
+    /** @test */
+    public function authenticated_user_can_delete_supplyer()
+    {
+        
+        $supplyer = Supplyer::factory()->create();
+        
+        $this->assertDatabaseHas('supplyers', $supplyer->toArray());
+        
+        $this->actingAs($this->user)
+            ->delete(route('supplyers.destroy', $supplyer), $supplyer->toArray());
+        
+        $this->assertDatabaseMissing('supplyers', $supplyer->toArray());
+    }
+    
+    /** @test */
+    public function authenticated_user_can_change_supplyer()
+    {
+        $this->withoutExceptionHandling();
+        
+        $supplyer = Supplyer::factory()->create();
+        
+        $this->assertDatabaseHas('supplyers', $supplyer->toArray());
+        
+        $nameOld = $supplyer->name;
+        $supplyer->update(['name' => $this->faker->company]);
+
+        
+        $this->actingAs($this->user)
+            ->patch($supplyer->path(), $supplyer->toArray())
+            ->assertStatus(200);
+        
+            $this->assertDatabaseMissing('supplyers', [
+                'name' => $nameOld,
+                'id' => $supplyer->id
+        ]);
+            
+        $this->assertDatabaseHas('supplyers', $supplyer->toArray());
     }
 }

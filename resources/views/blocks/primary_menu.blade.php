@@ -9,7 +9,7 @@
             <li><a href="/resources">Resources</a></li>
             <li><a href="/departments">Departments</a></li>
             <li><a href="/employees">Employees</a></li>
-            <li><a href="/employees">Supplyers</a></li>
+            <li><a href="/supplyers">Supplyers</a></li>
             <li><a href="/equipment">Equipment</a></li>
         </ul>
     </nav>

@@ -6,8 +6,10 @@
     <main>
     
         <form method="POST" 
-            action="/supplyers"
+            action="{{ $supplyer->path() }}"
             class="supplyer">
+            
+            @method('PATCH')
         
             @include('show_err') 
             
@@ -16,6 +18,14 @@
                 'btnText' => 'Save'
             ])
         
+        </form>
+        <form method="POST"
+            action="{{ $supplyer->path() }}">
+            
+            @csrf
+            @method('DELETE')
+            
+            <input type="submit" value="Delete" name="delete" />    
         </form>
     
    </main>

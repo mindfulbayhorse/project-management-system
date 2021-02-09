@@ -18,8 +18,8 @@ class CreateEquipmentTable extends Migration
             $table->string('model');
             $table->string('name');
             $table->unsignedFloat('cost',8,2);
-            $table->timestamps();
-            
+            $table->timestamps(6);
+            $table->json('products_range')->nullable();
             $table->foreignId('resource_type_id')->nullable()->constrained();
         });
     }

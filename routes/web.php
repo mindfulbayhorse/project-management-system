@@ -79,8 +79,8 @@ Route::get('/email/verify', function () {
 Route::group(['middleware'=>'auth'], function(){
     
 
-    Route::resource('supplyers', SupplyerController::class)->names([
-        'show' => 'supplyer'
+    Route::resource('suppliers', SupplyerController::class)->names([
+        'show' => 'supplier'
     ]);
     
     

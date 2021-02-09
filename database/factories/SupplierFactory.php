@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Supplyer;
+use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SupplyerFactory extends Factory
+class SupplierFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Supplyer::class;
+    protected $model = Supplier::class;
 
     /**
      * Define the model's default state.

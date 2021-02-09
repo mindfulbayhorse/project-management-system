@@ -8,10 +8,11 @@ use Tests\TestCase;
 use App\Models\Project;
 use App\Models\Equipment;
 use App\Models\ResourceType;
+use App\Models\Supplier;
 
 class EquipmentTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     
     private $equipment;
     
@@ -27,7 +28,7 @@ class EquipmentTest extends TestCase
     /** @test */
     public function equipment_has_resource_type()
     {
-        
+
         $this->assertDatabaseHas('equipment', $this->equipment->toArray());
         $this->assertInstanceOf(ResourceType::class, $this->equipment->type);
     }
@@ -54,5 +55,41 @@ class EquipmentTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $this->assertEquals('/equipment/'.$this->equipment->id, $this->equipment->path());
+    }
+    
+    
+    /** @test */
+    public function it_have_range_of_products()
+    {
+        $products = $this->faker->words(5);
+        
+        $this->equipment->update(['products_range'=> $products]);
+        
+        $this->assertIsArray($this->equipment->products_range);
+        $this->assertCount(5, $this->equipment->products_range);
+        
+    }
+    
+    /** @test */
+    public function it_have_suppliers()
+    {
+        $this->withoutExceptionHandling();
+        
+        $supplyers = Supplier::factory()->count(2)->create();
+        
+        $this->equipment->suppliers()->attach($supplyers);
+        
+        $this->equipment->refresh();
+        
+        tap($this->equipment, function($equipment){
+    
+            $this->assertCount(2, $equipment->suppliers);
+            $this->assertDataBaseHas('supplies', [
+                'supplier_id' => $equipment->suppliers()->first()->id,
+                'supply_id' => $equipment->id,
+                'supply_type' => Equipment::class
+            ]);
+        });
+        
     }
 }

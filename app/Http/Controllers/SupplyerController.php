@@ -14,7 +14,9 @@ class SupplyerController extends Controller
      */
     public function index()
     {
+        $supplyers = Supplyer::all();
         
+        return view('supplyers.index', compact('supplyers'));
     }
 
     /**
@@ -35,12 +37,9 @@ class SupplyerController extends Controller
      */
     public function store(Request $request)
     {
-        $supplyer = Supplyer::create($request->validate([
-            'name'=>'required',
-            'url' => 'nullable'
-        ]));
+        $supplyer = Supplyer::create($this->validateFields($request));
         
-        redirect($supplyer->path());
+        return view('supplyers.show', compact('supplyer'));
     }
 
     /**
@@ -73,9 +72,11 @@ class SupplyerController extends Controller
      * @param  \App\Models\Supplyer  $Supplyer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplyer $Supplyer)
+    public function update(Request $request, Supplyer $supplyer)
     {
-        //
+        $supplyer->update($this->validateFields($request));
+        
+        return view('supplyers.show',compact('supplyer'));
     }
 
     /**
@@ -84,8 +85,19 @@ class SupplyerController extends Controller
      * @param  \App\Models\Supplyer  $Supplyer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplyer $Supplyer)
+    public function destroy(Supplyer $supplyer)
     {
-        //
+        $supplyer->delete();
+        
+        return redirect(route('supplyers.index'));
+    }
+    
+    
+    private function validateFields(Request $request)
+    {
+        return $request->validate([
+            'name'=>'required',
+            'url' => 'nullable|url'
+        ]);
     }
 }

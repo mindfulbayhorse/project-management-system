@@ -8,7 +8,6 @@ use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 
-
 class ActivityTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
@@ -69,7 +68,6 @@ class ActivityTest extends TestCase
         
         tap($deliverable->activities->last(), function($activity) use 
          ($originalTitle, $newTitle){
-            
             
             $this->assertEquals('updated_deliverable', $activity->description);
             $expected = [

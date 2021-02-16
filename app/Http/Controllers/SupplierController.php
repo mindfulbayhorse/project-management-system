@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supplyer;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
-class SupplyerController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class SupplyerController extends Controller
      */
     public function index()
     {
-        $supplyers = Supplyer::all();
+        $suppliers = Supplier::all();
         
-        return view('supplyers.index', compact('supplyers'));
+        return view('suppliers.index', compact('suppliers'));
     }
 
     /**
@@ -26,7 +26,7 @@ class SupplyerController extends Controller
      */
     public function create()
     {
-        return view('supplyers.create');
+        return view('suppliers.create');
     }
 
     /**
@@ -37,30 +37,30 @@ class SupplyerController extends Controller
      */
     public function store(Request $request)
     {
-        $supplyer = Supplyer::create($this->validateFields($request));
+        $supplier = Supplier::create($this->validateFields($request));
         
-        return view('supplyers.show', compact('supplyer'));
+        return view('suppliers.show', compact('supplier'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Supplyer  $Supplyer
+     * @param  \App\Models\Supplier  $Supplyer
      * @return \Illuminate\Http\Response
      */
-    public function show(Supplyer $supplyer)
+    public function show(Supplier $supplier)
     {
 
-       return view('supplyers.show', compact('supplyer'));
+       return view('suppliers.show', compact('supplier'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Supplyer  $Supplyer
+     * @param  \App\Models\Supplier  $supplyer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Supplyer $Supplyer)
+    public function edit(Supplier $supplier)
     {
         //
     }
@@ -69,27 +69,27 @@ class SupplyerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Supplyer  $Supplyer
+     * @param  \App\Models\Supplier  $Supplyer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplyer $supplyer)
+    public function update(Request $request, Supplier $supplier)
     {
-        $supplyer->update($this->validateFields($request));
+        $supplier->update($this->validateFields($request));
         
-        return view('supplyers.show',compact('supplyer'));
+        return view('suppliers.show',compact('supplier'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Supplyer  $Supplyer
+     * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplyer $supplyer)
+    public function destroy(Supplier $supplier)
     {
-        $supplyer->delete();
+        $supplier->delete();
         
-        return redirect(route('supplyers.index'));
+        return redirect(route('suppliers.index'));
     }
     
     

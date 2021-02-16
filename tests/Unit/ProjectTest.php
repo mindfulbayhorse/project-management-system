@@ -30,6 +30,7 @@ class ProjectTest extends TestCase
         $this->project = Project::factory()
             ->for(User::factory(), 'manager')
             ->create();
+            
         $this->project->refresh();
    
     }
@@ -167,4 +168,10 @@ class ProjectTest extends TestCase
         $this->assertDatabaseHas('project_team', $team->toArray());
     }
    
+    /** @test */
+    /*public function its_start_date_is_validated_with_wbs()
+    {
+        
+        $this->project->wbs->addDeliverable();
+    }*/
 }

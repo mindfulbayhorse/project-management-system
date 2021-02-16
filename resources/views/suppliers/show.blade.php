@@ -1,4 +1,4 @@
-@section('title','Edit supplyer')
+@section('title','Edit supplier')
 
 @extends('layout')
 
@@ -6,21 +6,21 @@
     <main>
     
         <form method="POST" 
-            action="{{ $supplyer->path() }}"
-            class="supplyer">
+            action="{{ $supplier->path() }}"
+            class="supplier">
             
             @method('PATCH')
         
             @include('show_err') 
             
-            @include('supplyers.form', [
-                'supplyer' => $supplyer,
+            @include('suppliers.form', [
+                'supplier' => $supplier,
                 'btnText' => 'Save'
             ])
         
         </form>
         <form method="POST"
-            action="{{ $supplyer->path() }}">
+            action="{{ $supplier->path() }}">
             
             @csrf
             @method('DELETE')

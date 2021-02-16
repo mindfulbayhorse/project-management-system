@@ -1,4 +1,4 @@
-@section('title','Add new supplyer')
+@section('title','Add new supplier')
 
 @extends('layout')
 
@@ -6,13 +6,13 @@
     <main>
     
         <form method="POST" 
-            action="/supplyers"
-            class="supplyer new">
+            action="/suppliers"
+            class="supplier new">
         
             @include('show_err') 
             
-            @include('supplyers.form', [
-                'supplyer' => new App\Models\Supplyer,
+            @include('suppliers.form', [
+                'supplier' => new App\Models\Supplier,
                 'btnText' => 'Add'
             ])
         

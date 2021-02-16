@@ -21,7 +21,7 @@ class Supplier extends Model
     public function path()
     {
         
-        return route('supplier', ['supplyer' => $this]);
+        return route('supplier', ['supplier' => $this]);
 
     }
     

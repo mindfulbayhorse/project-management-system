@@ -12,7 +12,7 @@ use App\Http\Controllers\SectionTitleController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ProjectResourceController;
 use App\Http\Controllers\ResourceTypeController;
-use App\Http\Controllers\SupplyerController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,11 +78,9 @@ Route::get('/email/verify', function () {
 
 Route::group(['middleware'=>'auth'], function(){
     
-
-    Route::resource('suppliers', SupplyerController::class)->names([
+    Route::resource('suppliers', SupplierController::class)->names([
         'show' => 'supplier'
     ]);
-    
     
     Route::resource('candidates', CandidatesController::class)->parameters([
         'candidate' => 'candidate'

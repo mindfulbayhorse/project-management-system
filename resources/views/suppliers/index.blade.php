@@ -3,13 +3,13 @@
 @section('title','List of projects')
 
 @section('content')
-<a href="/supplyers/create" class="btn">Add supplyer</a>
+<a href="/suppliers/create" class="btn">Add supplyer</a>
 <main>
     <div class="projects_groups">
         @forelse ($supplyers as $supplyer)
                 
 	        <div class="card">
-                <a href="{{$supplyer->path()}}" 
+                <a href="{{$supplier->path()}}" 
                     class="title">{{$supplyer->name}}</a>
                 <div class="card-body">
                     <div class="card-text">

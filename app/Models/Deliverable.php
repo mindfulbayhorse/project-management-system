@@ -12,7 +12,6 @@ class Deliverable extends Model
 {
     use RecordsActivity, HasFactory;
 
-    
     protected $guarded = [];
     
     protected $touches = ['wbs'];
@@ -80,12 +79,10 @@ class Deliverable extends Model
         $this->update(['milestone' => false]);
     }
     
-        
     public function activities()
     {
         return $this->morphMany(Activity::class, "subject");
     }
-    
     
     public function getStartDate()
     {
@@ -93,5 +90,17 @@ class Deliverable extends Model
         Carbon::mixin(new DateFormatting());
         
         return $this->start_date->formatForUser();
+    }
+    
+    /*
+     * Checking out attribute for new value
+     * @param string  - attribute name
+     */
+    public function hasChanged(string $attr): bool
+    {
+     
+        if ($this->$attr !== $this->getOriginal($attr)) return true;
+        
+        return false;
     }
 }

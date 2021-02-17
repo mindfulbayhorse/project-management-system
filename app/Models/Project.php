@@ -14,8 +14,6 @@ class Project extends Model
     
     public $wbsLimit = 2;
     
-    protected $dateFormat = 'Y-m-d';
-    
     public function getRouteKeyName()
     {
         return 'slug';

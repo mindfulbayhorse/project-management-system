@@ -23,9 +23,9 @@ class CreateProjectsTable extends Migration
             
             $table->unsignedBigInteger('manager_id')->nullable();
             
-            $table->date('started')->nullable();
-            $table->date('finished')->nullable();
-            $table->timestamps();
+            $table->date('start_date',6)->nullable();
+            $table->date('end_date',6)->nullable();
+            $table->timestamps(6);
             
             $table->unsignedSmallInteger('status_id')->nullable();
             $table->foreign('manager_id')->references('id')->on('users');

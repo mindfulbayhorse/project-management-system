@@ -8,6 +8,7 @@ use App\Models\WorkBreakdownStructure;
 use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 
 class ManagingProjectDeliverablesTest extends TestCase
 {
@@ -181,5 +182,22 @@ class ManagingProjectDeliverablesTest extends TestCase
                 $deliverable)->assertRedirect($this->deliverable->path());
         
         $this->assertDatabaseHas('deliverables', $deliverable);
+    }
+    
+    
+    /** @test */
+    public function its_start_date_is_validated_with_project_start_date()
+    {
+        $this->withoutExceptionHandling();
+         
+        $this->assertEmpty($this->deliverable->wbs->project->start_date);
+        $this->assertEmpty($this->deliverable->start_date);
+         
+        $startDeliverable = Carbon::create(2021, 1, 21, 12);
+        Carbon::setTestNow($startDeliverable);
+         
+        $this->deliverable->update(['start_date' => $startDeliverable]);
+         
+        //$this->assertEquals($this->deliverable->start_date, $this->deliverable->wbs->project->start_date);
     }
 }

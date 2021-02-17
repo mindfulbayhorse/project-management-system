@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Deliverable;
+use App\Events\DeliverableDatesChanged;
 
 class DeliverableObserver
 {
@@ -48,8 +49,30 @@ class DeliverableObserver
      */
     public function updated(Deliverable $deliverable)
     {
-        //
+        
     }
+    
+    /**
+     * Handle the Deliverable "updating" event.
+     *
+     * @param  \App\Models\Deliverable  $deliverable
+     * @return void
+     */
+    public function updating(Deliverable $deliverable)
+    {
+        
+        if ($deliverable->hasChanged('start_date')){
+     
+            DeliverableDatesChanged::dispatch($deliverable, 'start_date');
+        }
+        
+        if ($deliverable->hasChanged('end_date')){
+            
+            DeliverableDatesChanged::dispatch($deliverable, 'end_date');
+        }
+        
+    }
+    
 
     /**
      * Handle the Deliverable "deleted" event.

@@ -1,8 +1,6 @@
 <?php 
 namespace App\Suites;
 
-use function Ramsey\Uuid\v1;
-
 trait RecordsActivity{
     
     public $oldAttributes = [];

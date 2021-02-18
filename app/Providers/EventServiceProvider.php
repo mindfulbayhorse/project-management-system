@@ -19,11 +19,8 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-        ],
-        
-        DeliverableDatesChanged::class => [
-            ProjectProcess::class
         ]
+        
     ];
 
     /**
@@ -34,5 +31,11 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+    }
+    
+    
+    public function shouldDiscoverEvent()
+    {
+        return true;
     }
 }

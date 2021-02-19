@@ -64,4 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail
         Mail::to($emailAddress)->send(new UserVerification($emailAddress, $this->id));
     }
     
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+    
 }

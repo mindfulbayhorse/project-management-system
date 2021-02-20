@@ -20,6 +20,8 @@ class CreateRolesPermissionsTables extends Migration
             $table->string('label');
             $table->timestamps(6);
             
+            /** @todo ['active' => true] */
+                        
         });
         
         Schema::create('permissions', function(Blueprint $table){

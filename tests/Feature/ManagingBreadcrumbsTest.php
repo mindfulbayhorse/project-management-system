@@ -6,8 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\SectionTitle;
-use App\Models\Role;
-use App\Models\Permission;
+use App\Models\User;
 
 class ManagingBreadcrumbsTest extends TestCase
 {
@@ -19,7 +18,9 @@ class ManagingBreadcrumbsTest extends TestCase
     {
         parent::setUp();
         
-        $this->signIn();
+        $this->user  = User::factory()->create();
+        
+        $this->signIn($this->user);
     }
     
     /** @test */
@@ -56,19 +57,5 @@ class ManagingBreadcrumbsTest extends TestCase
         $this->assertDatabaseHas('section_titles', $newSectionTitle);
 
     }
-    
-    /** @test */
-    public function it_can_be_created_only_by_administrator()
-    {
-        $this->withoutExceptionHandling();
-        
-        $this->assertEmpty($this->user->permissions);
-        
-        $role = Role::factory()
-            ->hasAttached(Permission::factory())
-            ->create();
-        
-        $this->user->assignRole($role);
-        
-    }
+
 }

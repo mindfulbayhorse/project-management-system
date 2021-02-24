@@ -33,18 +33,16 @@ class CreateRolesPermissionsTables extends Migration
             
         });
         
-        Schema::create('users_roles', function(Blueprint $table){
+        Schema::create('role_user', function(Blueprint $table){
             
-            $table->primary(['user_id', 'role_id']);
-            
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->primary(['role_id', 'user_id']);
             
             $table->foreignId('role_id')
                 ->constrained()
-                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            
+            $table->foreignId('user_id')
+                ->constrained()
                 ->onDelete('cascade');
             
             $table->timestamps(6);
@@ -52,7 +50,7 @@ class CreateRolesPermissionsTables extends Migration
         });
         
         
-        Schema::create('role_permission', function(Blueprint $table){
+        Schema::create('permission_role', function(Blueprint $table){
             
             $table->primary(['permission_id', 'role_id']);
             

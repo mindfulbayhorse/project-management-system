@@ -11,7 +11,6 @@ use App\Models\WorkBreakdownStructure;
 use App\Models\Resource;
 use App\Models\User;
 use App\Models\ProjectTeam;
-use PHPUnit\TextUI\XmlConfiguration\Logging\TeamCity;
 
 class ProjectTest extends TestCase
 {

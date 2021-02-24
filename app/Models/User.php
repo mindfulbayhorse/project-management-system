@@ -11,7 +11,6 @@ use App\Mail\UserVerification;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Support\Facades\Mail;
 
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, Resourcefulness, CanResetPassword;
@@ -71,7 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail
     
     public function assignRole(Role $role)
     {
-        $this->roles->sync($role);
+        $this->roles()->syncWithoutDetaching([$role->id]);
     }
     
     public function permissions()

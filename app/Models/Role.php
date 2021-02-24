@@ -9,6 +9,8 @@ class Role extends Model
 {
     use HasFactory;
     
+    protected $guarded = [];
+    
     public function permissions()
     {
         return $this->belongsToMany(Permission::class)->withTimestamps();
@@ -16,6 +18,11 @@ class Role extends Model
     
     public function allowTo($permission)
     {
-        $this->permissions()->save($permission);
+        $this->permissions()->syncWithoutDetaching($permission->id);
+    }
+    
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

@@ -63,11 +63,11 @@ Route::middleware(['auth', 'verified'])->group(function(){
     
 });
 
-Route::prefix('admin')->middleware(['middleware'=>'auth'])->group(function () {
+Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::resource('sections', SectionTitleController::class)->parameters([
         'section' => 'section'
-    ]);
+    ])->middleware(['can:edit_section']);
 });
 
 

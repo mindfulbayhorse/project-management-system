@@ -35,8 +35,7 @@ class ManagingProjectDeliverablesTest extends TestCase
         
     	$changedTitle = $this->faker->sentence();
     	
-    	$this->actingAs($this->user)
-    	    ->patch($this->deliverable->path(),[
+    	$this->patch($this->deliverable->path(),[
     	        'title' => $changedTitle,
     	        'wbs_id' => $this->deliverable->wbs_id
     	    ]

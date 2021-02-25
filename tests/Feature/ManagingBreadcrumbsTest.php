@@ -7,10 +7,11 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\SectionTitle;
 use App\Models\User;
+use App\Models\Role;
 
 class ManagingBreadcrumbsTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
     
     public $user;
     
@@ -40,17 +41,24 @@ class ManagingBreadcrumbsTest extends TestCase
     }
       
     /** @test */
-    public function it_can_be_created_on_admin_page()
+    public function it_can_be_created_by_user_with_required_permission()
     {
         
-        $this->withoutExceptionHandling();
+        $this->get('admin/sections/create')
+            ->assertStatus(403);
+        
+        $role = Role::factory(['name'=>'admin'])
+            ->hasPermissions(1,['name' => 'edit_section'])
+            ->create();
+        
+        $this->user->assignRole($role);
+        $this->user->refresh();
         
         $newSectionTitle = SectionTitle::factory()->raw();
         
-        $this->get('admin/sections/create')
-            ->assertStatus(200);
+        $this->get('admin/sections/create')->assertStatus(200);
         
-        $this->actingas($this->user)->followingRedirects()
+        $this->followingRedirects()
             ->post('admin/sections', $newSectionTitle)
             ->assertStatus(200);
         

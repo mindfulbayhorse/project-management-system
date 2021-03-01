@@ -78,4 +78,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->roles->map->permissions->flatten()->pluck('name')->unique();
     }
     
+    public function isManager()
+    {
+        return $this->permissions()->contains('manage_project');
+    }
+    
 }

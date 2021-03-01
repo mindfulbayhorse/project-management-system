@@ -15,6 +15,7 @@
     @method('PATCH')
     
     <input type="hidden" name="id" value="{{$deliverable->id}}" />
+    <input type="hidden" name="wbs_id" value="{{$deliverable->wbs->id}}" />
     
     @include('projects.wbs.deliverables.form',  [
             'btnTitle' => 'Save'

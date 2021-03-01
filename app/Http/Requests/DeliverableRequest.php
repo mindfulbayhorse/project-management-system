@@ -30,7 +30,7 @@ class DeliverableRequest extends FormRequest
     public function rules()
     {
         return [
-            'wbs_id' => 'nullable|integer',
+            'wbs_id' => 'required|integer',
             'title' => 'required',
             'order' => 'nullable|integer',
             'parent_id' => 'nullable|integer'

@@ -46,12 +46,7 @@ class DeliverableController extends Controller
     {
         $this->authorize('create', Deliverable::class);
         
-        if (empty($request->wbs_id)) {
-            $wbs = $project->initializeWBS(new WorkBreakdownStructure());
-            $wbs->add($request->validated());
-        } else {
-            Deliverable::create($request->validated());
-        }
+        Deliverable::create($request->validated());
         
         return back();
     }
@@ -108,10 +103,12 @@ class DeliverableController extends Controller
         
         $deliverable->$milestone();
         
-        return redirect(route('projects.deliverables.edit', [
-            'project' => $project, 
-            'deliverable' => $deliverable
-        ]));
+        //return redirect(route('projects.deliverables.edit', [
+        //    'project' => $project, 
+        ////    'deliverable' => $deliverable
+        //]));
+        
+        return back();
     }
 
     /**

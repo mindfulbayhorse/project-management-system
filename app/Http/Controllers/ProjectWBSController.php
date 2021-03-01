@@ -32,9 +32,11 @@ class ProjectWBSController extends Controller
      */
     public function create(Project $project)
     {
+        $wbs = $project->wbs()->actual()->first();
         
-        return view('projects.wbs.create',[
-            'project' => $project
+        return view('projects.wbs.deliverables.create',[
+            'project' => $project,
+            'wbs' => $wbs
         ]);
     }
 

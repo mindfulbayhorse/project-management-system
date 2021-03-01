@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Deliverable;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Auth;
 
 class DeliverablePolicy
 {
@@ -20,6 +19,12 @@ class DeliverablePolicy
     public function viewAny(User $user)
     {
         return true;
+    }
+    
+    
+    public function before(User $user, $ability)
+    {
+        
     }
 
     /**
@@ -42,7 +47,7 @@ class DeliverablePolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->isManager();
     }
 
     /**
@@ -54,7 +59,7 @@ class DeliverablePolicy
      */
     public function update(User $user, Deliverable $deliverable)
     {
-        if (Auth::check()) return true;
+        return $user->isManager();
     }
 
     /**
@@ -66,7 +71,7 @@ class DeliverablePolicy
      */
     public function delete(User $user, Deliverable $deliverable)
     {
-        //
+        return $user->isManager();
     }
 
     /**

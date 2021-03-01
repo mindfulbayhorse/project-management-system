@@ -89,9 +89,20 @@ class DeliverableTest extends TestCase
         $this->assertTrue(Carbon::hasFormat($this->deliverable->getStartDate(), 'd/m/Y'));
     }
     
-    public function formatted_start_and_finish_dates_can_be_stored()
+    /** @test */
+    public function its_start_date_is_validated_with_project_start_date()
     {
+        $this->withoutExceptionHandling();
         
+        $this->assertEmpty($this->deliverable->wbs->project->start_date);
+        $this->assertEmpty($this->deliverable->start_date);
+        
+        $startDeliverable = Carbon::create(2021, 1, 21, 12);
+        Carbon::setTestNow($startDeliverable);
+        
+        $this->deliverable->update(['start_date' => $startDeliverable]);
+        
+        //$this->assertEquals($this->deliverable->start_date, $this->deliverable->wbs->project->start_date);
     }
     
 }

@@ -37,7 +37,6 @@ class WorkBreakdownStructure extends Model
     
     public function add(Array $deliverable)
     {
-        //$deliverable->wbs_id = $this->id;
         $deliverable['wbs_id'] = $this->id;
         
         return $this->deliverables()->save(new Deliverable($deliverable));

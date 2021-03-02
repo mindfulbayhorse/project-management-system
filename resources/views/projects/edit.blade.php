@@ -18,17 +18,8 @@
         
         </form>
         
-        <form action="{{ $project->path() }}" method="POST">
-        
-            @csrf 
-            @method('DELETE')
-            
-            <input type="submit" 
-                value="Delete" 
-                class="delete"
-                name='delete' />
-            
-        </form>
+        <x-projects.delete-project-button :project="$project"></x-delete-project-button>
+
     
     </div>
   

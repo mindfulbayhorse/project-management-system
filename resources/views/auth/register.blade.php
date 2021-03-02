@@ -1,11 +1,7 @@
-@extends('layout')
-
 @section('title','Registration')
-
-@section('content')
-
 @include('show_err')
 
+<x-master>
     <form name="authonticate" 
         method="POST" 
         action=""  
@@ -32,4 +28,4 @@
             <input type="submit" name="login" value="Sing in" />   
         </div>
     </form>
-@endsection
+</x-master>

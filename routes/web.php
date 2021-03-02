@@ -37,7 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
         'wbs' => 'wbs'
     ])->scoped();
     
-    Route::resource('projects.deliverables', DeliverableController::class);
+    Route::resource('projects.deliverables', DeliverableController::class)->names([
+        'show' => 'deliverable'
+    ]);
     
     Route::resource('/resources_types/', ResourceTypeController::class);
     

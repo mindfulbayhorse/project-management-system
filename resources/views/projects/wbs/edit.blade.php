@@ -34,7 +34,7 @@
                         </td>
                         <td>
                             <div class="flex_block one_row field">
-                                <a href="{{ $project->path() }}/deliverables/{{ $deliverable->id}}"
+                                <a href="{{ $deliverable->path() }}"
                                     >{{$deliverable->title}}</a>
                             </div>
                         </td>

@@ -52,7 +52,11 @@ class Deliverable extends Model
     
     public function path()
     {
-        return $this->wbs->project->path().'/deliverables/'.$this->id;
+        //return $this->wbs->project->path().'/deliverables/'.$this->id;
+        return route('deliverable', [
+            'project' => $this->wbs->project,
+            'deliverable' => $this,
+        ], false);
     }
     
     public function makeAsPackage()

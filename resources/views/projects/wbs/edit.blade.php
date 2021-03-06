@@ -1,65 +1,22 @@
-@extends('layout')
+@extends('layouts.grid')
 
-@section('title','Workbreakdown structure')
+@section('title','Work breakdown structure')
 
-@section('content')
-
-@include('show_err') 
+@section('left_section')
     <main>
+        @include('show_err') 
         <div class="wbs-section-panel">
-            @include('projects.wbs.deliverables.create')
+            <a href="" 
+                class="">Add new deliverable</a> 
 
             @include('projects.activity.history')
         </div>
- 
-         
-        <table>
-            <caption>Work Breakdown structure</caption>
-            <thead>
-                <th>Ordinal number</th>
-                <th>Title</th>
-                <th>Cost</th>
-                <th>Start date</th>
-                <th>End date</th>
-            </thead>
-            <tbody>
-                
-                @foreach ($wbs->deliverables as $deliverable)
-        
-                    <tr tabindex='-1'>
-                        <td data-template='recordID'>
-                            <div class="flex_block one_row field">
-                                {{ $deliverable->order }}
-                            </div>
-                        </td>
-                        <td>
-                            <div class="flex_block one_row field">
-                                <a href="{{ $deliverable->path() }}"
-                                    >{{$deliverable->title}}</a>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="flex_block one_row field">
-                                {{ $deliverable->cost }}
-                            </div>
-                        </td>
-                        <td>
-                            <div class="flex_block one_row field">
-                                {{ $deliverable->start_date }}
-                            </div>
-                        </td>
-                        <td>
-                            <div class="flex_block one_row field">
-                                {{ $deliverable->end_date }}
-                            </div>
-                        </td>
-                    </tr>
-                
-                @endforeach
-            
-            </tbody>
-        
-        </table>
+@endsection
+
+@section('right_section')
+    <main>
+         <h1>Work breakdown structure</h1>
+         @include('projects.wbs.table')
     </main> 
 
 @endsection

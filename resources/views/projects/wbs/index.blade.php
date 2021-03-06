@@ -24,8 +24,8 @@
                         <td>{{$wbs->actual}}</td>
                     </tr>
                 @endforeach
-
-            @endif
+           
+           @endif
             
             
         </tbody>

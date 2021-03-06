@@ -1,6 +1,6 @@
 <x-master>
     <div class="wide_screen dashboard">
-        @auth ve
+        @auth
             @hasSection('left_sidebar')
                 @yield('left_sidebar') 
             @else 

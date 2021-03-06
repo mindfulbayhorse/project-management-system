@@ -18,7 +18,13 @@ class ProjectWBSController extends Controller
      */
     public function index(Project $project)
     {
-
+        if ($project->wbs()->count() === 1) {
+            return view('projects.wbs.edit',[
+                'project' => $project,
+                'wbs' => $project->wbs()->actual()->first()
+            ]);
+        }
+        
         return view('projects.wbs.index',[
             'project'=> $project,
         ]);

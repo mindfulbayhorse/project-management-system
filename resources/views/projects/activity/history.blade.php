@@ -1,4 +1,5 @@
 <section class="history">
+    <h4>History</h4>
     <ul>
         @foreach ($wbs->activityRecords as $activity)
             @if ($activity->description!=='created' &&
@@ -20,4 +21,8 @@
             @endif
    	@endforeach
     </ul>
+    <div class="actions">
+        <button>Undo</button>
+        <button>Redo</button>
+    </div>
 </section> 

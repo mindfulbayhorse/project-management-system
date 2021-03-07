@@ -7,7 +7,7 @@
         @include('show_err') 
         <div class="wbs-section-panel">
             <a href="" 
-                class="">Add new deliverable</a> 
+                class="create_new">Add new deliverable</a> 
 
             @include('projects.activity.history')
         </div>

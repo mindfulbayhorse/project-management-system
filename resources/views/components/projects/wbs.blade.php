@@ -1,5 +1,5 @@
 <x-master>
-    <div class="wide_screen">
+    <div class="wide_grid">
         {{ $slot }}
     </div>
 </x-master>

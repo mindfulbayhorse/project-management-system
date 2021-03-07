@@ -2,7 +2,7 @@
 @basic_font_size: 14px;
 @basic_font_large: 20px;
 @basic_font_color: #000000;
-@layer_back: rgba(204, 255, 153, 0.16);
+@layer_back: rgba(255, 255, 255, 1);
 
 body {
     background: @layer_back;
@@ -68,13 +68,12 @@ body {
 @import 'header.less';
 @import 'primary_menu.less';
 @import 'authentication.less';
+@import 'layout.less';
 
 @btn: btn;
 @errors: err_info;
 @color_res: #78A058;
 @color_inf: #F2F2F2;
-@btn_radius: 8px;
-@border: rgb(102, 45, 145);
 @add_flex_style: flex_block;
 @flex_one_row: one_row;
 @flex_one_column: one_column;
@@ -189,7 +188,6 @@ table {
     width: 100%;
     margin: 0px;
     th {
-        background-color: rgba(187, 244, 99, 0.64);
         padding: 0px;
         font-size: 18px;
         color: rgb(0, 51, 51);
@@ -258,32 +256,6 @@ table {
     display: -moz-flex;
     display: -ms-flex;
     display: flex;
-}
-
-.fld_space_100 {
-    width: 100%;
-}
-
-.fld_space_50 {
-    width: 50%;
-}
-
-.fld_space_45_left {
-    width: 45%;
-    padding: 0px 5% 0px 0px;
-}
-
-.fld_space_45_right {
-    width: 45%;
-    padding: 0px 0px 0px 5%;
-}
-
-.fld_space_30 {
-    width: 33%;
-}
-
-.fld_space_20 {
-    width: 20%;
 }
 
 

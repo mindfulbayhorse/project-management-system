@@ -1,0 +1,51 @@
+.wide_grid{
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 100%;
+}
+
+.part{
+  &_left{
+    width: 25%;
+    margin: 0px;
+  }
+    
+  &_right{
+    margin: 0px 3% 0px 2%;
+    width: 70%;
+  }
+    
+}
+
+@button-color: #173D26;
+@button-background: #caad5c;
+@button-corners: 5px;
+
+.btn{
+  color: @button-color;
+  border: 1px solid $color;
+  font-weight: 500;
+  background-color: @button-background;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 10px;
+  border-radius: @button-corners;
+}
+
+a.btn:hover{
+  text-decoration: none;
+}
+
+button{
+  .btn();
+}
+
+@border: gray;
+
+.digest{
+  border: 1px solid @border;
+}

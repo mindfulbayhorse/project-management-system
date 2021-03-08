@@ -32,7 +32,12 @@ class DeliverableController extends Controller
      */
     public function create(Project $project)
     {
-        //
+        $wbs = $project->wbs()->actual()->first();
+        
+        return view('projects.wbs.deliverables.create',[
+            'project'=> $project,
+            'wbs' => $wbs
+        ]);
     }
 
     /**

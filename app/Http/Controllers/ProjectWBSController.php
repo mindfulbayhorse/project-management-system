@@ -33,7 +33,7 @@ class ProjectWBSController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
     public function create(Project $project)

@@ -3,14 +3,14 @@
 @section('title','Work breakdown structure')
 
 @section('left_section')
-    <main>
-        @include('show_err') 
-        <div class="wbs-section-panel">
-            <a href="" 
-                class="create_new">Add new deliverable</a> 
+    @include('show_err')
+    
+    <div class="wbs-section-panel">
+        <a href="{{ route('projects.deliverables.create', $project) }}" 
+            class="create_new">Add new deliverable</a> 
 
-            @include('projects.activity.history')
-        </div>
+        @include('projects.activity.history')
+    </div>
 @endsection
 
 @section('right_section')

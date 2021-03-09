@@ -1,31 +1,38 @@
 form{
-    padding: 0px 0px 20px 0px;
+    padding: 20px;
+    flex: 0 1 100%;
     
     .field{
-      padding: 0px 0px 20px;
+      flex: 0 1 100%;
+      padding: 0 20px 20px;
     }
     
-    fieldset.full_date{
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      padding: 0px;
-      margin: $padding;
-      border: none;
-      
-      &.date{
+    fieldset{
+      flex-flow: row wrap;
+      margin: 0 -20px -20px -20px;
+      padding: 20px 0px 0px;
+    
+      &.full_date{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding: 0px;
+        margin: $padding;
+        border: none;
         
-        .group{
-          margin-right: 20px;
+        &.date{
+          
+          .group{
+            margin-right: 20px;
+          }
+        }
+        
+        legend{
+           font-weight: 600;
+           font-size: 16px;
+           padding: 5px 0px 10px;
         }
       }
-      
-      legend{
-         font-weight: 600;
-         font-size: 16px;
-         padding: 5px 0px 10px;
-      }
-      
     }
     
     input, select, textarea {
@@ -37,6 +44,8 @@ form{
         text-align: left;
         color: #000000;
         outline: none;
+        display: block;
+        width: 100%;
     }
 
     button, input[type="submit"], input[type="reset"]{
@@ -60,7 +69,14 @@ form{
         }
     }
     
-    label, p{
+    label{
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      padding: 0px 0px 5px;
+    } 
+    
+    p{
         font-size: 16px;
         font-family: "Arial";
         color: rgb(0, 0, 51);

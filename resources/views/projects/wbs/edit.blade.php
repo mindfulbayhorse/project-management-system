@@ -15,7 +15,7 @@
 
 @section('right_section')
     <main>
-         <h1>Work breakdown structure</h1>
+         <h1>@yield('title')</h1>
          @include('projects.wbs.table')
     </main> 
 

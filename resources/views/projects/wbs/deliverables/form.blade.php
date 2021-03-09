@@ -21,15 +21,6 @@
             />
     </div>
 
-    <div class="detail_field double">
-        <label for="title">Cost:</label>
-        <input type="text" 
-            name="cost" 
-            id="cost"
-            value="{{$deliverable->cost}}"
-        />
-    </div>  
-
     <div class="detail_field">
         <label for="startDate"
           id="startDateLabel"
@@ -64,24 +55,31 @@
         </span>
     </div>
     
-    <div class="complex">
-        <div class="detail_field_horizontal">
-            <input type="checkbox" 
-                name="package" 
-                id="package"
-            />
-            <label for="package" class="full_title">Package</label>
-        </div>
-        
-        <div class="detail_field_horizontal">
-            <input type="checkbox" 
-                name="milestone" 
-                id="milestone"
-            />
-            <label for="mistone" class="full_title">Milestone</label>
-        </div>
+     <div class="detail_field">
+        <label for="title">Cost:</label>
+        <input type="text" 
+            name="cost" 
+            id="cost"
+            value="{{$deliverable->cost}}"
+        />
+    </div>  
     
+    <div class="detail_field">
+        <input type="checkbox" 
+            name="milestone" 
+            id="milestone"
+        />
+        <label for="milestone" class="full_title">Milestone</label>
     </div>
+        
+    <div class="detail_field">
+        <input type="checkbox" 
+            name="package" 
+            id="package"
+        />
+        <label for="package" class="full_title">Package</label>
+    </div>
+
    
    <div class="detail_field">  
         <input type="submit" 

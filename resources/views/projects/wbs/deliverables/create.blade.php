@@ -4,6 +4,8 @@
 
 @section('left_section')
 
+    <h1>@yield('title')</h1>
+    
     @include('show_err')
     
     <form id="deliverable" 

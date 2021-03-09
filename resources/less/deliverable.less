@@ -34,14 +34,7 @@
     }
   }
   
-  .detail_field:extend(form .field){
-    width: auto;
-    
-    &.title{
-        input{
-          min-width: 90%;
-        }
-    }
+  .detail_field:extend(form .field){    
     
      &_horizontal:extend(form .complex .double){
       display: flex;
@@ -49,9 +42,7 @@
     }
   }
   
-  label, input{
-      display: block;
-      width: 70%;
+  label{
       
       &#order{
         width: 40px

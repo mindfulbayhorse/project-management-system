@@ -1,71 +1,19 @@
-@extends('layouts.grid')
 
-@section('title','Create new deliverable')
+<h2>New deliverable</h2>
 
-@section('left_section')
+@include('show_err')
 
-    <h1>@yield('title')</h1>
-    
-    @include('show_err')
-    
-    <form id="deliverable" 
-        name="deliverable" 
-        method="POST" 
-        action="{{ $project->path() }}/deliverables"
-        class="deliverable new">
-    
-        <input type="hidden" name="wbs_id" value="{{ $wbs->id }}" />     
-            @include('projects.wbs.deliverables.form',  [
-                    'deliverable' => new App\Models\Deliverable,
-                    'btnTitle' => 'Create'
-            ])
-    </form>
-@endsection
+<form id="deliverable" 
+    name="deliverable" 
+    method="POST" 
+    action="{{ $project->path() }}/deliverables"
+    class="deliverable new">
 
-@section('right_section')
-
-    <fieldset>
-        <legend>Arrange order</legend>
-        <div class="order_choice">
-            <div class="">
-              <input
-                type="radio" 
-                value="" 
-                form="deliverbale" 
-                id="last"
-                name="order_choice" >
-              <label class="form-check-label" for="last">
-                Insert first
-              </label>
-            </div>
-            <div class="">
-              <input
-                type="radio" 
-                value="" 
-                form="deliverbale" 
-                id="last"
-                name="order_choice" >
-              <label class="form-check-label" for="last">
-                Insert last
-              </label>
-            </div>
-            <div class="">
-              <input
-                type="radio" 
-                value="" 
-                form="deliverbale" 
-                id="last"
-                name="order_choice" >
-              <label class="form-check-label" for="last">
-                Insert next to:
-              </label>
-            </div>
-        </div>
-        
-        @include('projects.wbs.table',  [
-                'form' => 'deliverable',
+    <input type="hidden" name="wbs_id" value="{{ $wbs->id }}" />     
+        @include('projects.wbs.deliverables.form',  [
+                'deliverable' => new App\Models\Deliverable,
+                'btnTitle' => 'Create'
         ])
-    </fieldset>
-    
-            
-@endsection
+</form>
+
+

@@ -1,86 +1,36 @@
-@extends('layout')
+@extends('layouts.two_columns')
 
 @section('title','Edit deliverable')
 
-@section('content')
+@section('left_section')
 
-@include('show_err') 
- 
-<form id="deliverable" 
-    name="deliverable" 
-    method="POST" 
-    action="{{ $deliverable->path() }}"
-    class="deliverable new">
+    <h1>@yield('title')</h1>
 
-    @method('PATCH')
+    @include('show_err') 
+     
+    <form id="deliverable" 
+        name="deliverable" 
+        method="POST" 
+        action="{{ $deliverable->path() }}"
+        class="deliverable new">
     
-    <input type="hidden" name="id" value="{{$deliverable->id}}" />
-    <input type="hidden" name="wbs_id" value="{{$deliverable->wbs->id}}" />
+        @method('PATCH')
+        
+        <input type="hidden" name="id" value="{{$deliverable->id}}" />
+        <input type="hidden" name="wbs_id" value="{{$deliverable->wbs->id}}" />
+        
+        @include('projects.wbs.deliverables.form',  [
+                'btnTitle' => 'Save'
+         ])
     
-    @include('projects.wbs.deliverables.form',  [
-            'btnTitle' => 'Save'
-     ])
+    </form>
+    
+@endsection
 
-</form>
-    
-<main>
-    @if($deliverable->children->count() >0)
-	  <form name="deliverables" action="">
-	     <table>
-	        <caption>Work Breakdown structure</caption>
-	        <thead>
-	            <th>Ordinal number</th>
-	            <th>Title</th>
-	            <th>Cost</th>
-	            <th>Start date</th>
-	            <th>End date</th>
-	            <th>Package</th>
-	        </thead>
-	        <tbody>
-	            
-	            @foreach ($deliverable->children as $detail)
-	
-	                <tr tabindex='-1'>
-	                    <td data-template='recordID'>
-	                        <div class="flex_block one_row field">
-	                            {{ $detail->order }}
-	                        </div>
-	                    </td>
-	                    <td>
-	                        <div class="flex_block one_row field">
-	                            <a href="{{ $wbs->path() }}/deliverable/{{ $deliverable->id}}"
-	                                >{{$detail->title}}</a>
-	                        </div>
-	                    </td>
-	                    <td>
-	                        <div class="flex_block one_row field">
-	                            {{ $detail->cost }}
-	                        </div>
-	                    </td>
-	                    <td>
-	                        <div class="flex_block one_row field">
-	                            {{ $detail->start_date }}
-	                        </div>
-	                    </td>
-	                    <td>
-	                        <div class="flex_block one_row field">
-	                            {{ $detail->end_date }}
-	                        </div>
-	                    </td>
-	                    <td>
-	                        <input type="checkbox" name="package[{{ $detail->id}}]" />
-	                    </td>
-	                </tr>
-	            
-	            @endforeach
-	        
-	        </tbody>
-	
-	    </table>
-	
-	  </form>
-    @else
-        <div>No deliverables are created yet</div>
-    @endif
-</main>
+@section('right_section')
+   <x-projects.wbs.deliverable.order>
+        @include('projects.wbs.deliverables.table',  [
+                'form' => 'deliverable',
+        ])
+   </x-projects.wbs.deliverable.order>
 @endsection

@@ -1,65 +1,58 @@
-<div class="action_panel" data-bind='visible: actionsBar'>
-    <ul data-bind='foreach: actions' class="flex_block one_row">
-      <li>
-      	<button data-bind="html: text,
-        	attr: {name: id}"></button>
-      </li>
-    </ul>
-</div>
-<table>
-    <caption>Work Breakdown structure</caption>
-    <thead>
-        <th></th>
-        <th></th>
-        <th>Ordinal number</th>
-        <th>Title</th>
-        <th>Cost</th>
-        <th>Start date</th>
-        <th>End date</th>
-    </thead>
-    <tbody data-bind='foreach: wbsAll'>
-        <tr tabindex='-1' data-bind='hasFocus: entry.isSelected,
-                            class: entry.isActive'>
-            <th class="actions row_only">
-                 <button name='openTree'></button>
-            </th>
-            <th>
-	             <input type="checkbox" name="current" />
-	        </th>
-            <td data-bind='text: entry.ID'></td>
-            <td>
-            	<div class="flex_block grid_rows field">
-                	<input type='text' form='deliverable' 
-                		data-bind="value: entry.title,
-    						valueUpdate: 'input', class: entry.classTitle"/>
-                </div>
-	        </td>
-            <td>
-            	<div class="flex_block grid_rows field">
-            		<input type='text' form='deliverable' 
-            			data-bind="value: entry.cost,
-        					valueUpdate: 'input'"  />
-            	</div>
-                
-	        </td>
-            <td>
-            	<div class="flex_block grid_rows field">
-                	<input type='text' form='deliverable' 
-                		data-bind="value: entry.dateStart,
-        					valueUpdate: 'input'"/>
-                </div>
-	        </td>
-            <td>
-            	<div class="flex_block grid_rows field">
-                    <input type='text' form='deliverable' 
-                    	data-bind="value: entry.dateEnd,
-        					valueUpdate: 'input'"/>
-                </div>
-	        </td>
-        </tr>
-        @if (isset($wbs))
-        	@include('projects.wbs.table')
-        @endif
-    </tbody>
+@if($deliverable->children->count() >0)
+  <form name="deliverables" action="">
+     <table>
+        <caption>Work Breakdown structure</caption>
+        <thead>
+            <th>Ordinal number</th>
+            <th>Title</th>
+            <th>Cost</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Package</th>
+        </thead>
+        <tbody>
+            
+            @foreach ($deliverable->children as $detail)
 
-</table>
+                <tr tabindex='-1'>
+                    <td data-template='recordID'>
+                        <div class="flex_block one_row field">
+                            {{ $detail->order }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex_block one_row field">
+                            <a href="{{ $deliverable->path()}}"
+                                >{{$detail->title}}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex_block one_row field">
+                            {{ $detail->cost }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex_block one_row field">
+                            {{ $detail->start_date }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex_block one_row field">
+                            {{ $detail->end_date }}
+                        </div>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="package[{{ $detail->id}}]" />
+                    </td>
+                </tr>
+            
+            @endforeach
+        
+        </tbody>
+
+    </table>
+
+  </form>
+@else
+    <div>No deliverables have been created yet</div>
+@endif

@@ -39,6 +39,7 @@
      &_horizontal:extend(form .complex .double){
       display: flex;
       flex-flow: row nowrap;
+      
     }
   }
   
@@ -47,7 +48,24 @@
       &#order{
         width: 40px
       }
-  }  
+  }
+  
+  
+  &.summary{
+    width: 100%;
+    
+    .actions{
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      
+      a{
+        display: block;
+      }
+    }
+    
+    
+  }
 }
 
 .status:extend(form){

@@ -1,8 +1,11 @@
 <x-projects.wbs>
-    <div class="part_left">
+    <div class="section_left">
          @yield('left_section') 
     </div>
-    <div class="part_right">
-        @yield('right_section')
+    <div class="section_center">
+        @yield('center_section')
+    </div>
+    <div class="sidebar_right">
+        @yield('right_sidebar')
     </div>
 </x-projects.wbs>

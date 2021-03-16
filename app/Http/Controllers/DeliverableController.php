@@ -79,9 +79,11 @@ class DeliverableController extends Controller
      */
     public function edit(Project $project, Deliverable $deliverable)
     {
+        $wbs = $project->wbs()->actual()->first();
         
     	return view('projects.wbs.deliverables.edit',[
     		'project' => $project,
+    	    'wbs' => $wbs,
     		'deliverable' => $deliverable
     	]);
     }

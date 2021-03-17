@@ -9,7 +9,7 @@
 <fieldset class="form_section">
     <legend>Basic information</legend>
 
-    <div class="detail_field title">
+    <div class="field_title">
         <label for="title">Title: <span>*</span></label>
             @error('title', 'deliverable')
                 {{ $message }}
@@ -21,7 +21,7 @@
             />
     </div>
 
-    <div class="detail_field">
+    <div class="field">
         <label for="startDate"
           id="startDateLabel"
           tabindex="-1">Start date <span class="req">*<span>(required)</span></span></label>
@@ -38,7 +38,7 @@
         </span>
     </div>
     
-    <div class="detail_field">
+    <div class="field">
       <label for="endDate"
           id="endDateLabel"
           tabindex="-1">End date <span class="req">*<span>(required)</span></span></label>
@@ -55,7 +55,7 @@
         </span>
     </div>
     
-     <div class="detail_field">
+     <div class="field">
         <label for="title">Cost:</label>
         <input type="text" 
             name="cost" 
@@ -64,7 +64,7 @@
         />
     </div>  
     
-    <div class="detail_field">
+    <div class="field_checkbox">
         <input type="checkbox" 
             name="milestone" 
             id="milestone"
@@ -72,7 +72,7 @@
         <label for="milestone" class="full_title">Milestone</label>
     </div>
         
-    <div class="detail_field">
+    <div class="field_checkbox">
         <input type="checkbox" 
             name="package" 
             id="package"

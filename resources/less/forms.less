@@ -2,11 +2,6 @@ form{
     padding: 20px;
     flex: 0 1 100%;
     
-    .field{
-      flex: 0 1 100%;
-      padding: 0 20px 20px;
-    }
-    
     fieldset{
       flex-flow: row wrap;
       margin: 0 -20px -20px -20px;
@@ -44,8 +39,6 @@ form{
         text-align: left;
         color: #000000;
         outline: none;
-        display: block;
-        width: 100%;
     }
 
     button, input[type="submit"], input[type="reset"]{
@@ -68,14 +61,7 @@ form{
           background: #ff3333;
         }
     }
-    
-    label{
-      width: 100%;
-      max-width: 100%;
-      display: block;
-      padding: 0px 0px 5px;
-    } 
-    
+  
     p{
         font-size: 16px;
         font-family: "Arial";
@@ -95,6 +81,29 @@ form{
     }
     
 }
+
+.field{
+  flex: 0 1 100%;
+  padding: 0 20px 20px;
+}
+
+.field{
+
+  &_checkbox, &_title{
+  .field();
+  }
+}
+
+label{
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  padding: 0px 0px 5px;
+  
+  .field_checkbox & {
+    display: inline;
+  }
+} 
 
 .group{
   display: flex;

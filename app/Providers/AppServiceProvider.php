@@ -28,8 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         Project::observe(ProjectObserver::class);
         Deliverable::observe(DeliverableObserver::class);
         DB::connection()->setQueryGrammar(new \App\Database\Query\Grammars\MySqlGrammar);
+
     }
 }

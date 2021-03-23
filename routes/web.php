@@ -14,6 +14,7 @@ use App\Http\Controllers\ProjectResourceController;
 use App\Http\Controllers\ResourceTypeController;
 use App\Http\Controllers\SupplierController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

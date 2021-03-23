@@ -14,9 +14,11 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
 public/mix-manifest.json
 public/css/app.css
 .editorconfig
 .buildpath
 .gitattributes
 docker-compose.override.yml
+

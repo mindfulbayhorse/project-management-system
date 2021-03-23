@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Deliverable;
 use App\Policies\DeliverablePolicy;
 
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -15,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+
         //Deliverable::class => DeliverablePolicy::class,
     ];
 
@@ -30,5 +32,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::before(function($user, $ability){
             if ($user->permissions()->contains($ability)) return true;
         });
+
     }
 }

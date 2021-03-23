@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class UserFactory extends Factory
 {
@@ -25,7 +25,8 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'name' => $this->faker->name
+            'email' => $this->faker->email,
+            'email_verified_at' => Carbon::now()
        ];
     
     }

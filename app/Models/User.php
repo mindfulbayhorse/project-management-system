@@ -87,4 +87,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->permissions()->contains('manage_project');
     }
     
+    public function profile(string $append = '')
+    {
+        $path = route('profile');
+        
+        if ($append) $path = route('profile.'.$append, $this);
+        
+        return $path;
+    }
+    
 }

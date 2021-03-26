@@ -6,6 +6,7 @@
                @csrf
                <input class="btn_link" type="submit" value="Logout"/>
            </form>
+           <a href="/profile">Dashboard</a>
         @else
             <a href="{{ route('login') }}">Login</a>
             <a href="{{ route('register') }}">Register</a>

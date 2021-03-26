@@ -13,7 +13,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ProjectResourceController;
 use App\Http\Controllers\ResourceTypeController;
 use App\Http\Controllers\SupplierController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +90,10 @@ Route::group(['middleware'=>'auth'], function(){
     ])->scoped();
     
     Route::resource('equipment', EquipmentController::class);
+    
+    Route::resource('profile', UserController::class)->names([
+        'index' => 'profile'
+    ]);
 
 });
 

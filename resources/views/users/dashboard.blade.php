@@ -16,7 +16,7 @@
 
 @section('center_section')
 
-    @can (edit,$user)
+    @can ('edit',$user)
         You are in the profile dashboard!
     @endcan
     

@@ -16,8 +16,8 @@
 
 @section('center_section')
 
-    @unless (auth()->user()->isNot($user))
+    @can (edit,$user)
         You are in the profile dashboard!
-    @endunless
+    @endcan
     
 @endsection

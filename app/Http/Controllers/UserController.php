@@ -14,7 +14,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+       
         $user = $request->user();
+        
+        $this->authorize('edit', $user);
         
         return view("users.dashboard", compact('user'));
     }

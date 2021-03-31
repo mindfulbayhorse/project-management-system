@@ -6,15 +6,15 @@
     <main>
     
         <form method="POST" 
-        action="{{ route('equipment.index') }}"
-        class="equipment new">
+            action="{{ route('equipment.index') }}"
+            class="equipment new">
         
-        @include('show_err') 
-        
-        @include('equipment.form', [
-            'equipment' => new App\Models\Equipment,
-            'btnText' => 'Create'
-        ])
+            @include('show_err') 
+            
+            @include('equipment.form', [
+                'equipment' => new App\Models\Equipment,
+                'btnText' => 'Create'
+            ])
         
     </form>
     

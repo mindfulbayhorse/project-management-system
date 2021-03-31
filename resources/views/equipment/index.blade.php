@@ -13,7 +13,7 @@
                     class="title">{{ $item->name }}</a>
                 <div class="card-body">
                     <div class="card-text">
-                        <p>{{ $item->type }}</p>
+                        <p>{{ $item->type->name }}</p>
                         <p>{{ $item->model }}</p>
                     </div>                   
                 </div>

@@ -27,7 +27,7 @@ class EquipmentController extends Controller
      */
     public function create()
     {
-        return view('equipment.create');
+        return view('equipment.create', ['types' => $this->listTypes()]);
     }
 
     /**
@@ -68,7 +68,10 @@ class EquipmentController extends Controller
      */
     public function edit(Equipment $equipment)
     {
-        return view('equipment.edit', compact('equipment'));
+        return view('equipment.edit', [
+            'equipment' => $equipment,
+            'types' => $this->listTypes()
+        ]);
     }
 
     /**
@@ -92,6 +95,16 @@ class EquipmentController extends Controller
     public function destroy(Equipment $equipment)
     {
         //
+    }
+    
+    
+    /*
+     * get list of all statuses
+     */
+    private function listTypes() {
+        
+        return ResourceType::all()->toArray();
+        
     }
     
 }

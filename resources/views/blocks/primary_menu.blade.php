@@ -6,7 +6,7 @@
             <li><a href="/candidates">Candidates</a></li>
             <li><a href="/companies">Companies</a></li>
             <li><a href="/contractors">Contractors</a></li>
-            <li><a href="/resources">Resources</a></li>
+            <li><a href="/resources_types">Resource types</a></li>
             <li><a href="/departments">Departments</a></li>
             <li><a href="/employees">Employees</a></li>
             <li><a href="/supplyers">Supplyers</a></li>

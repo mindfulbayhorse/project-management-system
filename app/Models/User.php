@@ -60,6 +60,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return '/candidates/'.$this->id;
     }
     
+    /*public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }*/
+    
     public function sendEmailVerificationNotification(){
         
         //Mail should be sent to user

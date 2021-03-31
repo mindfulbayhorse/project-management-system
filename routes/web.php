@@ -42,7 +42,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
         'show' => 'deliverable'
     ]);
     
-    Route::resource('/resources_types/', ResourceTypeController::class);
+    Route::resource('resources_types', ResourceTypeController::class)->parameters([
+        'resources_types' => 'resourceType'
+    ]);
     
     Route::get('/projects/{project}/resources/equipment', 
             [ProjectResourceController::class, 'index'])

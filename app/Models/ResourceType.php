@@ -10,4 +10,10 @@ class ResourceType extends Model
     use HasFactory;
     
     protected $guarded = [];
+    
+    public function path($append){
+        
+        return route('resources_types.index').'/'.$this->id. ($append ? '/'.$append : '');
+        
+    }
 }

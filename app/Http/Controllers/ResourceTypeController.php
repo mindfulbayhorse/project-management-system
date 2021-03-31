@@ -14,7 +14,8 @@ class ResourceTypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = ResourceType::all();
+        return view('projects.resources.types.index', compact('types'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ResourceTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects.resources.types.create');
     }
 
     /**
@@ -60,7 +61,10 @@ class ResourceTypeController extends Controller
      */
     public function edit(ResourceType $resourceType)
     {
-        //
+
+        return view('projects.resources.types.edit', [
+            "type" => $resourceType
+        ]);
     }
 
     /**

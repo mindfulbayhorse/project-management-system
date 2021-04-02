@@ -81,7 +81,7 @@ class ManagingEquipmentTest extends TestCase
         
         $this->actingAs($this->user)->get($equipmentSaved->path())->assertSee($equipmentSaved->name);
         
-        $response = $this->actingAs($this->user)->get($equipmentSaved->path());
+        $this->actingAs($this->user)->get($equipmentSaved->path());
 
         $this->actingAs($this->user)->get($equipmentSaved->path())->assertSeeInOrder($equipment);
         

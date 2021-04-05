@@ -13,11 +13,15 @@ class EquipmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $equipment = Equipment::all();
+        $equipment = Equipment::paginate(20);
         
-        return view('equipment.index', compact('equipment'));
+        $view = $request->query('view');
+        
+        return view('equipment.index', [
+            'equipment' => $equipment
+        ]);
     }
 
     /**

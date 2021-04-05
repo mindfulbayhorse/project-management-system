@@ -5,7 +5,7 @@
 @section('content')
 <a href="{{ route('equipment.create') }}" class="btn">Add equipment</a>
 <main>
-    <div class="projects_groups">
+    <div class="equipment_groups">
         @forelse ($equipment as $item)
                 
             <div class="card">
@@ -13,7 +13,7 @@
                     class="title">{{ $item->name }}</a>
                 <div class="card-body">
                     <div class="card-text">
-                        <p>{{ $item->type->name }}</p>
+                        <p>{{ $item->type }}</p>
                         <p>{{ $item->model }}</p>
                     </div>                   
                 </div>
@@ -23,6 +23,8 @@
         @endforelse
     
     </div>
+    
+    {{ $equipment->links('vendor.pagination.default') }}
     
 </main>
 @endsection

@@ -102,18 +102,14 @@ class DeliverableController extends Controller
         
         $deliverable->update($request->validated());
         
-        $package = $request->has('package') ? 'makeAsPackage' : 'makeAsNotPackage';
+        $package = $request->has('package') ? true : false;
         
-        $deliverable->$package();
+        $deliverable->makeAsPackage($package);
         
-        $milestone = $request->has('milestone') ? 'makeAsMilestone' : 'makeAsNotMilestone';
+        $milestone = $request->has('milestone') ? true : false;
         
-        $deliverable->$milestone();
-        
-        //return redirect(route('projects.deliverables.edit', [
-        //    'project' => $project, 
-        ////    'deliverable' => $deliverable
-        //]));
+        $deliverable->makeAsMilestone($milestone);
+
         
         return back();
     }

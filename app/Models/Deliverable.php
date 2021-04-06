@@ -59,29 +59,18 @@ class Deliverable extends Model
         ], false);
     }
     
-    public function makeAsPackage()
+    public function makeAsPackage($flag = true)
     {
     
-        $this->update(['package' => true]);
+        $this->update(['package' => $flag]);
     }
     
-    public function makeAsNotPackage()
-    {
-        
-        $this->update(['package' => false]);
-    }
-    
-    public function makeAsMilestone()
+    public function makeAsMilestone($flag = true)
     {
         
         $this->update(['milestone' => true]);
     }
     
-    public function makeAsNotMilestone()
-    {
-        
-        $this->update(['milestone' => false]);
-    }
     
     public function activities()
     {

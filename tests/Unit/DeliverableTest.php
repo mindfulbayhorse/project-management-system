@@ -57,12 +57,12 @@ class DeliverableTest extends TestCase
     }
     
     /** @test */
-    public function it_can_be_marked_as_not_a_package()
+    public function it_can_be_marked_as_not_package()
     {
         
         $this->assertEmpty($this->deliverable->package);
         
-        $this->deliverable->makeAsNotPackage();
+        $this->deliverable->makeAsPackage(false);
         
         $this->assertFalse($this->deliverable->fresh()->package);
         

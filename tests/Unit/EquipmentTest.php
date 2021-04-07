@@ -36,15 +36,21 @@ class EquipmentTest extends TestCase
     /** @test */
     public function project_has_equipment_as_a_resource()
     {
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         
         $project = Project::factory()->create();
         
-        $resource = $this->equipment->value();
+        $this->assertDatabaseMissing('resources', [
+            'valuable_id' => $this->equipment->id,
+            'project_id' => $project->id
+        ]);
         
-        $this->assertDatabaseHas('resources', $resource->toArray());
+        $this->equipment->assignTo($project);
         
-        $project->assign($resource);
+        $this->assertDatabaseHas('resources', [
+            'valuable_id' => $this->equipment->id,
+            'project_id' => $project->id
+        ]);
 
         $this->assertCount(1, $project->resources);
 

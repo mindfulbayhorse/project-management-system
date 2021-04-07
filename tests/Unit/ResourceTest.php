@@ -30,9 +30,11 @@ class ResourceTest extends TestCase
 	 
 	     $this->withoutExceptionHandling();
 	     
-	     $resources = Resource::factory()->create();
+	     $resource = Resource::factory()->create();
+	     
+	     $resource->asssignTo($this->project);
 	 
-	     $this->project->assign($resources);
+	     //$this->project->assign($resources);
 	 
 	     $this->assertCount(1, $this->project->resources);
 	 }

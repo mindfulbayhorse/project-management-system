@@ -92,12 +92,8 @@ class Project extends Model
     
     public function resources()
     {
-        return $this->belongsToMany(Resource::class, 'project_resource');
+        return $this->hasMany(Resource::class);
     }
     
-    public function assign($resource)
-    {
-        $this->resources()->attach($resource);
-    }
     
 }

@@ -18,6 +18,10 @@ class CreateResource extends Migration
             $table->id();
 			$table->unsignedBigInteger('valuable_id');
 			$table->string('valuable_type');
+			$table->foreignId('project_id')
+			    ->constrained()
+			    ->onUpdate('cascade')
+			    ->onDelete('cascade');
 
 		});
     }

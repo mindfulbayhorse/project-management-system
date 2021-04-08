@@ -2,19 +2,10 @@
 namespace App\Suites;
 
 use App\Models\Resource;
+use App\Models\Project;
 use App\Models\ResourceType;
 
 trait Resourcefulness{
-
-    public function value(){
-        
-        return $this->resourceful()->save(new Resource());
-        
-    }
-    
-    public function resourceful(){
-        return $this->morphOne(Resource::class,'valuable');
-    }
     
     public function isResource(){
         
@@ -22,18 +13,32 @@ trait Resourcefulness{
             ->count();
     }
     
-    public function devalue(){
+    public function withdraw(Project $project){
         
-        $this->resourceful()->delete();
+        return $this->resourceful()->where('project_id', $project->id);
     }
     
-    public function toggleCredit(){
-    	
-    	if ($this->isResource()){
-    		return $this->devalue();
-    	}
-    	
-    	return $this->value();
+
+    public function resourceful()
+    {
+        
+        return $this->morphMany(Resource::class,'valuable', 'valuable_type', 'valuable_id', 'id');
+    }
+    
+    public function assignTo(Project $project, ResourceType $type)
+    {
+        $this->resourceful()->updateOrCreate([
+            'project_id' => $project->id,
+            'resource_type_id' => $type->id
+        ]);
+    }
+    
+    public function isAssignedTo(Project $project)
+    {
+        
+        return (bool) $this->resourceful()
+            ->where('project_id', $project->id)
+            ->count();
     }
     
 }

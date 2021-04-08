@@ -36,28 +36,6 @@ class ManagingEquipmentTest extends TestCase
     }
     
     /** @test */
-    public function user_can_choose_type_for_new_equipment()
-    {
-        $this->withoutExceptionHandling();
-        
-        $type = ResourceType::factory()->create();
-        
-        $equipment = Equipment::factory()->raw([
-            'resource_type_id' => $type->id
-        ]);
-        
-        $this->signIn();
-        
-        $this->actingAs($this->user)->followingRedirects()
-            ->post('/equipment/', $equipment);
-        
-        $this->assertDatabaseHas('equipment', [
-            'name' => $equipment['name'],
-            'resource_type_id' => $type->id
-        ]);
-    }
-    
-    /** @test */
     public function authenticated_user_can_add_an_equipment()
     {
         $this->withoutExceptionHandling();

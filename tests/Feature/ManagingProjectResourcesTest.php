@@ -31,7 +31,7 @@ class ManagingProjectResourcesTest extends TestCase
             
         $this->actingAs($this->user)
             ->followingRedirects()
-            ->post($project->path().'/resources/equipment/',[
+            ->post($project->path().'/resources/equipment/assign',[
                     'equipment_id' => $equipment->id
             ])->assertStatus(200);
         

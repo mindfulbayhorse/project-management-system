@@ -100,8 +100,7 @@ class ProjectResourceController extends Controller
         ]);
         
         $equipment = Equipment::find($validated['equipment_id']);
-        $resource = $equipment->value();
-        $project->assign($resource);
+        $equipment->assign($project);
          
         redirect(route('projectEquipment', ['project' => $project]));
     }

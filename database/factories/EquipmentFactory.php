@@ -25,7 +25,7 @@ class EquipmentFactory extends Factory
         return [
             'name'=> $this->faker->word,
             'model' =>$this->faker->words(5, true),
-            'cost'=> $this->faker->randomFloat(2, 1, 200000)
+            'cost'=> $this->faker->randomNumber(2, 200000)
         ];
     }
 }

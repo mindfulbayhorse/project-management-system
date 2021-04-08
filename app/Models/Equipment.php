@@ -33,15 +33,5 @@ class Equipment extends Model
         return $this->morphToMany(Supplier::class, 'supply', 'supplies','supply_id', 'supplier_id');
     }
     
-    public function resourceful()
-    {
-
-        return $this->morphMany(Resource::class,'valuable', 'valuable_type', 'valuable_id', 'id');
-    }
-    
-    public function assignTo(Project $project)
-    {
-        //dd($this->resourceful);
-        $this->resourceful()->updateOrCreate(['project_id'=>$project->id]);
-    }
+   
 }

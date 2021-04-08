@@ -44,7 +44,6 @@ class EquipmentController extends Controller
     {
         $equipment = Equipment::create($request->validate([
             'name' => 'required',
-            'resource_type_id' => 'nullable',
             'model' => 'required',
             'cost' => 'required|numeric'
         ]));

@@ -20,9 +20,8 @@ class EquipmentTest extends TestCase
     {
         parent::setUp();
         
-        $this->equipment = Equipment::factory()
-            ->has(ResourceType::factory(), 'type')
-            ->create();
+        $this->equipment = Equipment::factory()->create();
+        $this->resourceType = ResourceType::factory()->create();
     }
     
     /** @test */
@@ -36,7 +35,7 @@ class EquipmentTest extends TestCase
     /** @test */
     public function project_has_equipment_as_a_resource()
     {
-        //$this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         
         $project = Project::factory()->create();
         
@@ -45,11 +44,12 @@ class EquipmentTest extends TestCase
             'project_id' => $project->id
         ]);
         
-        $this->equipment->assignTo($project);
+        $this->equipment->assignTo($project, $this->resourceType);
         
         $this->assertDatabaseHas('resources', [
             'valuable_id' => $this->equipment->id,
-            'project_id' => $project->id
+            'project_id' => $project->id,
+            'resource_type_id' => $this->resourceType->id
         ]);
 
         $this->assertCount(1, $project->resources);

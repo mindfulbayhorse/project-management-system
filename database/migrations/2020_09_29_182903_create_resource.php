@@ -29,7 +29,7 @@ class CreateResource extends Migration
 			    ->onUpdate('cascade')
 			    ->onDelete('cascade');
 			
-			$table->unique(['valuable_id', 'valuable_type', 'resource_type_id', 'project_id'], 'resource_unique');
+			$table->unique(['valuable_id', 'valuable_type', 'project_id'], 'resource_unique');
 
 		});
     }

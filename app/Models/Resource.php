@@ -15,17 +15,22 @@ class Resource extends Model
 	public $timestamps = false;
 	
 	
-	/*public function resourceful()
+	public function resourceType()
 	{
-	    return $this->morphTo();
-	}*/
+	    return $this->belongsTo(ResourceType::class, 'id', 'resource_type_id');
+	}
 	
-	/*public function assignTo(Project $project)
+	
+	public function project()
 	{
-	    $this->resourceful()->updateOrCreate(
-	    [
-	        'project_id' => $project->id
-	    ]);
-	}*/
+	    return $this->belongsTo(Project::class);
+	}
+	
+	
+	public function resources()
+	{
+	    
+	    return $this->morphTo('valuable');
+	}
 
 }

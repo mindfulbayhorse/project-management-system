@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Resource;
-use Faker\Generator as Faker;
 use App\Models\User;
 use App\Models\ResourceType;
 
@@ -15,8 +14,6 @@ class ResourceFactory extends Factory
     public function definition()
     {
         return [
-        	'valuable_id' => User::factory()->create()->id,
-        	'valuable_type' => User::Class
         ];
     }
 }

@@ -14,20 +14,17 @@ class Resource extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 	
-	
 	public function resourceType()
 	{
 	    return $this->belongsTo(ResourceType::class, 'id', 'resource_type_id');
 	}
 	
-	
 	public function project()
 	{
 	    return $this->belongsTo(Project::class);
 	}
-	
-	
-	public function resources()
+
+	public function resource()
 	{
 	    
 	    return $this->morphTo('valuable');

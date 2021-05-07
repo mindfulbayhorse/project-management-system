@@ -32,7 +32,7 @@ class UserResourceTest extends TestCase
     {
     	$this->withoutExceptionHandling();
     	
-    	$this->user->assignTo($this->project, $this->resourceType);
+    	$this->user->assignTo($this->project, $this->resourceType->id);
     	
     	$this->assertDatabaseHas('resources',[
     		'valuable_id' => $this->user->id,
@@ -50,7 +50,7 @@ class UserResourceTest extends TestCase
     public function user_can_be_withdrawn_from_resources()
     {
     	$this->withoutExceptionHandling();
-    	$this->user->assignTo($this->project, $this->resourceType);
+    	$this->user->assignTo($this->project, $this->resourceType->id);
     	
     	$this->user->withdraw($this->project)->delete();
     	

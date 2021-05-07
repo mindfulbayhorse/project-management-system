@@ -96,11 +96,11 @@ class ProjectResourceController extends Controller
     {
         $validated = $request->validate([
             'equipment_id' => 'required',
-            'type_id' => 'nullable',
+            'type_id' => 'required',
         ]);
         
         $equipment = Equipment::find($validated['equipment_id']);
-        $equipment->assign($project);
+        $equipment->assignTo($project, $validated['type_id']);
          
         redirect(route('projectEquipment', ['project' => $project]));
     }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Suites\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Project extends Model
 {
@@ -68,6 +69,14 @@ class Project extends Model
         }
     }
     
+    public function scopeResourceTypes(Builder $query)
+    {
+        $resourceTypes ='select project_id, resource_type_id, count(valuable_id) from resources group by project_id, resource_type_id';
+
+        return $query->leftJoinSub($resourceTypes, 'resources', 'id', 'resources.project_id')
+                ->leftJoin('resource_types', 'resource_type_id', '=', 'resource_types.id')->get();
+    }
+    
     public function scopeLastUpdated($query){
     	
         $query->orderBy('updated_at', 'desc');    
@@ -93,7 +102,6 @@ class Project extends Model
     public function resources()
     {
         return $this->hasMany(Resource::class);
-    }
-    
+    } 
     
 }

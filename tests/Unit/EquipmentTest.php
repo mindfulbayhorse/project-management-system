@@ -36,7 +36,7 @@ class EquipmentTest extends TestCase
             'project_id' => $project->id
         ]);
         
-        $this->equipment->assignTo($project, $this->resourceType);
+        $this->equipment->assignTo($project, $this->resourceType->id);
         
         $this->assertDatabaseHas('resources', [
             'valuable_id' => $this->equipment->id,

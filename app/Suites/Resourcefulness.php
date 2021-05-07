@@ -18,18 +18,17 @@ trait Resourcefulness{
         return $this->resourceful()->where('project_id', $project->id);
     }
     
-
     public function resourceful()
     {
         
         return $this->morphMany(Resource::class,'valuable', 'valuable_type', 'valuable_id', 'id');
     }
     
-    public function assignTo(Project $project, ResourceType $type)
+    public function assignTo(Project $project, $typeId)
     {
         $this->resourceful()->updateOrCreate([
             'project_id' => $project->id,
-            'resource_type_id' => $type->id
+            'resource_type_id' => $typeId
         ]);
     }
     

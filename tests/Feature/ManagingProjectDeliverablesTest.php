@@ -60,7 +60,7 @@ class ManagingProjectDeliverablesTest extends TestCase
 	}
 	
     /** @test */
-    public function it_can_be_updated_by_project_manager()
+    public function it_can_be_updated()
     {
         
         $this->signIn($this->user);
@@ -83,19 +83,17 @@ class ManagingProjectDeliverablesTest extends TestCase
     }
     
     /** @test */
-    public function it_can_be_marked_as_package_by_project_manager()
+    public function it_can_be_marked_as_package()
     {
+        $this->withoutExceptionHandling();
         $this->signIn($this->user);
         
-        $this->patch($this->deliverable->path(),
-            [
-                'package' => true,
-                'title' => $this->deliverable->title,
-                'wbs_id' => $this->deliverable->wbs_id
-            ]);
+        $this->post(route('create_package',[
+                'deliverable' => $this->deliverable
+            ]));
         
         $this->assertDatabaseHas('deliverables', [
-            'package'=>true,
+            'package'=>1,
             'id' => $this->deliverable->id,
             'wbs_id' => $this->deliverable->wbs_id
         ]);
@@ -103,21 +101,13 @@ class ManagingProjectDeliverablesTest extends TestCase
     }
     
     /** @test */
-    public function it_can_be_marked_as_not_package_by_project_manager()
+    public function it_can_be_marked_as_not_package()
     {
         $this->signIn($this->user);
         
-        $this->patch($this->deliverable->path(),[
-                'package' => true,
-                'title' => $this->deliverable->title,
-                'wbs_id' => $this->deliverable->wbs_id
-            ]);
-        
-        $this->patch(
-            $this->deliverable->path(),[
-                'title' => $this->deliverable->title,
-                'wbs_id' => $this->deliverable->wbs_id
-            ]);
+        $this->delete(route('destroy_package',[
+                'deliverable' => $this->deliverable
+            ]));
         
         $this->assertDatabaseHas('deliverables', [
             'package' => false,
@@ -162,14 +152,28 @@ class ManagingProjectDeliverablesTest extends TestCase
     {
         $this->signIn($this->user);
         
-        $this->patch($this->deliverable->path(),[
-                'milestone' => true,
-                'title' => $this->deliverable->title,
-                'wbs_id' => $this->deliverable->wbs_id
-            ]);
+        $this->post(route('create_milestone',[
+                $this->deliverable
+            ]));
         
         $this->assertDatabaseHas('deliverables', [
             'milestone'=>true,
+            'id' => $this->deliverable->id
+        ]);
+        
+    }
+    
+    /** @test */
+    public function it_can_be_marked_as_not_milestone()
+    {
+        $this->signIn($this->user);
+        
+        $this->delete(route('destroy_milestone',[
+            'deliverable' => $this->deliverable
+        ]));
+        
+        $this->assertDatabaseHas('deliverables', [
+            'milestone'=>false,
             'id' => $this->deliverable->id
         ]);
         
@@ -213,7 +217,7 @@ class ManagingProjectDeliverablesTest extends TestCase
     }
      
     /** @test */
-    public function it_can_have_a_breakdown()
+    public function it_can_be_broken_down()
     {
         $this->signIn($this->user);
         

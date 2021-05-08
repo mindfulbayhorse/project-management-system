@@ -92,8 +92,8 @@ class DeliverableController extends Controller
      * Update the specified resource in storage.
      *
      * @param  App\Http\Requests\DeliverableRequest  $DeliverableRequest
-     * @param  \App\Project  $project
-     * @param  \App\Deliverable  $deliverable
+     * @param  \App\Models\Project  $project
+     * @param  \App\Models\Deliverable  $deliverable
      * @return \Illuminate\Http\Response
      */
     public function update(DeliverableRequest $request, Project $project, Deliverable $deliverable)
@@ -101,15 +101,6 @@ class DeliverableController extends Controller
         $this->authorize('update', $deliverable);
         
         $deliverable->update($request->validated());
-        
-        $package = $request->has('package') ? true : false;
-        
-        $deliverable->makeAsPackage($package);
-        
-        $milestone = $request->has('milestone') ? true : false;
-        
-        $deliverable->makeAsMilestone($milestone);
-
         
         return back();
     }

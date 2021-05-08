@@ -63,12 +63,13 @@ class Deliverable extends Model
     {
     
         $this->update(['package' => $flag]);
+
     }
     
     public function makeAsMilestone($flag = true)
     {
         
-        $this->update(['milestone' => true]);
+        $this->update(['milestone' => $flag]);
     }
     
     

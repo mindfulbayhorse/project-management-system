@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectWBSController;
 use App\Http\Controllers\DeliverableController;
+use App\Http\Controllers\DeliverableAsMilestoneController;
+use App\Http\Controllers\DeliverableAsPackageController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\WorkAmountController;
 use App\Http\Controllers\TeamController;
@@ -65,6 +67,28 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::resource('statuses', StatusController::class);
     
     Route::resource('work_units', WorkAmountController::class);
+    
+});
+
+
+    
+Route::prefix('wbs')->middleware(['auth', 'verified'])->group(function () {
+    
+    Route::post('/milestones/{deliverable}', 
+            [DeliverableAsMilestoneController::class, 'store'])
+            ->name('create_milestone');
+    
+    Route::delete('/milestones/{deliverable}', 
+            [DeliverableAsMilestoneController::class, 'destroy'])
+            ->name('destroy_milestone');
+    
+    Route::post('/packages/{deliverable}',
+                [DeliverableAsPackageController::class, 'store'])
+                ->name('create_package');
+    
+    Route::delete('/packages/{deliverable}', 
+            [DeliverableAsPackageController::class, 'destroy'])
+            ->name('destroy_package');
     
 });
 

@@ -3,6 +3,8 @@
 /public/storage
 /public/css/
 /public/js
+/public/mix-manifest.json
+/public/css/app.css
 /storage/*.key
 /vendor
 .env
@@ -14,11 +16,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-
-public/mix-manifest.json
-public/css/app.css
 .editorconfig
 .buildpath
 .gitattributes
 docker-compose.override.yml
-
+/.idea
+/.vscode

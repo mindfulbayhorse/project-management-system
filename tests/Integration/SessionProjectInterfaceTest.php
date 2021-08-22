@@ -26,9 +26,18 @@ class SessionProjectInterfaceTest extends TestCase
     
     
     /** @test */
-    public function show_last_open_project()
+    public function save_last_open_project()
     {
         $response = $this->get(route('projects.show',['project'=>$this->project]));
         $response->assertSessionHas('last_project', $this->project->id);
+    }
+    
+    /** @test */
+    public function show_last_open_project()
+    {
+        
+        $this->get(route('projects.show',['project'=>$this->project]));
+        $response = $this->get(route('projects.index'));
+        $response->assertSee('Last project: '.$this->project->title);
     }
 }

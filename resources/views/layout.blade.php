@@ -9,8 +9,13 @@
 </head>
 <body>
 	@include('blocks.header')
+    
+    @yield('breadcrumbs')
+            
+    @yield('last_project')
+            
 	<div class="wide_screen dashboard">
-        @auth 
+        @auth
             @hasSection('left_sidebar')
                 @yield('left_sidebar') 
             @else 
@@ -18,7 +23,6 @@
             @endif
         @endauth
         <div class="center_part">
-            @yield('breadcrumbs')
             
 			<h1>@yield('title')</h1>
 		

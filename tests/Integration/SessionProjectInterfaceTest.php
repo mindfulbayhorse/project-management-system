@@ -38,6 +38,6 @@ class SessionProjectInterfaceTest extends TestCase
         
         $this->get(route('projects.show',['project'=>$this->project]));
         $response = $this->get(route('projects.index'));
-        $response->assertSee('Last project: '.$this->project->title);
+        $response->assertSee('Last watched project: ');
     }
 }

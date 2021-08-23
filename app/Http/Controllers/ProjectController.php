@@ -18,11 +18,13 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $lastProject = Project::find($request->session()->get('last_project'));
 
         return view('projects.index', [
-            'projects' => Project::latest('updated_at')->get()
+            'projects' => Project::latest('updated_at')->get(),
+            'lastProject' => ($lastProject ? $lastProject : null)
             ]);
     }
 

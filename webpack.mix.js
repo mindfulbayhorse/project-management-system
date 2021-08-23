@@ -12,6 +12,7 @@ const mix = require('laravel-mix');
  */
 mix.js('resources/js/app.js', 'public/js')
   .less('resources/less/app.less', 'public/css')
+  .css('resources/css/app.css', 'public/css')
   .browserSync({
     proxy: 'https://project-management-system.com'
   })

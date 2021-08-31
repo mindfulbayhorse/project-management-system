@@ -11,8 +11,8 @@
 	@include('blocks.header')
     
     @yield('breadcrumbs')
-            
-    @yield('last_project')
+    
+    @widget('LastSeenProject')
             
 	<div class="wide_screen dashboard">
         @auth

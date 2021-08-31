@@ -2,12 +2,6 @@
 
 @section('title','List of projects')
 
-@section('last_project')
-
-    @include('blocks.last_project', ['lastProject'=>$lastProject]) 
-
-@endsection
-
 @section('content')
 <a href="/projects/create" class="btn">Add project</a>
 <main>

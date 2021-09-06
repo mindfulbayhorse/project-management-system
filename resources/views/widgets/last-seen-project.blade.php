@@ -1,6 +1,6 @@
 @if ($lastProject)
 
-    Last watched project: 
+    {{$title}}: 
     <a href="@php 
             echo route('projects.show',['project'=>$lastProject]) 
         @endphp">{{ $lastProject->title }}</a>

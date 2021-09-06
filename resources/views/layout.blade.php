@@ -12,7 +12,7 @@
     
     @yield('breadcrumbs')
     
-    @widget('LastSeenProject')
+    @widget("App\Http\Widgets\LastSeenProject")
             
 	<div class="wide_screen dashboard">
         @auth

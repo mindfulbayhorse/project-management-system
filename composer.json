@@ -11,13 +11,15 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "laravel/fortify": "^1.7"
+        "projects/widget": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "jeroen-g/laravel-packager": "^2.7",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
@@ -58,5 +60,14 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "projects/widget": {
+            "type": "path",
+            "url": "C:\\Bitnami\\wampstack7_4\\apps\\project-management-system\\packages/Projects/Widget",
+            "options": {
+                "symlink": true
+            }
+        }
     }
 }

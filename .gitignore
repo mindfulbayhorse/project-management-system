@@ -8,6 +8,7 @@
 /public/css/app.css
 /storage/*.key
 /vendor
+vendor/
 .env
 .env.backup
 .phpunit.result.cache

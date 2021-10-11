@@ -6,10 +6,10 @@
         {
             "name": "Author Name",
             "email": "author@email.com",
-            "homepage": "http://author.com"
+            "homepage": "https://laracasts.com"
         }
     ],
-    "homepage": "",
+    "homepage": "https://laracasts.com",
     "keywords": ["Laravel", "Widget"],
     "require": {
         "illuminate/support": "~7|~8"

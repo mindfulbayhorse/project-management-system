@@ -15,9 +15,13 @@ abstract class Widget{
     
     public function view(){
         
-        $name = (Str::kebab(class_basename($this)));
-        return view("widgets.{$name}");
+        return view("widgets.".$this->viewName());
         
+    }
+    
+    public static function render(){
+        
+        return (new static)->loadView();
     }
     
     protected function buildViewData(){
@@ -29,6 +33,12 @@ abstract class Widget{
         }
         
         return $viewData;
+        
+    }
+    
+    public function viewName(){
+        
+        return Str::kebab(class_basename($this));
         
     }
 }

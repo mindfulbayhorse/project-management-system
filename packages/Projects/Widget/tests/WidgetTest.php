@@ -48,7 +48,11 @@ class WidgetTest extends TestCase
     /** @test */
     public function all_public_methods_are_available_to_the_view()
     {
-        $this->assertStringContainsString('Test widget', TestWidget::render());
+        
+        $view = TestWidget::render();
+        
+        $this->assertStringContainsString('Item 1', $view);
+        $this->assertStringContainsString('Item 2', $view);
     }
 }
 

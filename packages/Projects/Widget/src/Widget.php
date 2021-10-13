@@ -32,6 +32,14 @@ abstract class Widget{
             $viewData[$property->getName()] = $property->getValue($this);
         }
         
+        foreach ((new ReflectionClass($this))->getMethods(\ReflectionMethod::IS_PUBLIC) as $method){
+            
+            if(!in_array($name = $method->getName(), ['loadView','view','render'])){
+                $viewData[$name] = $this->$name();
+            }
+            
+        }
+        
         return $viewData;
         
     }

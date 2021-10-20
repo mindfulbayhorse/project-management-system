@@ -22,7 +22,7 @@ class WidgetTest extends TestCase
     {
         
         $string = "@widget('Projects\Widget\Tests\TestWidget')";
-        $expected  = "<?= resolve('Projects\Widget\Tests\TestWidget')->loadView(); ?>";
+        $expected  = "<?= resolve('Projects\Widget\Tests\TestWidget'); ?>";
         
         $compiled = resolve('blade.compiler')->compileString($string);
         
@@ -53,6 +53,13 @@ class WidgetTest extends TestCase
         
         $this->assertStringContainsString('Item 1', $view);
         $this->assertStringContainsString('Item 2', $view);
+    }
+    
+    
+    /** @test */
+    public function it_renders_itfels_when_converted_to_a_string()
+    {
+        $this->assertStringContainsString('Test widget', new TestWidget);
     }
 }
 

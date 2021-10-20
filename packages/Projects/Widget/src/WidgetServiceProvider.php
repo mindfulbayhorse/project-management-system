@@ -17,7 +17,7 @@ class WidgetServiceProvider extends ServiceProvider
         
         Blade::directive('widget', function($expression){
 
-            return "<?= resolve({$expression})->loadView(); ?>";
+            return "<?= resolve({$expression}); ?>";
         });
         
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'projects');

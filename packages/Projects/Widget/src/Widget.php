@@ -8,10 +8,6 @@ use Illuminate\Support\Str;
 
 abstract class Widget{
     
-    public function loadView(){
-        
-        return $this->view()->with($this->buildViewData());
-    }
     
     public function view(){
         
@@ -19,12 +15,7 @@ abstract class Widget{
         
     }
     
-    public static function render(){
-        
-        return (new static)->loadView();
-    }
-    
-    protected function buildViewData(){
+    protected function viewData(){
         
         $viewData = [];
         
@@ -34,7 +25,7 @@ abstract class Widget{
         
         foreach ((new ReflectionClass($this))->getMethods(\ReflectionMethod::IS_PUBLIC) as $method){
             
-            if(!in_array($name = $method->getName(), ['loadView','view','render'])){
+            if(!in_array($name = $method->getName(), ['view','render','__toString'])){
                 $viewData[$name] = $this->$name();
             }
             
@@ -47,6 +38,20 @@ abstract class Widget{
     public function viewName(){
         
         return Str::kebab(class_basename($this));
+        
+    }
+    
+    
+    public static function render(){
+        
+        return new static;
+        
+    }
+    
+    
+    public function __toString(){
+                
+        return $this->view()->with($this->viewData())->__toString();
         
     }
 }

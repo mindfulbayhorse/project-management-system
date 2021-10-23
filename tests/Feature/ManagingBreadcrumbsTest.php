@@ -11,7 +11,7 @@ use App\Models\Role;
 
 class ManagingBreadcrumbsTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
     
     public $user;
     

@@ -12,9 +12,9 @@ class LastSeenProject extends Widget{
     
     public $title = 'Last watched project';
     
-    public function __construct(Request $request){
+    public function __construct(){
         
-        $this->lastProject = Project::find($request->session()->get('last_project'));
+        $this->lastProject = Project::find(session('last_project'));
     }
 
 }

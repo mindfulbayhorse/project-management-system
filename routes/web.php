@@ -16,6 +16,7 @@ use App\Http\Controllers\ProjectResourceController;
 use App\Http\Controllers\ResourceTypeController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('sections', SectionTitleController::class)->parameters([
         'section' => 'section'
     ])->middleware(['can:edit_section']);
+    
+    Route::resource('roles', RoleController::class);
 });
 
 

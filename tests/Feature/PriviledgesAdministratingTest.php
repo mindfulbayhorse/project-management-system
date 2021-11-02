@@ -49,4 +49,53 @@ class PriviledgesAdministratingTest extends TestCase
         
         
     }
+    
+    
+    /** @test */
+    public function user_can_see_list_of_all_roles()
+    {
+        $this->withoutExceptionHandling();
+        
+        $response = $this->get(route('roles.index'));
+        $response->assertStatus(200);
+        
+        $roles = Role::factory()->count(2)->create();
+        
+        $response = $this->get(route('roles.index'));
+
+        $response->assertSeeInOrder($roles->pluck('label')->toArray());
+    }
+    
+    /** @test */
+    public function user_can_edit_role()
+    {
+        $this->withoutExceptionHandling();
+        
+        $role = Role::factory()->create();
+        
+        $response = $this->get(route('roles.edit',['role' => $role]));
+        $response->assertStatus(200)->assertSee($role->name);
+        
+        $changes = [
+            'id' => $role->id ,
+            'name' => 'new name',
+            'label' => 'new label'
+        ];
+        
+        $response = $this->patch(route('roles.update', ['role' => $role]), $changes);
+        
+        $response->assertStatus(200);
+        
+        $this->assertDatabaseHas('roles', $changes);
+    }
+    
+    
+    /** @test */
+    public function user_can_open_role_page()
+    {
+        $role = Role::factory()->create();
+        
+        $response = $this->get(route('roles.show',['role' => $role]));
+        $response->assertStatus(200)->assertSee('<h1>'.$role->label.'</h1>', false);
+    }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Suites\Navigation;
 
 class RoleController extends Controller
 {
+    use Navigation;
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,12 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::all(); 
+        
+        return view('admin.roles.index', [
+                'roles' =>$roles,
+                'section' => $this->getSection()
+        ]);
     }
 
     /**
@@ -35,14 +42,10 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = $request->validate([
-            "name"=>'required',
-            "label" => 'required'
-        ]);
         
-        $savedRole = Role::create($role);
+        $role = Role::create($this->getValidatedRequest($request));
         
-        return view('admin.roles.show',['role'=>$savedRole]);
+        return view('admin.roles.edit',['role'=>$role]);
     }
 
     /**
@@ -53,7 +56,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        return view('admin.roles.show',['role'=>$role]);
     }
 
     /**
@@ -64,7 +67,10 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        return view('admin.roles.edit', [
+            'role' =>$role,
+            'section' => $this->getSection()
+        ]);
     }
 
     /**
@@ -76,7 +82,9 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $role->update($this->getValidatedRequest($request));
+        
+        return view('admin.roles.edit',['role'=>$role]);
     }
 
     /**
@@ -88,5 +96,13 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         //
+    }
+    
+    private function getValidatedRequest(Request $request){
+        
+        return $request->validate([
+            "name"=>'required',
+            "label" => 'required'
+        ]);
     }
 }

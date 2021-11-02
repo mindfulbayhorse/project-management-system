@@ -3,10 +3,11 @@
 @section('content')
     @include('show_err') 
     <form method="POST" 
-            action="{{ route('roles.index') }}">
-          
+            action="{{ route('roles.update', ['role'=> $role]) }}">
+        
+        @method('PATCH')
         @include('admin.roles.form',[
-            'btnText' => 'Create',
+            'btnText' => 'Save',
             'role' => $role
         ])
 

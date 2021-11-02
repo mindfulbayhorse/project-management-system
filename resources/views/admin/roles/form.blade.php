@@ -1,18 +1,18 @@
 @csrf
 
 <div class="field">
-    <label for="field">Section code:</label>
+    <label for="name">Section name:</label>
     <input type="text" 
-        name="code" 
-        id="title"
+        name="name" 
+        id="name"
         value="{{ old('name', $role->name) }}" />
 </div>
 
 <div class="field">
-    <label for="title">Section title:</label>
+    <label for="label">Section label:</label>
     <input type="text" 
-        name="title" 
-        id="title"
+        name="label" 
+        id="label"
         value="{{ old('label', $role->label) }}" />
 </div>
 

@@ -14,6 +14,7 @@
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "predis/predis": "^1.1",
         "projects/widget": "dev-master"
     },
     "require-dev": {

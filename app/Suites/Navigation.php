@@ -9,11 +9,13 @@ trait Navigation{
     
     public function getSection(){
         
-        $section = cache()->remember('section.breadcrumbs', now()->addDay(), function () {
-            var_dump('new section title');
+        
+        $section = cache()->remember('redis.section.title', now()->addDay(), function () {
+
             return SectionTitle::where('code', Route::currentRouteName())->get()->first();
         });
         
+            
         return $section;
 
     }

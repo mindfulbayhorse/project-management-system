@@ -35,7 +35,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function(){
     
-    Route::resource('projects', ProjectController::class);
+    Route::resource('projects', ProjectController::class,['where'=>['project','[A-z_\-]+']]);
     
     Route::resource('projects.wbs', ProjectWBSController::class)->parameters([
         'wbs' => 'wbs'

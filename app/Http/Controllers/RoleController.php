@@ -101,7 +101,7 @@ class RoleController extends Controller
     private function getValidatedRequest(Request $request){
         
         return $request->validate([
-            "name"=>'required',
+            "name"=>'required|alpha_dash|unique:roles,name',
             "label" => 'required'
         ]);
     }

@@ -25,6 +25,11 @@
         </div>
         
         <div class="field">
+            <input type="checkbox" name="agreement" value=""/>
+            <label for="cost">Agree with <a href="/terms-conditions">terms and conditions</a>:</label>
+        </div>
+        
+        <div class="field">
             <input type="submit" name="login" value="Sing in" />   
         </div>
     </form>

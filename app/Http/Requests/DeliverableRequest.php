@@ -33,7 +33,11 @@ class DeliverableRequest extends FormRequest
             'wbs_id' => 'required|integer',
             'title' => 'required',
             'order' => 'nullable|integer',
-            'parent_id' => 'nullable|integer'
+            'parent_id' => 'nullable|integer',
+            'start_date' => 'nullable',
+            'end_date' => 'sometimes|date|after:start_date',
+            'milestone' => 'nullable',
+            'package' => 'nullable'
         ];
     }
 }

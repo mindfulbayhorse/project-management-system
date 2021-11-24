@@ -254,6 +254,26 @@ class ManagingProjectDeliverablesTest extends TestCase
         
         $this->assertDatabaseHas('deliverables', $deliverable);
     }
-    
+      
+    /** @test */
+    public function its_finished_date_cannot_be_earlier_than_start_date()
+    {
+        
+        $this->signIn($this->user);
+        
+        $deliverable = Deliverable::factory()->make([
+            'start_date' => now()->addDay(),
+            'end_date' => now(),
+            'wbs_id' => $this->deliverable->wbs_id
+        ])->toArray();
+
+        
+        $responde = $this->post(route('projects.deliverables.store',
+            $this->deliverable->wbs->project),$deliverable);
+
+        $responde->assertSessionHasErrors(['end_date'], null,'deliverable');
+        
+        $this->assertDatabaseMissing('deliverables', $deliverable);
+    }
 
 }

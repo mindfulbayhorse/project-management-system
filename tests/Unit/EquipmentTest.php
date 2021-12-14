@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Equipment;
 use App\Models\ResourceType;
 use App\Models\Supplier;
+use App\Models\Supply;
 
 class EquipmentTest extends TestCase
 {
@@ -25,7 +26,7 @@ class EquipmentTest extends TestCase
     }
     
     /** @test */
-    public function project_has_equipment_as_a_resource()
+    public function it_is_a_resource_for_a_project()
     {
         $this->withoutExceptionHandling();
         
@@ -57,7 +58,7 @@ class EquipmentTest extends TestCase
     
     
     /** @test */
-    public function it_have_range_of_products()
+    public function it_has_range_of_products()
     {
         $products = $this->faker->words(5);
         
@@ -90,4 +91,22 @@ class EquipmentTest extends TestCase
         });
         
     }
+    
+    /** @test */
+    public function it_can_be_supplied()
+    {
+        
+        $this->withoutExceptionHandling();
+        
+         $equipment = Equipment::factory()
+            ->hasAttached(Supplier::factory()->count(3)->create(),
+                [
+                     'price'=>$this->faker->randomNumber(5,false)
+                ]
+            )
+            ->create();
+        
+        $this->assertCount(3, $equipment->suppliers->toArray());
+    }
+    
 }

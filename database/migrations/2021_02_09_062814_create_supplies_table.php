@@ -14,12 +14,13 @@ class CreateSuppliesTable extends Migration
     public function up()
     {
         Schema::create('supplies', function (Blueprint $table) {
-            
-            $table->unsignedBigInteger('supply_id');
-            $table->string('supply_type');
+           
+            $table->id();
+            $table->unsignedBigInteger('supplied_id')->constrained();
+            $table->string('supplied_type');
+            $table->float('price');
             $table->foreignId('supplier_id')->constrained();
-            
-            $table->primary(['supply_id', 'supply_type', 'supplier_id']);
+           
         });
     }
 

@@ -15,9 +15,12 @@ class UserAdminSeeder extends Seeder
      */
     public function run()
     {
+        
         User::factory()->create([
             'email'=>'developer@gmail.com',
-            'password' => Hash::make(env('DEV_ADMIN_PASSWORD', 'password'))
+            'password' => Hash::make(env('DEV_ADMIN_PASSWORD')),
+            'email_verified_at' => now()
         ]);
+
     }
 }

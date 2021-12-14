@@ -18,7 +18,6 @@ class EquipmentSeeder extends Seeder
         
         Equipment::factory()
             ->count(150)
-            ->has(ResourceType::factory(), 'type')
             ->create();
     }
 }

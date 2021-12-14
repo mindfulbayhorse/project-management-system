@@ -24,8 +24,9 @@ class Equipment extends Model
 
     public function suppliers()
     {
-        return $this->morphToMany(Supplier::class, 'supply', 'supplies','supply_id', 'supplier_id');
+        return $this->morphToMany(Supplier::class, 'supplied','supplies');
     }
     
+   
    
 }

@@ -27,6 +27,7 @@ class Supplier extends Model
     
     public function equipment()
     {
-        return $this->morphedByMany(Equipment::class, 'supplier_resource', 'supplier_resource', 'resource_id');
+        return $this->morphedByMany(Equipment::class, 'supplied','supplies');
     }
+    
 }

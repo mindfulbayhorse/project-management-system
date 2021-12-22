@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProjectRequest;
-use Illuminate\Support\Facades\Auth;
 
 
 class ProjectController extends Controller
@@ -20,9 +19,15 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-
+        DB::listen(function($query){
+            logger($query->sql);
+        });
+        
         return view('projects.index', [
-            'projects' => Project::latest('updated_at')->get()
+            'projects' => Project::latest('updated_at')
+            ->with(['status','team', 'wbs' => function ($query) {
+                $query->where('actual', '=', '1');
+            }])->get()
             ]);
     }
 

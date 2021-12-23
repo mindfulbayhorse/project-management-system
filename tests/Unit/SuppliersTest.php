@@ -31,7 +31,7 @@ class SuppliersTest extends TestCase
     public function it_has_a_path()
     {
         $this->withoutExceptionHandling();
-        //dd(route('supplier', ['supplier' => $this->supplier]));
+  
         $this->assertEquals(route('supplier', ['supplier' => $this->supplier]), $this->supplier->path());
     }
     

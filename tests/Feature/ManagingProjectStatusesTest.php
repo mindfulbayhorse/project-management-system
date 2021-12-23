@@ -14,7 +14,22 @@ class ManagingProjectStatusesTest extends TestCase
     public $user;
     
     /** @test */
-    public function users_can_updated_a_status()
+    public function it_can_be_created()
+    {
+        
+        $this->signIn();
+        
+        $status = Status::factory()->make()->toArray();
+        $this->assertDatabaseMissing('statuses', $status);
+        
+        $response = $this->followingRedirects()->post(route('statuses.index',$status));
+        $response->assertStatus(200);
+        
+        $this->assertDatabaseHas('statuses', $status);
+    }
+    
+    /** @test */
+    public function it_can_be_updated()
     {
         
         $this->signIn();

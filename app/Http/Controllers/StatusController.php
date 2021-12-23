@@ -101,8 +101,8 @@ class StatusController extends Controller
     public function validateFields(Request $request){
         
         return $request->validate([
-            'name' => 'required|min:5',
-            'description' => 'nullable|min:10'
+            'name' => 'required',
+            'description' => 'nullable'
         ]);
     }
 }

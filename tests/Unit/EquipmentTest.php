@@ -9,7 +9,6 @@ use App\Models\Project;
 use App\Models\Equipment;
 use App\Models\ResourceType;
 use App\Models\Supplier;
-use App\Models\Supply;
 
 class EquipmentTest extends TestCase
 {
@@ -70,23 +69,27 @@ class EquipmentTest extends TestCase
     }
     
     /** @test */
-    public function it_have_suppliers()
+    public function it_has_suppliers()
     {
         $this->withoutExceptionHandling();
         
         $supplyers = Supplier::factory()->count(2)->create();
         
-        $this->equipment->suppliers()->attach($supplyers);
+        $equipment = Equipment::factory()
+            ->hasAttached($supplyers, ['price' => 150])
+            ->create();
+
+        //$this->equipment->suppliers()->attach($supplyers);
         
-        $this->equipment->refresh();
+        $equipment->refresh();
         
-        tap($this->equipment, function($equipment){
+        tap($equipment, function($equipment){
     
             $this->assertCount(2, $equipment->suppliers);
             $this->assertDataBaseHas('supplies', [
                 'supplier_id' => $equipment->suppliers()->first()->id,
-                'supply_id' => $equipment->id,
-                'supply_type' => Equipment::class
+                'supplied_id' => $equipment->id,
+                'supplied_type' => Equipment::class
             ]);
         });
         

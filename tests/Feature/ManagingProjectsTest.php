@@ -8,7 +8,6 @@ use App\Models\Deliverable;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Status;
 use App\Models\User;
-use Illuminate\Support\Str;
 
 class ManagingProjectsTest extends TestCase{
     
@@ -45,7 +44,7 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test  */
-    function guests_cannot_create_projects(){
+    function it_cannot_be_created_by_guest(){
         
     	$attributes = Project::factory()->raw();
         
@@ -67,7 +66,7 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test */
-    function authenticated_user_can_see_a_project(){
+    function it_can_be_viewed_by_authenticated_user(){
         
         $this->signIn();
         
@@ -77,14 +76,14 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test */
-    function guests_cannot_view_a_project(){
+    function it_cannot_be_viewed_by_guest(){
     	
     	$this->get($this->project->path())->assertRedirect('/login');
     	
     }
     
     /** @test */
-    public function guests_cannot_initialize_project_wbs(){
+    public function its_wbs_cannot_be_initialized_by_guest(){
     	
     	$project = Project::factory()->create();
     	
@@ -99,7 +98,7 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test */
-    public function manager_can_edit_the_project(){
+    public function it_can_be_edited_my_manager(){
     	
     	$projectChanges = ([
     	    'manager_id'=>$this->project->manager->id,
@@ -117,7 +116,7 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test */
-    public function project_status_can_be_added_to_project()
+    public function it_can_have_a_status()
     {
         
         $this->signIn();
@@ -136,7 +135,7 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test */
-    public function project_card_contains_link_to_active_wbs()
+    public function its_card_contains_link_to_active_wbs()
     {
         
         $this->signIn();
@@ -148,6 +147,11 @@ class ManagingProjectsTest extends TestCase{
             'wbs_id' => $this->project->wbs()->actual()[0]->id
         ]);
         
+        $test = Project::latest('updated_at')
+        ->with(['wbs' => function ($query) {
+            $query->where('actual', '=', '1');
+        }])->get();
+        
         $this->get('/projects')
             ->assertSee($this->project->wbs()->actual()[0]->path())
             ->assertSeeText('WBS');
@@ -155,7 +159,7 @@ class ManagingProjectsTest extends TestCase{
     }
     
     /** @test */
-    public function project_card_contains_link_to_team()
+    public function its_card_contains_link_to_team()
     {
         $this->signIn();
         
@@ -172,7 +176,7 @@ class ManagingProjectsTest extends TestCase{
     }
        
     /** @test */
-    public function project_is_accessed_by_its_slug()
+    public function it_is_accessed_by_its_slug()
     {
         $this->withoutExceptionHandling();
         
@@ -181,6 +185,23 @@ class ManagingProjectsTest extends TestCase{
         $this->get('/projects/'.$this->project->slug)
             ->assertStatus(200)
             ->assertSee('<h1>'.$this->project->title.'</h1>', false);
+    }
+    
+    
+    /** @test */
+    public function it_showes_a_status_in_listing(){
+        
+        $projectTest = Project::factory(['title'=>'Test project'])
+            ->for(Status::factory()->state(['name'=>'test status']))
+            ->create();
+           
+        $this->signIn();
+        //dd($projectTest->status->);
+        $response = $this->get(route('projects.index'));
+        
+        $response->assertSee('<h2><a href="'.route('projects.show',$projectTest, false).'">'
+            .$projectTest->title.'</a></h2>',false);
+        $response->assertSee('<p>'.$projectTest->status->name.'</p>',false);
     }
 }
 ?>

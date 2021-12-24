@@ -28,7 +28,7 @@ class CreateProjectsTable extends Migration
             $table->timestamps(6);
             
             $table->unsignedSmallInteger('status_id')->nullable();
-            $table->foreign('manager_id')->references('id')->on('users');
+            $table->foreign('manager_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('status_id')->references('id')->on('statuses');
          
         });

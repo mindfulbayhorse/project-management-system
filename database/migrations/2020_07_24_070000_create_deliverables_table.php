@@ -16,7 +16,7 @@ class CreateDeliverablesTable extends Migration
         Schema::create('deliverables', function (Blueprint $table) {
             
             $table->bigIncrements('id');
-            $table->foreignId('wbs_id')->constrained()->onDelete('cascade');
+            $table->foreignId('wbs_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedbigInteger('parent_id')->nullable();
             $table->string('title', 200);
             $table->date('start_date',6)->nullable();

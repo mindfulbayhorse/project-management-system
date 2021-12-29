@@ -15,6 +15,7 @@ class EquipmentSeeder extends Seeder
      */
     public function run()
     {
+        Equipment::truncate();
         
         Equipment::factory()
             ->count(150)

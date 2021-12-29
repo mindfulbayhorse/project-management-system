@@ -32,12 +32,12 @@ class Project extends Model
     
     public function status()
     {     
-        return $this->belongsTo(Status::class);   
+        return $this->belongsTo(Status::class)->withDefault();;   
     }
     
     public function manager()
     {
-    	return $this->belongsTo(User::class,'manager_id');
+        return $this->belongsTo(User::class,'manager_id')->withDefault();;
     }
     
     public function actualizeWBS(WorkBreakdownStructure $wbs)

@@ -16,7 +16,7 @@ class CreateProjectsTable extends Migration
         
         Schema::create('projects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('slug');
             
             $table->string('url')->nullable();
@@ -29,7 +29,8 @@ class CreateProjectsTable extends Migration
             
             $table->unsignedSmallInteger('status_id')->nullable();
             $table->foreign('manager_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('status_id')->references('id')->on('statuses');
+            $table->foreign('status_id')->references('id')->on('statuses')->nullOnDelete();
+            
          
         });
               

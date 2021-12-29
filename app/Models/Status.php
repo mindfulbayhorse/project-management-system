@@ -18,4 +18,8 @@ class Status extends Model
         return '/'.$this->table.'/'.$this->id;
     }
     
+    public function projects(){
+        return $this->hasMany(Project::class);
+    }
+    
 }

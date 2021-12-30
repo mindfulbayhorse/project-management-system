@@ -69,8 +69,8 @@ class ProjectMainSeeder extends Seeder
         }
         
         Deliverable::factory()->state(['title'=>'Content'])
-        ->forWBS(['project_id'=>$project->id])
-        ->create();
+            ->forWBS(['project_id'=>$project->id, 'actual'=>1])
+            ->create();
         
     }
 }

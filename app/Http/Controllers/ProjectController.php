@@ -19,15 +19,12 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        DB::listen(function($query){
-            logger($query->sql);
-        });
-        
+  
         return view('projects.index', [
             'projects' => Project::latest('updated_at')
-            ->with(['status','team', 'wbs' => function ($query) {
-                $query->where('actual', '=', '1');
-            }])->get()
+                ->with(['status','team', 'wbs' => function ($query) {
+                    $query->where('actual', '=', '1');
+                }])->get()
             ]);
     }
 

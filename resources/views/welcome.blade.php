@@ -1,6 +1,4 @@
-@extends('layout')
-@section('title','Calendar of current work')
-
-@section('content')
-    <div class="calendar"></div>
-@endsection
+<x-master>
+    <x-projects.project.activities.calendar>
+    </x-projects.project.activities.calendar>
+</x-master>

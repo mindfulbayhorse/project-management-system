@@ -59,3 +59,53 @@
 .projects_groups{
   .groups();
 }
+
+.dropdown{
+  
+  background: @button-background;
+  border-radius: @button-corners;
+  display: inline-block;
+  border: 1px solid @button-color;
+  position: relative;
+  
+  button{
+    
+    display: flex;
+    border: none;
+    
+    span{
+      
+      &.icon{
+        display: inline-block;
+        height: 15px;
+        width: 20px;
+        background: url('../img/dropdown-arrow.png') no-repeat;
+        margin: 0px 0px 0px 10px;
+      }
+      
+    }
+    
+  }
+  
+  .list{
+    position: absolute;
+    background: @button-background;
+    width: 100%;
+    
+    a{
+      display: block;
+      padding: 5px 10px;
+      
+      &:focus{
+        background: red;
+      }
+      
+      &:hover{
+        background: red;
+      }
+    }
+  }
+  
+   
+    
+}

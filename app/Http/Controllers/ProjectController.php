@@ -8,7 +8,6 @@ use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProjectRequest;
 
-
 class ProjectController extends Controller
 {    
     
@@ -19,12 +18,17 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-  
+     
         return view('projects.index', [
             'projects' => Project::latest('updated_at')
                 ->with(['status','team', 'wbs' => function ($query) {
                     $query->where('actual', '=', '1');
-                }])->get()
+                }])->get(),
+            'currentView' => ( $request->input('showby') ? $request->input('showby') : 'cards'),
+            'viewChoice' => [
+                'cards' => 'By cards',
+                'table' => 'By table'
+            ] 
             ]);
     }
 

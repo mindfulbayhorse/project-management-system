@@ -97,4 +97,22 @@ class Deliverable extends Model
         
         return false;
     }
+    
+    
+    public function scopeFilterDeliverables($query, $filters)
+    {
+
+        return 
+            $query
+            ->when($filters['start_date'] ?? false, function ($query, $startDate) {
+                
+                return $query->where('start_date', '>=', Carbon::createFromTimestamp($startDate));
+            })
+            ->when($filters['end_date'] ?? false, function ($query, $endDate) {
+                
+                return $query->where('end_date', '<=', Carbon::createFromTimestamp($endDate));
+            })
+            ->get();
+        
+    }
 }

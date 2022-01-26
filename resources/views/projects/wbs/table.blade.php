@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($wbs->deliverables as $deliverable)
+    @foreach ($deliverables as $deliverable)
         
         <tr tabindex='-1'>
             @if (isset($form))
@@ -26,7 +26,9 @@
                 </td>
             @endif
             <td>
-                <a href="{{ $deliverable->path() }}">{{ $deliverable->title }}</a>
+                <a href="{{ route('deliverable', [
+                    'project' => $project, 
+                    'deliverable' => $deliverable]) }}">{{ $deliverable->title }}</a>
             </td>
             <td>
                 {{ $deliverable->start_date }}

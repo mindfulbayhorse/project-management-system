@@ -1,6 +1,8 @@
 <?php 
 namespace App\Suites;
 
+use Carbon\Carbon;
+
 trait RecordsActivity{
     
     public $oldAttributes = [];
@@ -60,16 +62,44 @@ trait RecordsActivity{
         $before = $this->cleanTimestamps($this->oldAttributes);
         $after = $this->cleanTimestamps($this->getAttributes());
         $changes = $this->cleanTimestamps($this->getChanges());
+       
+        $filtered = $this->filterFieldValues(compact(array('before', 'after', 'changes')));
+        extract($filtered);
+       
         
         if ($this->wasChanged()){
             return [
-                'before' => array_diff($before,$after),
+                'before' => array_diff($before, $after),
                 'after' => $changes
             ];
         }
         
         return null;
         
+    }
+    
+    private function filterFieldValues(Array $fieldSet){
+        
+        $filtered = [];
+        foreach($fieldSet as $key => $fields){
+            
+            
+            $filtered[$key] = array_map(function($value){
+                
+                if (is_object($value)){
+                    
+                    if (get_class($value)=='DateTime')
+                        
+                        $value = new Carbon($value);
+                        
+                        return $value->getTimestamp();
+                }
+
+                return $value;
+            }, $fields);
+        }
+
+        return $filtered;
     }
     
     

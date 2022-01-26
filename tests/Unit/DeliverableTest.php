@@ -22,7 +22,12 @@ class DeliverableTest extends TestCase
     
         parent::setUp();
         
-        $this->deliverable = Deliverable::factory()->create();
+        $this->deliverable = Deliverable::factory()
+            ->state([
+                'start_date' => null,
+                'end_date' => null
+            ])
+            ->create();
 
     }
     
@@ -104,5 +109,6 @@ class DeliverableTest extends TestCase
         
         //$this->assertEquals($this->deliverable->start_date, $this->deliverable->wbs->project->start_date);
     }
+    
     
 }

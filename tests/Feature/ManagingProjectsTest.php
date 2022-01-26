@@ -140,21 +140,22 @@ class ManagingProjectsTest extends TestCase{
         
         $this->signIn();
         
+        $newProject = Project::factory()->create();
+        
         $this->get('/projects')
-            ->assertDontSeeText('WBS');
+            ->assertDontSee($newProject->wbs()->actual()[0]->path());
         
         Deliverable::factory()->create([
-            'wbs_id' => $this->project->wbs()->actual()[0]->id
+            'wbs_id' => $newProject->wbs()->actual()[0]->id
         ]);
         
-        $test = Project::latest('updated_at')
-        ->with(['wbs' => function ($query) {
-            $query->where('actual', '=', '1');
-        }])->get();
+        Project::latest('updated_at')
+            ->with(['wbs' => function ($query) {
+                $query->where('actual', '=', '1');
+            }])->get();
         
         $this->get('/projects')
-            ->assertSee($this->project->wbs()->actual()[0]->path())
-            ->assertSeeText('WBS');
+            ->assertSee($newProject->wbs()->actual()[0]->path());
         
     }
     
@@ -196,7 +197,7 @@ class ManagingProjectsTest extends TestCase{
             ->create();
            
         $this->signIn();
-        //dd($projectTest->status->);
+        
         $response = $this->get(route('projects.index'));
         
         $response->assertSee('<h2><a href="'.route('projects.show',$projectTest, false).'">'

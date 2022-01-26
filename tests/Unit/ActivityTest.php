@@ -74,7 +74,7 @@ class ActivityTest extends TestCase
                 'before' => ['title' => $originalTitle],
                 'after' => ['title' => $newTitle]
             ];
-            
+
             $this->assertEquals($expected, $activity->changes);
         });
         

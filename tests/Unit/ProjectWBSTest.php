@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\Project;
 use App\Models\WorkBreakdownStructure;
 use App\Models\Deliverable;
+use Carbon\Carbon;
 
 class ProjectWBSTest extends TestCase
 {
@@ -116,6 +117,43 @@ class ProjectWBSTest extends TestCase
         
         $this->assertCount(1, $project->wbs);
         
+    }
+    
+    
+    /** @test */
+    public function deliverables_can_be_filtered_by_dates()
+    {
+        
+        $knownDate = Carbon::create(2022, 1, 1, 12);          
+        Carbon::setTestNow($knownDate);  
+       
+        $deliverable1 = Deliverable::factory()
+        ->state([
+            'start_date' => now()->addHour()->toDateTimeString(),
+            'end_date' => now()->addWeek()->toDateTimeString(),
+            'wbs_id' => $this->firstWBS
+        ])->create();
+        
+        Deliverable::factory()
+            ->state([
+                'start_date' => now()->addDay()->toDateTimeString(),
+                'end_date' => now()->addWeeks(3)->toDateTimeString(),
+                'wbs_id' => $this->firstWBS
+            ])->create();
+        
+        $filters = [
+            'start_date' => now()->getTimestamp(),
+            'end_date' => now()->addWeeks(2)->getTimestamp()
+        ];
+        
+        $filtered = $this->project->wbs()
+            ->find($this->firstWBS->id)->deliverables()
+            ->filterDeliverables($filters)->toArray();
+        
+        $this->assertCount(1, $filtered);
+    
+        $this->assertEquals($filtered['0']['title'], $deliverable1->title);
+
     }
     
    

@@ -28,6 +28,7 @@ class ProjectTest extends TestCase
         //new project is created
         $this->project = Project::factory()
             ->for(User::factory(), 'manager')
+            ->state(['status_id'=>null])
             ->create();
             
         $this->project->refresh();
@@ -56,7 +57,7 @@ class ProjectTest extends TestCase
     /** @test */
     public function it_can_have_no_one_status()
     {
-        $this->assertEmpty($this->project->status);
+        $this->assertFalse($this->project->status()->exists());
     }
     
     /** @test */

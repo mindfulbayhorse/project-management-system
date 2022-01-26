@@ -9,6 +9,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Project;
+use Carbon\Carbon;
 
 class ManagingProjectDeliverablesTest extends TestCase
 {
@@ -205,8 +207,15 @@ class ManagingProjectDeliverablesTest extends TestCase
     {
         $this->signIn($this->user);
         
+        $knownDate = Carbon::create(2022, 1, 1, 12);
+        Carbon::setTestNow($knownDate);
+        
         $deliverable = Deliverable::factory()
             ->for(WorkBreakdownStructure::factory(), 'wbs')
+            ->state([
+               'start_date' => now(),
+               'end_date' => now()->addWeek()
+            ])
             ->raw();
         
         $this->post(
@@ -224,14 +233,20 @@ class ManagingProjectDeliverablesTest extends TestCase
         $this->get($this->deliverable->path())
             ->assertStatus(200);
         
+            
+        $knownDate = Carbon::create(2022, 1, 1, 12);
+        Carbon::setTestNow($knownDate);
+            
         $deliverable = Deliverable::factory()->raw([
             'wbs_id' => $this->deliverable->wbs->id,
-            'parent_id' => $this->deliverable->id
+            'parent_id' => $this->deliverable->id,
+            'start_date' => now(),
+            'end_date' => now()->addWeek()
         ]);
         
         $this->post(route('projects.deliverables.index', $this->deliverable->wbs->project),
                 $deliverable)->assertRedirect($this->deliverable->path());
-        
+  
         $this->assertDatabaseHas('deliverables', $deliverable);
     }
     
@@ -242,9 +257,14 @@ class ManagingProjectDeliverablesTest extends TestCase
         
         $this->signIn($this->user);
         
+        $knownDate = Carbon::create(2022, 1, 1, 12);
+        Carbon::setTestNow($knownDate);
+        
         $deliverable = Deliverable::factory()->raw([
             'order' => 9,
-            'wbs_id' => $this->deliverable->wbs->id
+            'wbs_id' => $this->deliverable->wbs->id,
+            'start_date' => now(),
+            'end_date' => now()->addWeek()
         ]);
         
         $this->followingRedirects()
@@ -274,6 +294,60 @@ class ManagingProjectDeliverablesTest extends TestCase
         $responde->assertSessionHasErrors(['end_date'], null,'deliverable');
         
         $this->assertDatabaseMissing('deliverables', $deliverable);
+    }
+    
+    
+    /** 
+    public function its_show_page_has_form_for_filter(){
+        
+        $start_date = Carbon::createFromTimestamp(now()->getTimestamp());
+        
+        $end_date = Carbon::createFromTimestamp(now()->addWeek()->getTimestamp());
+        
+        $respond = $this->get()
+    }*/
+    
+
+    /** @test */
+    public function its_deliverables_can_be_filtered_by_dates(){
+       
+        $this->signIn($this->user);     
+        $wbs = WorkBreakdownStructure::factory()->create();
+        
+        $knownDate = Carbon::create(2022, 1, 1, 12);
+        Carbon::setTestNow($knownDate);
+        
+        $deliverable1 = Deliverable::factory()
+            ->for($wbs ,'wbs')
+            ->state([
+                'start_date' => now()->addDay(),
+                'end_date' => now()->addDays(3),
+            ])->create();
+        
+        $deliverable2 = Deliverable::factory()
+            ->for($wbs ,'wbs')
+            ->state([
+                'start_date' => now()->addDays(2),
+                'end_date' => now()->addWeek()
+            ])->create();
+        
+        $response = $this->get(route('projects.wbs.show',[
+            'project'=> $wbs->project, 
+            'wbs' => $wbs]));
+        
+        $response->assertSee($deliverable1->title, false)
+            ->assertSee($deliverable2->title, false);
+        
+        $response =  $this->followingRedirects()->call('GET', route('projects.wbs.show',[
+                'project' => $wbs->project, 
+                'wbs' => $wbs]),[
+                'start_date'=> now()->getTimeStamp(), 
+                'end_date' => now()->addDays(4)->getTimestamp()
+        ]);
+
+        $response->assertSee($deliverable1->title, false)
+            ->assertDontSee($deliverable2->title, false);
+        
     }
 
 }

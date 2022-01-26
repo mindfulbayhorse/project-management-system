@@ -11,7 +11,7 @@
         </div>
       
         <nav>
-            @if ($project->wbs->count() > 0)
+            @if ($project->wbs()->actual()[0]->deliverables->count() > 0)
             <a href="{{ $project->wbs[0]->path() }}">WBS</a>
             @endif
 

@@ -7,6 +7,8 @@ use App\Models\WorkBreakdownStructure;
 use App\Http\Requests\DeliverableRequest;
 use App\Models\Deliverable;
 use \Illuminate\Support\Facades\Auth;
+use \Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ProjectWBSController extends Controller
 {
@@ -77,12 +79,24 @@ class ProjectWBSController extends Controller
      * @param  \App\WorkBreakdownStructure  $workBreakdownStructure
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project, WorkBreakdownStructure $wbs)
+    public function show(Project $project, WorkBreakdownStructure $wbs, Request $request)
     {
+ 
+        $validated = $request->validate([
+            'start_date' => 'nullable|date_format:U',
+            'end_date' => 'nullable|date_format:U',
+        ]);
         
-    	return view('projects.wbs.edit',[
+        $start_date = $validated['start_date'] ?? null;
+        
+        $end_date = $validated['end_date'] ?? null;
+
+        $filter = compact("start_date", "end_date");
+
+        return view('projects.wbs.edit',[
     		'project' => $project,
-    		'wbs' => $wbs
+    		'wbs' => $wbs,
+    	    'deliverables' => $wbs->deliverables()->filterDeliverables($filter)
     	]);
     }
 
@@ -133,5 +147,10 @@ class ProjectWBSController extends Controller
     public function destroy(Project $project, WorkBreakdownStructure $wbs)
     {
         //
+    }
+    
+    public function validateFilter()
+    {
+        
     }
 }

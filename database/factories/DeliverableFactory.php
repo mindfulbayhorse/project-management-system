@@ -14,7 +14,9 @@ class DeliverableFactory extends Factory
     {
         return [ 
             'title' => $this->faker->word,
-            'wbs_id' => WorkBreakdownStructure::factory()
+            'wbs_id' => WorkBreakdownStructure::factory(),
+            'start_date' => $this->faker->dateTimeBetween('-1 month', '+1month'),
+            'end_date' => $this->faker->dateTimeThisYear('+2 months')
         ];
     }
      

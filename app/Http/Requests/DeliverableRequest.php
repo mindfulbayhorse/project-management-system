@@ -34,8 +34,8 @@ class DeliverableRequest extends FormRequest
             'title' => 'required',
             'order' => 'nullable|integer',
             'parent_id' => 'nullable|integer',
-            'start_date' => 'nullable',
-            'end_date' => 'sometimes|date|after:start_date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after:start_date',
             'milestone' => 'nullable',
             'package' => 'nullable'
         ];

@@ -46,9 +46,23 @@ class ProjectMainSeeder extends Seeder
             $project->delete();
         }
 
-        Project::factory()->for(Status::factory())
-            ->count(4)->create();     
+        $projects = Project::factory()
+            ->for(Status::factory())
+            ->count(4)->create();   
+            
+        $this->seedDeliverablesForProjectsWBS($projects);
         
+    }
+    
+    function seedDeliverablesForProjectsWBS($projects){
+        
+        foreach ($projects as $project){
+           
+            Deliverable::factory()
+                ->count(50)
+                ->state(['wbs_id'=>$project->wbs()->actual()[0]->id])
+                ->create();
+        }
     }
     
     function seedMainProject(){
@@ -57,14 +71,15 @@ class ProjectMainSeeder extends Seeder
         Project::where(['title' =>'Beadshine'])->delete();
         
         if($status){
+            
             $project = Project::factory([
                 'title'=>'Beadshine',
                 'status_id'=>$status->id
-            ])
-            ->create();
+            ])->create();
+            
         } else {
             $project = Project::factory(['title'=>'Beadshine'])
-            ->for(Status::factory()->state(['name'=>'Initialized']))
+                ->for(Status::factory()->state(['name'=>'Initialized']))
                 ->create();
         }
         

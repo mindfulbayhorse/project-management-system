@@ -112,4 +112,21 @@ class EquipmentTest extends TestCase
         $this->assertCount(3, $equipment->suppliers->toArray());
     }
     
+    /** @test */
+    public function it_can_be_filtered_by_title()
+    {
+        Equipment::factory()->count(10)->create();
+        
+        $name = 'Camera canon R7';
+        Equipment::factory()
+            ->state([
+                'name' => $name
+            ])->create();
+        
+        $result = Equipment::filter(['name' => 'camera canon R7'])->get()->pluck('name');
+        
+        $this->assertCount(1,  $result->toArray());
+        
+    }
+    
 }

@@ -40,7 +40,6 @@ class ProjectWBSTest extends TestCase
 	/** @test */
     public function new_project_has_actual_wbs_by_default()
     {
-        $this->withoutExceptionHandling();
         
         $this->signIn($this->user);
         

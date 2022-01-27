@@ -27,6 +27,12 @@ class Equipment extends Model
         return $this->morphToMany(Supplier::class, 'supplied','supplies');
     }
     
+    public function scopeFilter($query, array $filter)
+    {
+       $query->when($filter['name'] ?? false, function ($query, $name){
+            $query->where('name','like', '%'.$name.'%');
+        });
+    }
    
    
 }

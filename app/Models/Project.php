@@ -71,10 +71,10 @@ class Project extends Model
     
     public function scopeResourceTypes(Builder $query)
     {
-        $resourceTypes ='select project_id, resource_type_id, count(valuable_id) from resources group by project_id, resource_type_id';
+        $resourceTypes ='select project_id, type_id, count(valuable_id) from resources group by project_id, type_id';
 
         return $query->leftJoinSub($resourceTypes, 'resources', 'id', 'resources.project_id')
-                ->leftJoin('resource_types', 'resource_type_id', '=', 'resource_types.id')->get();
+                ->leftJoin('resource_types', 'type_id', '=', 'resource_types.id')->get();
     }
     
     public function scopeLastUpdated($query){

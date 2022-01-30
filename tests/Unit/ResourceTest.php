@@ -31,25 +31,88 @@ class ResourceTest extends TestCase
              
         Equipment::factory()
             ->count(5)
-            ->has(Resource::factory()->
-                state([
-                    'resource_type_id' => $equipmentType->id,
+            ->has(Resource::factory()
+            ->state([
+                    'type_id' => $equipmentType->id,
                     'project_id' => $this->project->id
-                ]), 
-            'resourceful')
+                ]), 'resourceful')
             ->create();
         
         Subscription::factory()
             ->count(3)
-            ->has(Resource::factory()->
-                state([
-                    'resource_type_id' => $subscriptionType->id,
+            ->has(Resource::factory()
+            ->state([
+                    'type_id' => $subscriptionType->id,
                     'project_id' => $this->project->id
-                ]),
-                'resourceful')
+                ]), 'resourceful')
              ->create();
         
         $this->assertCount(2,$this->project->resourceTypes());
         
+    }
+    
+    /** @test */
+    public function resources_as_equipment_can_be_filtered_by_name() {
+        
+        $this->withoutExceptionHandling();
+        
+        $equipmentType = ResourceType::factory()->create(['name'=>'Capital']);
+        
+        Equipment::factory()
+            ->count(5)
+            ->has(Resource::factory()
+            ->state([
+                'type_id' => $equipmentType->id,
+                'project_id' => $this->project->id
+                ]), 'resourceful')
+            ->create();
+        
+         $name =  'Canon camera r5';
+         $equipment = Equipment::factory()
+             ->state(['name' => $name])
+             ->has(Resource::factory()
+             ->state([
+                'type_id' => $equipmentType->id,
+                'project_id' => $this->project->id
+                 ]), 'resourceful')
+             ->create();
+        
+        $result = Resource::filter(Equipment::class, compact('name'))->get();
+
+        $this->assertCount(1, $result->toArray());
+        
+        $this->assertEquals($equipment->id, $result[0]->valuable_id);
+    }
+    
+    /** @test */
+    public function resources_can_be_filtered_by_type() {
+        
+        $this->withoutExceptionHandling();
+        
+        $type1 = ResourceType::factory()->create(['name'=>'Human']);
+        $type2 = ResourceType::factory()->create(['name'=>'Capital']);
+        
+        Equipment::factory()
+            ->count(5)
+            ->has(Resource::factory()
+            ->state([
+                'type_id' => $type1->id,
+                'project_id' => $this->project->id
+                ]), 'resourceful')
+            ->create();
+        
+        Equipment::factory()
+            ->count(2)
+            ->has(Resource::factory()
+            ->state([
+                'type_id' => $type2->id,
+                'project_id' => $this->project->id
+                ]), 'resourceful')
+            ->create();
+            
+        $result = Resource::filter(Equipment::class,['type' => $type2->id])->get();
+        
+        $this->assertCount(2, $result->toArray());
+      
     }
 }

@@ -16,7 +16,7 @@ class Resource extends Model
 	
 	public function resourceType()
 	{
-	    return $this->belongsTo(ResourceType::class, 'id', 'resource_type_id');
+	    return $this->belongsTo(ResourceType::class, 'id', 'type_id');
 	}
 	
 	public function project()
@@ -28,6 +28,28 @@ class Resource extends Model
 	{
 	    
 	    return $this->morphTo('valuable');
+	}
+	
+	public function scopeFilter($query, $type, $filter)
+	{
+	
+	    $query->whereHasMorph('resource', $type);
+
+	    $query->when($filter['type'] ?? false, function ($query, $resourceType) use ($type){
+	        
+	        $query->where('type_id', $resourceType)
+	            ->whereHasMorph('resource', $type);
+	    });
+	    
+	    $query->when($filter['name'] ?? false, function ($query, $name) use ($type){
+
+	        $query->whereHasMorph('resource', $type, function($query) use ($type, $name){
+    	        
+               $column = $type === Equipment::class ? 'name' : 'name';
+               
+               $query->where($column, 'like', '%'.$name.'%');
+    	    });
+	    });
 	}
 
 }

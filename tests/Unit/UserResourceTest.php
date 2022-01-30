@@ -37,7 +37,7 @@ class UserResourceTest extends TestCase
     	$this->assertDatabaseHas('resources',[
     		'valuable_id' => $this->user->id,
     		'valuable_type' => get_class($this->user),
-    	    'resource_type_id' => $this->resourceType->id,
+    	    'type_id' => $this->resourceType->id,
     	    'project_id' => $this->project->id
     	]);
     	

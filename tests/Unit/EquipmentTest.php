@@ -41,7 +41,7 @@ class EquipmentTest extends TestCase
         $this->assertDatabaseHas('resources', [
             'valuable_id' => $this->equipment->id,
             'project_id' => $project->id,
-            'resource_type_id' => $this->resourceType->id
+            'type_id' => $this->resourceType->id
         ]);
 
         $this->assertCount(1, $project->resources);
@@ -78,8 +78,6 @@ class EquipmentTest extends TestCase
         $equipment = Equipment::factory()
             ->hasAttached($supplyers, ['price' => 150])
             ->create();
-
-        //$this->equipment->suppliers()->attach($supplyers);
         
         $equipment->refresh();
         

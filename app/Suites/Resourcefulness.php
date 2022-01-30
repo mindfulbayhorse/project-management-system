@@ -28,7 +28,7 @@ trait Resourcefulness{
     {
         $this->resourceful()->updateOrCreate([
             'project_id' => $project->id,
-            'resource_type_id' => $typeId
+            'type_id' => $typeId
         ]);
     }
     

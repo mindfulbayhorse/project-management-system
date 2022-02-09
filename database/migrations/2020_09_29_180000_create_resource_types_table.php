@@ -16,6 +16,7 @@ class CreateResourceTypesTable extends Migration
         Schema::create('resource_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('slug');
             $table->timestamps();
         });
     }

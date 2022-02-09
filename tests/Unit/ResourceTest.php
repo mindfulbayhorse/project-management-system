@@ -35,7 +35,7 @@ class ResourceTest extends TestCase
             ->state([
                     'type_id' => $equipmentType->id,
                     'project_id' => $this->project->id
-                ]), 'resourceful')
+                ]), 'valuable')
             ->create();
         
         Subscription::factory()
@@ -44,7 +44,7 @@ class ResourceTest extends TestCase
             ->state([
                     'type_id' => $subscriptionType->id,
                     'project_id' => $this->project->id
-                ]), 'resourceful')
+                ]), 'valuable')
              ->create();
         
         $this->assertCount(2,$this->project->resourceTypes());
@@ -64,7 +64,7 @@ class ResourceTest extends TestCase
             ->state([
                 'type_id' => $equipmentType->id,
                 'project_id' => $this->project->id
-                ]), 'resourceful')
+                ]), 'valuable')
             ->create();
         
          $name =  'Canon camera r5';
@@ -74,7 +74,7 @@ class ResourceTest extends TestCase
              ->state([
                 'type_id' => $equipmentType->id,
                 'project_id' => $this->project->id
-                 ]), 'resourceful')
+                 ]), 'valuable')
              ->create();
         
         $result = Resource::filter(Equipment::class, compact('name'))->get();
@@ -98,7 +98,7 @@ class ResourceTest extends TestCase
             ->state([
                 'type_id' => $type1->id,
                 'project_id' => $this->project->id
-                ]), 'resourceful')
+                ]), 'valuable')
             ->create();
         
         Equipment::factory()
@@ -107,7 +107,7 @@ class ResourceTest extends TestCase
             ->state([
                 'type_id' => $type2->id,
                 'project_id' => $this->project->id
-                ]), 'resourceful')
+                ]), 'valuable')
             ->create();
             
         $result = Resource::filter(Equipment::class,['type' => $type2->id])->get();

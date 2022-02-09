@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProjectResource;
 use Illuminate\Http\Request;
+use App\Models\Project;
+use App\Models\ResourceType;
 
 class ResourceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param $request - \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project, Request $request)
     {
-        //
+        $resources = $project->resources();
+        return view('projects.resources.index', compact(['project', 'resources']));
     }
 
     /**
@@ -41,12 +44,17 @@ class ResourceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ProjectResource  $projectResource
+     * @param \App\Models\Project $project
+     * @param \App\Models\ResourceType $type
      * @return \Illuminate\Http\Response
      */
-    public function show(ProjectResource $projectResource)
+    public function show(Project $project, ResourceType $type)
     {
-        //
+        $project = $project->with('resources', function($query) use ($type){
+            $query->where('type_id', $type->id);
+        })->get();
+        
+        return view('projects.resources.types.index', compact(['project', 'type']));
     }
 
     /**

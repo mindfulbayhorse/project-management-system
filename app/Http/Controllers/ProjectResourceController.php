@@ -102,7 +102,7 @@ class ProjectResourceController extends Controller
         $equipment = Equipment::find($validated['equipment_id']);
         $equipment->assignTo($project, $validated['type_id']);
          
-        redirect(route('projectEquipment', ['project' => $project]));
+        redirect(route('projects.equipment.index', ['project' => $project]));
     }
     
     public function chooseEquipment(Project $project)

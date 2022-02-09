@@ -17,6 +17,8 @@ use App\Http\Controllers\ResourceTypeController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\ProjectEquipmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,8 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function(){
     ]);
     
     Route::get('/projects/{project}/resources/equipment', 
-            [ProjectResourceController::class, 'index'])
-            ->name('projectEquipment');
+        [ProjectEquipmentController::class, 'index'])
+            ->name('projects.equipment.index');
     
     Route::get('/projects/{project}/resources/equipment/assign',
         [ProjectResourceController::class, 'chooseEquipment']);
@@ -64,6 +66,14 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/projects/{project}/team', [TeamController::class, 'index']);
     
     Route::get('/projects/{project}/team/edit', [TeamController::class, 'edit']);
+    
+    Route::get('/projects/{project}/resources/',[
+        ResourceController::class, 'index'
+        ])->name('resources.index');
+    
+    Route::get('/projects/{project}/resources/{$type}',[
+            ResourceController::class, 'show'
+        ])->name('projects.resources.types.show');
     
     Route::resource('statuses', StatusController::class);
     

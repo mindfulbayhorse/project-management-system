@@ -8,7 +8,8 @@ use App\Models\Project;
 use App\Models\Deliverable;
 use App\Observers\DeliverableObserver;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Blade;
+use App\Models\ResourceType;
+use App\Observers\ResourceTypeObserver as TypeObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,6 @@ class AppServiceProvider extends ServiceProvider
         Project::observe(ProjectObserver::class);
         Deliverable::observe(DeliverableObserver::class);
         DB::connection()->setQueryGrammar(new \App\Database\Query\Grammars\MySqlGrammar);
-
+        ResourceType::observe(TypeObserver::class);
     }
 }

@@ -9,24 +9,24 @@ trait Resourcefulness{
     
     public function isResource(){
         
-        return !! $this->resourceful()
+        return !! $this->valuable()
             ->count();
     }
     
     public function withdraw(Project $project){
         
-        return $this->resourceful()->where('project_id', $project->id);
+        return $this->valuable()->where('project_id', $project->id);
     }
     
-    public function resourceful()
+    public function valuable()
     {
         
-        return $this->morphMany(Resource::class,'valuable', 'valuable_type', 'valuable_id', 'id');
+        return $this->morphOne(Resource::class,'valuable', 'valuable_type', 'valuable_id', 'id');
     }
     
     public function assignTo(Project $project, $typeId)
     {
-        $this->resourceful()->updateOrCreate([
+        $this->valuable()->updateOrCreate([
             'project_id' => $project->id,
             'type_id' => $typeId
         ]);
@@ -35,7 +35,7 @@ trait Resourcefulness{
     public function isAssignedTo(Project $project)
     {
         
-        return (bool) $this->resourceful()
+        return (bool) $this->valuable()
             ->where('project_id', $project->id)
             ->count();
     }

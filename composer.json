@@ -62,14 +62,5 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
-    },
-    "repositories": {
-        "projects/widget": {
-            "type": "path",
-            "url": "C:\\Bitnami\\wampstack7_4\\apps\\project-management-system\\packages/Projects/Widget",
-            "options": {
-                "symlink": true
-            }
-        }
     }
 }

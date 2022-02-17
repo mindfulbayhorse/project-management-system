@@ -1,15 +1,14 @@
 {
     "name": "projects/widget",
-    "description": ":package_description",
+    "description": "Package for learning",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
-            "name": "Author Name",
-            "email": "author@email.com",
-            "homepage": "https://laracasts.com"
+            "name": "Olga Zhilkova",
+            "email": "mindfulbayhorse@gmail.com"
         }
     ],
-    "homepage": "https://laracasts.com",
     "keywords": ["Laravel", "Widget"],
     "require": {
         "illuminate/support": "~7|~8"

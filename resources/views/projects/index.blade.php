@@ -8,13 +8,13 @@
     $buttonText = isset($viewChoice[$currentView]) ? $viewChoice[$currentView] : 'By cards' 
    @endphp
  
-    <x-forms.dropdown :id="'type_view'" :buttonText="$buttonText">
+    <x-forms.dropdown.dropdown :id="'type_view'" :buttonText="$buttonText">
         @foreach($viewChoice as $name => $view)
            @if (isset($currentView) && $name !== $currentView)
             @php
                 $link = route('projects.index',[], false).'?showby='.$name
             @endphp
-            <x-forms.dropdown-item 
+            <x-forms.dropdown.item 
                 href="{{ $link }}" 
                 :selected="request()->is($link)">{{ $view }}</x-forms.dropdown-item>
            @endif

@@ -1,6 +1,3 @@
-[submodule "resources/js/components\\calendar"]
-	path = resources/js/components\\calendar
-	url = git@github.com:mindfulbayhorse/calendar.git
 [submodule "resources/js/components/calendar"]
 	path = resources/js/components/calendar
 	url = git@github.com:mindfulbayhorse/calendar.git

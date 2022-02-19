@@ -10,22 +10,22 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@babel/plugin-proposal-class-properties": "^7.13.0",
-        "@babel/preset-env": "^7.14.2",
-        "axios": "^0.21",
-        "browser-sync": "^2.26.14",
-        "browser-sync-webpack-plugin": "^2.2.2",
+        "@babel/plugin-proposal-class-properties": "^7.16.7",
+        "@babel/preset-env": "^7.16.11",
+        "axios": "^0.26.0",
+        "browser-sync": "^2.27.7",
+        "browser-sync-webpack-plugin": "^2.3.0",
         "knockout": "^3.5.1",
-        "laravel-mix": "^6.0.25",
-        "less": "^4.1.1",
-        "less-loader": "^8.1.1",
+        "laravel-mix": "^6.0.43",
+        "less": "^4.1.2",
+        "less-loader": "^10.2.0",
         "lodash": "^4.17.21",
-        "postcss": "^8.3.0"
+        "postcss": "^8.4.6"
     },
     "dependencies": {
         "elliptic": "^6.5.4",
-        "is-svg": "^4.3.1",
+        "is-svg": "^4.3.2",
         "ssri": "^8.0.1",
-        "webpack-cli": "^4.7.2"
+        "webpack-cli": "^4.9.2"
     }
 }

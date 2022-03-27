@@ -36,13 +36,8 @@ class Resource extends Model
 	    $query->whereHasMorph('valued', $type);
 	   
 	    $query->when($filter['type'] ?? false, function ($query, $resourceType) use ($type){
-	        
-	        //$query->where('type_id', $resourceType)
-	        //    ->whereHasMorph('valued', $type);
-	        
+
 	        $query->whereHasMorph('valued', $type, function($query) use ($type, $resourceType){
-                
-                //$column = $type === Equipment::class ? 'name' : 'name';
                 
                 $query->where('type_id', $resourceType);
             });

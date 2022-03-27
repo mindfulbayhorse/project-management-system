@@ -104,4 +104,16 @@ class Project extends Model
         return $this->hasMany(Resource::class);
     } 
     
+    public function scopeFilter($query, array $filter)
+    {
+        $query->when($filter['status'] ?? false, fn ($query, $status) =>
+            $query->whereHas('status',fn($query) => 
+                $query->where('status_id', $status)
+        ));
+        
+        $query->when($filter['title'] ?? false, fn ($query, $title) =>
+            $query->where('title','like','%'.$title.'%')
+        );
+    }
+    
 }

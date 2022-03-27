@@ -18,9 +18,10 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-     
+        
         return view('projects.index', [
             'projects' => Project::latest('updated_at')
+                ->filter(request(['status','title']))
                 ->with(['status','team', 'wbs' => function ($query) {
                     $query->where('actual', '=', '1');
                 }])->get(),
@@ -28,7 +29,7 @@ class ProjectController extends Controller
             'viewChoice' => [
                 'cards' => 'By cards',
                 'table' => 'By table'
-            ] 
+            ]
             ]);
     }
 

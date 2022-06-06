@@ -34,7 +34,32 @@ class Resource extends Model
 	{
 	
 	    $query->whereHasMorph('valued', $type);
-	   
+    	/*$query->with(['valued' => function (MorphTo $morphTo) {
+    	        $morphTo->morphWith([
+    	            Equipment::class => ['valuable']
+    	        ]);
+    	    }]);*/
+	      
+        $query->when($filter['type'] ?? false, fn($query, $slug)=>
+            
+            $query->whereHasMorph('valued', $type, fn($query) =>
+	            $query->whereExists(fn($query)=>
+	                $query->select('id')
+	                    ->from('resource_types')
+	                    ->where('resource_types.slug', '=',$slug)
+	                    ->whereColumn('resource_types.id', '=','resources.type_id')
+	                )
+                /*->with(['valued' => function (MorphTo $morphTo) {
+	                    $morphTo->morphWith([
+	                        Equipment::class => ['valuable']
+	                    ]);
+	                }])*/
+                )
+            
+        );
+        
+        //dd($filter); 
+	    /*
 	    $query->when($filter['type'] ?? false, function ($query, $resourceType) use ($type){
 
 	        $query->whereHasMorph('valued', $type, function($query) use ($type, $resourceType){
@@ -43,22 +68,37 @@ class Resource extends Model
             });
 	    });
 
+        $query->when($filter['type'] ?? false, fn ($query, $resourceSlug)=>(
+            $query->whereExists(function ($query) {
+                var_dump($resourceSlug);
+                $query->select()
+                ->from('resource_types')
+                ->whereColumn('resource_types.slug', $resourceSlug);
+            })
+        ));*/
+ 
 	    
-	    $query->when($filter['name'] ?? false, function ($query, $name) use ($type){
+	    /*$query->when($filter['name'] ?? false, function ($query, $name) use ($type){
 
 	        $query->whereHasMorph('valued', $type, function($query) use ($type, $name){
     	        
-               $column = $type === Equipment::class ? 'name' : 'name';
+               $column = $type === Equipment::class ? 'model' : 'name';
                
                $query->where($column, 'like', '%'.$name.'%');
     	    });
-	    });
+	    });*/
 	    
-	    $query->with(['valued' => function (MorphTo $morphTo) {
+	    /*$query->with(['valued' => function (MorphTo $morphTo) {
 	            $morphTo->morphWith([
 	                Equipment::class => ['valuable']
 	            ]);
-	        }]);
+	        }]);*/
+        
+        /*$query->with(['valued' => fn ($morphTo)=>
+            $morphTo->morphWith([
+                Equipment::class => ['valuable']
+            ])
+        ]);*/
 	}
 
 }

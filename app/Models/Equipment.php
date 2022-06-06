@@ -29,9 +29,13 @@ class Equipment extends Model
     
     public function scopeFilter($query, array $filter)
     {
-       $query->when($filter['name'] ?? false, function ($query, $name){
-            $query->where('name','like', '%'.$name.'%');
-        });
+       
+        $query->when($filter['search'] ?? false, fn($query, $search)=>
+           $query->where(fn($query) =>
+               $query->where('model','like', '%'.$search.'%')
+                   ->orWhere('manufacturer','like', '%'.$search.'%')
+            )
+        );
     }
    
    

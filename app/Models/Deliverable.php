@@ -99,20 +99,20 @@ class Deliverable extends Model
     }
     
     
-    public function scopeFilterDeliverables($query, $filters)
+    public function scopeFilterDeliverables($query, $filters, $wbs)
     {
-
-        return 
-            $query
-            ->when($filters['start_date'] ?? false, function ($query, $startDate) {
-                
-                return $query->where('start_date', '>=', Carbon::createFromTimestamp($startDate));
-            })
-            ->when($filters['end_date'] ?? false, function ($query, $endDate) {
-                
-                return $query->where('end_date', '<=', Carbon::createFromTimestamp($endDate));
-            })
-            ->get();
         
+        if($filters['start_date'] && $filters['end_date']) {
+
+            return $query->where('start_date', '>=', Carbon::createFromTimestamp($filters['start_date']))
+                ->where('end_date', '<=', Carbon::createFromTimestamp($filters['end_date']))
+                    ->where('wbs_id', $wbs->id)->get();
+    
+        }
+        
+        
+        return $query->where('wbs_id', $wbs->id)->get();
+        
+
     }
 }

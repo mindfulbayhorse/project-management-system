@@ -28,7 +28,7 @@
              @foreach($resources as $equipment)
                 <tr>
                     <td><a 
-                        href="{{ route('equipment.show',$equipment->valuable) }}">{{$equipment->valuable->name}}</a>
+                        href="{{ route('equipment.show',$equipment->valuable_id) }}">{{$equipment->valuable->model}}</a>
                      </td>
                 </tr>
             @endforeach

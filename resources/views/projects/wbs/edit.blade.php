@@ -16,6 +16,7 @@
 
 @endsection
 
+
 @section('right_sidebar')
 
           @include('projects.activity.history') 

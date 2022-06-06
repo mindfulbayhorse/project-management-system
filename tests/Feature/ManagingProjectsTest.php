@@ -87,7 +87,10 @@ class ManagingProjectsTest extends TestCase{
     	
     	$project = Project::factory()->create();
     	
-    	$deliverable = Deliverable::factory()->raw();
+    	$deliverable = Deliverable::factory()->raw([
+    	    'start_date'=>null,
+    	    'end_date' => null
+    	]);
     	
     	$this->post($project->path().'/wbs', $deliverable)
     		->assertStatus(302)

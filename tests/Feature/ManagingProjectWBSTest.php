@@ -37,12 +37,20 @@ class ManagingProjectWBSTest extends TestCase
     /** @test */
 	public function first_deliverable_while_creating_wbs_must_have_a_title(){
 
-        $deliverable = Deliverable::factory()->raw(['title'=>'']);
-    	
+        $deliverable = Deliverable::factory()->raw([
+            'title'=>'',
+            'start_date' => null,
+            'end_date' => null
+        ]);
+
         $this->actingAs($this->user)
-            ->patch($this->wbs->path(), $deliverable)
+            ->patch(route('projects.wbs.update',[
+                'project'=>$this->wbs->project,
+                'wbs'=>$this->wbs
+                ]), 
+              $deliverable)
             ->assertSessionHasErrors('title', null, 'deliverable');
-    
+            
     }
     
 }

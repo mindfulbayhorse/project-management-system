@@ -52,7 +52,7 @@ class ResourceTest extends TestCase
     }
     
     /** @test */
-    public function resources_as_equipment_can_be_filtered_by_name() {
+    public function resources_as_equipment_can_be_filtered_by_model() {
         
         $this->withoutExceptionHandling();
         
@@ -69,7 +69,7 @@ class ResourceTest extends TestCase
         
          $name =  'Canon camera r5';
          $equipment = Equipment::factory()
-             ->state(['name' => $name])
+             ->state(['model' => $name])
              ->has(Resource::factory()
              ->state([
                 'type_id' => $equipmentType->id,

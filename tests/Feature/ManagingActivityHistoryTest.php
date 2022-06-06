@@ -46,7 +46,9 @@ class ManagingActivityHistoryTest extends TestCase
         $this->deliverable->update(['title' => $newTitle]);        
         
         $this->actingAs($this->user)
-            ->get($this->deliverable->wbs->path())
+            ->get(route('projects.wbs.show', [ 
+                'project' => $this->deliverable->wbs->project,
+                'wbs' =>  $this->deliverable->wbs]))
             ->assertSeeText('The title of deliverable is changed from '
                 .$oldTitle.' to '.$newTitle
        );  

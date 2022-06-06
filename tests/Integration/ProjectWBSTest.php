@@ -46,7 +46,9 @@ class ProjectWBSTest extends TestCase
         $this->assertCount(1, $this->project->wbs()->actual());
     	
         $deliverable = Deliverable::factory()->raw([
-            'wbs_id' => $this->project->wbs()->actual()->first()->id
+            'wbs_id' => $this->project->wbs()->actual()->first()->id,
+            'start_date' => null,
+            'end_date' => null
         ]);
 
         $this->followingRedirects()

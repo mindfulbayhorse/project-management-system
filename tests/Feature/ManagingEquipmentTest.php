@@ -47,22 +47,45 @@ class ManagingEquipmentTest extends TestCase
         $this->actingAs($this->user)->get('/equipment/create')->assertStatus(200);
         
         $this->actingAs($this->user)->followingRedirects()->post('/equipment/', $equipment)
-        ->assertStatus(200)
-        ->assertSee($equipment['name']);
+            ->assertStatus(200)
+            ->assertSee($equipment['model']);
         
         $this->assertDatabaseHas('equipment', $equipment);
         
         $equipmentSaved = Equipment::where([
-            'name'=> $equipment['name'],
+            'manufacturer'=> $equipment['manufacturer'],
             'model' => $equipment['model']
         ])->first();
         
-        $this->actingAs($this->user)->get($equipmentSaved->path())->assertSee($equipmentSaved->name);
+        $this->actingAs($this->user)
+            ->get($equipmentSaved->path())
+            ->assertSee($equipmentSaved->model)
+            ->assertSee($equipmentSaved->manufacturer);
         
-        $this->actingAs($this->user)->get($equipmentSaved->path());
-
-        $this->actingAs($this->user)->get($equipmentSaved->path())->assertSeeInOrder($equipment);
+    }
+    
+    
+    public function it_can_be_found_by_title_or_manufacture(){
         
+        
+        $model = 'EOS R5';
+        $manufacturer = 'Canon';
+        
+        $equipment = Equipment::factory()->create([
+            'model'=> $model,
+            'manufacturer' => $brand
+        ]);
+        
+        $this->signIn();
+        $this->actingAs($this->user)
+            ->get(route('equipment.index'),['search'=>$brand])
+            ->assertSee($model)
+            ->assertSee($manufacturer);
+        
+        $this->actingAs($this->user)
+            ->get(route('equipment.index'),['search'=>$model])
+            ->assertSee($model)
+            ->assertSee($manufacturer);
     }
     
 }

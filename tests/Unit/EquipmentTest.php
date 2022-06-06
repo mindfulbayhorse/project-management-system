@@ -111,17 +111,17 @@ class EquipmentTest extends TestCase
     }
     
     /** @test */
-    public function it_can_be_filtered_by_title()
+    public function it_can_be_found_by_title()
     {
         Equipment::factory()->count(10)->create();
         
-        $name = 'Camera canon R7';
+        $model = 'Camera canon R7';
         Equipment::factory()
             ->state([
-                'name' => $name
+                'model' => $model
             ])->create();
         
-        $result = Equipment::filter(['name' => 'camera canon R7'])->get()->pluck('name');
+        $result = Equipment::filter(['search' => 'camera canon R7'])->get()->pluck('model');
         
         $this->assertCount(1,  $result->toArray());
         

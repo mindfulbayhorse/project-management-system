@@ -146,13 +146,13 @@ class ProjectWBSTest extends TestCase
             'end_date' => now()->addWeeks(2)->getTimestamp()
         ];
         
-        $filtered = $this->project->wbs()
-            ->find($this->firstWBS->id)->deliverables()
-            ->filterDeliverables($filters)->toArray();
-        
+        $filtered = Deliverable::filterDeliverables($filters,$this->firstWBS);
+
         $this->assertCount(1, $filtered);
-    
+        
         $this->assertEquals($filtered['0']['title'], $deliverable1->title);
+        
+        Carbon::setTestNow();
 
     }
     

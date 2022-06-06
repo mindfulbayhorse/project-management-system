@@ -5,15 +5,12 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Mail;
-use Tests\MailTrack;
 use Tests\TestCase;
-use App\Models\User;
 
 class AuthenticationTest extends TestCase
 {
-    use MailTrack, RefreshDatabase, WithFaker;
+    use RefreshDatabase, WithFaker;
     
-    /** @test */
     public function mailIsSendForResettingThePassword()
     {
         Mail::raw('Feed is updated', function($message){

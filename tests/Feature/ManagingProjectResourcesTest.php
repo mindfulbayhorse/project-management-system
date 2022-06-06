@@ -81,7 +81,7 @@ class ManagingProjectResourcesTest extends TestCase
         ->create();
         
         $this->get(route('projects.equipment.index',$this->project))
-            ->assertSeeText($equipment->first()->name)
+            ->assertSeeText($equipment->first()->model)
             ->assertSee(route('equipment.show',$equipment->first()));
         
     }
@@ -92,17 +92,29 @@ class ManagingProjectResourcesTest extends TestCase
     {
          $this->signIn();
          $resourceType = ResourceType::factory()->create();
+         $resourceType2 = ResourceType::factory()->create();
          
          $equipment = Equipment::factory()
-             ->count(40)
+             ->count(1)
              ->has(Resource::factory()->state([
                  'project_id' => $this->project->id,
                  'type_id' => $resourceType->id
                  ]),'valuable',)
              ->create();
+         
+         $equipment2 = Equipment::factory()
+             ->count(1)
+             ->has(Resource::factory()->state([
+                 'project_id' => $this->project->id,
+                 'type_id' => $resourceType2->id
+             ]),'valuable',)
+             ->create();
         
-         $this->get(route('projects.equipment.index',$this->project))
-             ->assertSee($equipment->first()->name);
+         $this->call('GET',route('projects.equipment.index',$this->project),[
+             'type' => $resourceType->slug
+             ])
+             ->assertSee($equipment->first()->model)
+             ->assertDontSee($equipment2->first()->model);
          
     }
 }

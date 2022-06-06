@@ -43,8 +43,8 @@ class EquipmentController extends Controller
     public function store(Request $request)
     {
         $equipment = Equipment::create($request->validate([
-            'name' => 'required',
             'model' => 'required',
+            'manufacturer' => 'required',
             'cost' => 'required|numeric'
         ]));
         

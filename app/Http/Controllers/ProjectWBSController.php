@@ -85,18 +85,18 @@ class ProjectWBSController extends Controller
         $validated = $request->validate([
             'start_date' => 'nullable|date_format:U',
             'end_date' => 'nullable|date_format:U',
-        ]);
+            ]);
         
         $start_date = $validated['start_date'] ?? null;
         
         $end_date = $validated['end_date'] ?? null;
-
+        
         $filter = compact("start_date", "end_date");
 
         return view('projects.wbs.edit',[
     		'project' => $project,
     		'wbs' => $wbs,
-    	    'deliverables' => $wbs->deliverables()->filterDeliverables($filter)
+            'deliverables' => Deliverable::filterDeliverables($filter, $wbs)
     	]);
     }
 
@@ -125,16 +125,16 @@ class ProjectWBSController extends Controller
      */
     public function update(DeliverableRequest $request, Project $project, WorkBreakdownStructure $wbs)
     {
-        /*$this->authorize('create', Deliverable::class);
+        $this->authorize('create', Deliverable::class);
         
         $deliverable = new Deliverable($request->validated());    	
-    	
+        var_dump($deliverable);
     	$wbs->add($deliverable);
     	
     	return view('projects.wbs.edit',[
     		'project' => $project,
     		'wbs' => $wbs
-    	]);*/
+    	]);
     }
 
     /**

@@ -22,18 +22,23 @@ class ProjectEquipmentController extends Controller
         
         $validated = $request->validate([
             'type' => 'nullable|regex:/^(\w+\-*)+$/i',
-            'name' => 'nullable|string'
+            'model' => 'nullable|string'
         ]);
-        
+        //dd(compact('type','name'));
         $types = ResourceType::all();
         
         /** @todo - combine slug and all types query */
         
-        $type = (!empty($validated['type']) ? ResourceType::filterSlug($validated['type'])->first()->id: null);
-        $name = (!empty($validated['name']) ? $validated['name']: null);
+        $type = (!empty($validated['type']) ? $validated['type']: null);
+        $name = (!empty($validated['model']) ? $validated['model']: null);
         
-        $resources = $project->resources()->filter(Equipment::class,compact('type','name'))->get();
+        $resources = $project->resources()->with(['valued' => fn ($morphTo)=>
+            $morphTo->morphWith([
+                Equipment::class => ['valuable']
+            ])])->filter(Equipment::class,compact('type','name'))
+        ->get();
 
+        
         return view('projects.resources.equipment.index', 
                 compact(['project', 'resources','types']));
     }

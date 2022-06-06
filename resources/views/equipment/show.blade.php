@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', $equipment->name)
+@section('title', $equipment->model)
 
 @section('left_sidebar')
 	 

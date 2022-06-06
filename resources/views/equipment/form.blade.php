@@ -2,13 +2,12 @@
 <input type="hidden" value="{{ Auth::id() }}" name="user_id" />
 
 <div class="field">
-    <label for="name">Name:</label>
+    <label for="status">Model:</label>
     <input type="text" 
-        name="name" 
-        id="name"
-        value="{{  old('name', $equipment->name) }}" />
+        name="model" 
+        id="model"
+        value="{{ old('model', $equipment->model) }}" />
 </div>
-
 <div class="field">
     <label for="status">Type:</label>
     <div class="group">
@@ -29,13 +28,16 @@
     </div>
 </div>
 
+
+
 <div class="field">
-    <label for="status">Model:</label>
+    <label for="status">Manufacturer:</label>
     <input type="text" 
-        name="model" 
-        id="model"
-        value="{{ old('model', $equipment->model) }}" />
+        name="manufacturer" 
+        id="manufacturer"
+        value="{{ old('model', $equipment->manufacturer) }}" />
 </div>
+
 
 <div class="field">
     <label for="status">Cost:</label>

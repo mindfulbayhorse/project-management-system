@@ -3,11 +3,12 @@
 @section('info')
     
     <div class="project">
-        <p><b>Name:</b>{{ $equipment->name }}</p>
-   
+        
+        <p><b>Model:</b>{{ $equipment->model}}</p>
+        
     	<p><b>Type:</b>{{ $equipment->resource_type_id }}</p>
-    
-    	<p><b>Model:</b>{{ $equipment->model}}</p>
+
+        <p><b>Manufacturer:</b>{{ $equipment->manufacturer }}</p>
         
         <p><b>Cost:</b>{{ $equipment->cost}}</p>
     

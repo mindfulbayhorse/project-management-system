@@ -23,8 +23,8 @@ class EquipmentFactory extends Factory
     public function definition()
     {
         return [
-            'name'=> $this->faker->word,
             'model' =>$this->faker->words(5, true),
+            'manufacturer'=> $this->faker->word,
             'cost'=> $this->faker->randomNumber(2, 200000)
         ];
     }

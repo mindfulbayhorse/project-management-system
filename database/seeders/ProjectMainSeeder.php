@@ -5,11 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Project;
 use App\Models\Deliverable;
-use App\Models\WorkBreakdownStructure;
 use App\Models\Status;
+use Faker\Generator as Faker;
 
 class ProjectMainSeeder extends Seeder
 {
+    private $faker;
+    
     /**
      * Run the database seeds.
      *
@@ -17,7 +19,7 @@ class ProjectMainSeeder extends Seeder
      */
     public function run()
     {
-
+        $this->faker = Faker::create();
         $this->seedProjectsWithStatus();
         $this->seedMainProject();
         
@@ -60,7 +62,11 @@ class ProjectMainSeeder extends Seeder
            
             Deliverable::factory()
                 ->count(50)
-                ->state(['wbs_id'=>$project->wbs()->actual()[0]->id])
+                ->state([
+                    'wbs_id'=>$project->wbs()->actual()[0]->id,
+                    'start_date' => $this->faker->dateTimeBetween('-1 month', '+1month'),
+                    'end_date' => $this->faker->dateTimeBetween('+2 months','+1 year')
+                ])
                 ->create();
         }
     }
@@ -83,7 +89,11 @@ class ProjectMainSeeder extends Seeder
                 ->create();
         }
         
-        Deliverable::factory()->state(['title'=>'Content'])
+        Deliverable::factory()->state([
+                'title'=>'Content',
+                'start_date' => $this->faker->dateTimeThisYear('-1 month'),
+                'end_date' => $this->faker->dateTimeThisYear('+2 months')
+            ])
             ->forWBS(['project_id'=>$project->id, 'actual'=>1])
             ->create();
         

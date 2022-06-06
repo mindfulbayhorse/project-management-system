@@ -16,7 +16,7 @@ class CreateEquipmentTable extends Migration
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
             $table->string('model');
-            $table->string('name');
+            $table->string('manufacturer');
             $table->integer('cost');
             $table->timestamps(6);
             $table->json('products_range')->nullable();

@@ -54,8 +54,6 @@ class ResourceTest extends TestCase
     /** @test */
     public function resources_as_equipment_can_be_filtered_by_model() {
         
-        $this->withoutExceptionHandling();
-        
         $equipmentType = ResourceType::factory()->create(['name'=>'Capital']);
         
         Equipment::factory()
@@ -67,9 +65,9 @@ class ResourceTest extends TestCase
                 ]), 'valuable')
             ->create();
         
-         $name =  'Canon camera r5';
+         $model =  'Canon camera r5';
          $equipment = Equipment::factory()
-             ->state(['model' => $name])
+         ->state(['model' => $model])
              ->has(Resource::factory()
              ->state([
                 'type_id' => $equipmentType->id,
@@ -77,42 +75,11 @@ class ResourceTest extends TestCase
                  ]), 'valuable')
              ->create();
         
-        $result = Resource::filter(Equipment::class, compact('name'))->get();
+        $result = Resource::filter(Equipment::class, compact('model'))->get();
 
         $this->assertCount(1, $result->toArray());
         
         $this->assertEquals($equipment->id, $result[0]->valuable_id);
     }
     
-    /** @test */
-    public function resources_can_be_filtered_by_type() {
-        
-        $this->withoutExceptionHandling();
-        
-        $type1 = ResourceType::factory()->create(['name'=>'Human']);
-        $type2 = ResourceType::factory()->create(['name'=>'Capital']);
-        
-        Equipment::factory()
-            ->count(5)
-            ->has(Resource::factory()
-            ->state([
-                'type_id' => $type1->id,
-                'project_id' => $this->project->id
-                ]), 'valuable')
-            ->create();
-        
-        Equipment::factory()
-            ->count(2)
-            ->has(Resource::factory()
-            ->state([
-                'type_id' => $type2->id,
-                'project_id' => $this->project->id
-                ]), 'valuable')
-            ->create();
-            
-        $result = Resource::filter(Equipment::class,['type' => $type2->id])->get();
-        
-        $this->assertCount(2, $result->toArray());
-      
-    }
 }

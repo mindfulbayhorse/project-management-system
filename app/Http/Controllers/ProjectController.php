@@ -24,7 +24,7 @@ class ProjectController extends Controller
                 ->filter(request(['status','title']))
                 ->with(['status','team', 'wbs' => function ($query) {
                     $query->where('actual', '=', '1');
-                }])->get(),
+                }])->paginate(2)->withQueryString(),
             'currentView' => ( $request->input('showby') ? $request->input('showby') : 'cards'),
             'viewChoice' => [
                 'cards' => 'By cards',

@@ -24,8 +24,11 @@ class StatusDropdownList extends Component
      */
     public function render()
     {
+        $request = request();
+        
         return view('components.projects.status-dropdown-list',[
-            'statuses' => Status::all()
+            'statuses' => Status::all(),
+            'currentStatus' => ( $request->input('status') ? $request->input('status') : ''),
         ]);
     }
 }

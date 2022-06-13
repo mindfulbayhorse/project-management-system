@@ -10,6 +10,7 @@ use App\Observers\DeliverableObserver;
 use Illuminate\Support\Facades\DB;
 use App\Models\ResourceType;
 use App\Observers\ResourceTypeObserver as TypeObserver;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,5 +35,7 @@ class AppServiceProvider extends ServiceProvider
         Deliverable::observe(DeliverableObserver::class);
         DB::connection()->setQueryGrammar(new \App\Database\Query\Grammars\MySqlGrammar);
         ResourceType::observe(TypeObserver::class);
+        
+        Paginator::useBootstrap();
     }
 }

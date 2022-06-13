@@ -42,10 +42,14 @@
             @forelse ($projects as $project)
                     
     	       <x-projects.project.card :project="$project" />
+               
             @empty
                 <div>No projects have been added yet.</div>
     	    @endforelse
         
+            @if ($projects)
+                <div>{{ $projects->links() }}</div>
+            @endif
         </div>
         
     </main>

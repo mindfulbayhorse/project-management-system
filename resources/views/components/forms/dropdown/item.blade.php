@@ -1,7 +1,13 @@
-@props(['selected' => false])
+@props([
+    'selected' => false,
+    'active' => true
+    ])
 
 @php
- if ($selected) $class .= 'selected'
+    $class='';
+    
+ if ($selected) $class .= 'selected';
+ if ($active) $class .= 'active';
 @endphp
 
-<a {{ $attributes(['class'=> '']) }}>{{ $slot }}</a>
+<a {{ $attributes->merge(['class' => $class]) }}>{{ $slot }}</a>

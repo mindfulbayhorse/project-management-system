@@ -1,1 +1,2 @@
-Updated Laravel framework version to 8.5.19
+
+Updated Laravel framework version to 9.11

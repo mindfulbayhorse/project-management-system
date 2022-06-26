@@ -12,4 +12,3 @@ let calendars = document.querySelectorAll(".calendar");
 for (let calendar of calendars) {
   calendar.appendChild(datePicker.widget);
 }
-

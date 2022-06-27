@@ -40,6 +40,7 @@ class StatusController extends Controller
         $fields = $this->validateFields($request);
         
         $status = Status::create($fields);
+        session()->flash('success', 'You successfully created new status!');
         
         return redirect($status->path());
         

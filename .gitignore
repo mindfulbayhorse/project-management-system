@@ -27,3 +27,4 @@ docker-compose.override.yml
 /.vscode
 /sketches
 /conf
+.buildpath

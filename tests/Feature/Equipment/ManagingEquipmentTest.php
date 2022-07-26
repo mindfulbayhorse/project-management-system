@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Equipment;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Equipment;
-use App\Models\ResourceType;
+use Tests\RequestFactories\EquipmentRequest;
 
 class ManagingEquipmentTest extends TestCase
 {
@@ -38,47 +38,49 @@ class ManagingEquipmentTest extends TestCase
     /** @test */
     public function authenticated_user_can_add_an_equipment()
     {
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         
-        $equipment = Equipment::factory()->raw();
+        //original method to create request with model factory
+        //$equipment = Equipment::factory()->raw();
         
         $this->signIn();
         
         $this->actingAs($this->user)->get('/equipment/create')->assertStatus(200);
+        $model = 'L4r DT';
+        EquipmentRequest::new()->state(['model'=>$model])->fake();
         
-        $this->actingAs($this->user)->followingRedirects()->post('/equipment/', $equipment)
+        $this->actingAs($this->user)->followingRedirects()
+            ->post('/equipment/')
+            ->assertValid()
             ->assertStatus(200)
-            ->assertSee($equipment['model']);
+            ->assertSee($model);
         
-        $this->assertDatabaseHas('equipment', $equipment);
+        $this->assertDatabaseHas('equipment', ['model'=>$model]);
         
         $equipmentSaved = Equipment::where([
-            'manufacturer'=> $equipment['manufacturer'],
-            'model' => $equipment['model']
+            'model' => $model
         ])->first();
         
         $this->actingAs($this->user)
             ->get($equipmentSaved->path())
-            ->assertSee($equipmentSaved->model)
-            ->assertSee($equipmentSaved->manufacturer);
+            ->assertSee($model);
         
     }
     
-    
+    /** @test */
     public function it_can_be_found_by_title_or_manufacture(){
-        
-        
+         
         $model = 'EOS R5';
         $manufacturer = 'Canon';
         
-        $equipment = Equipment::factory()->create([
+        Equipment::factory()->create([
             'model'=> $model,
-            'manufacturer' => $brand
+            'manufacturer' => $manufacturer
         ]);
         
         $this->signIn();
         $this->actingAs($this->user)
-            ->get(route('equipment.index'),['search'=>$brand])
+            ->get(route('equipment.index'),['search'=>$manufacturer])
             ->assertSee($model)
             ->assertSee($manufacturer);
         

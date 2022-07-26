@@ -60,7 +60,12 @@ Route::middleware(['auth', 'verified'])->group(function(){
     
     Route::post('/projects/{project}/resources/equipment', 
             [ProjectResourceController::class, 'assignEquipmentToProject']);
-            
+    
+    Route::post('/projects/{project}/resources/equipment',
+        [ProjectEquipmentController::class, 'store'])
+        ->name('projects.equipment.store');
+    
+        
     Route::post('/projects/{project}/team', [TeamController::class, 'store']);
     
     Route::get('/projects/{project}/team', [TeamController::class, 'index']);

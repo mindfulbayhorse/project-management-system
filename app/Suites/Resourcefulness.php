@@ -20,16 +20,14 @@ trait Resourcefulness{
     
     public function valuable()
     {
-        
-        return $this->morphOne(Resource::class,'valuable', 'valuable_type', 'valuable_id', 'id');
+        return $this->morphToMany(Project::class, 'valuable', 'resources');
+        //return $this->morphOne(Resource::class,'valuable', 'valuable_type', 'valuable_id', 'id');
     }
     
     public function assignTo(Project $project, $typeId)
     {
-        $this->valuable()->updateOrCreate([
-            'project_id' => $project->id,
-            'type_id' => $typeId
-        ]);
+        //dd($this->valuable()->get());
+        $this->valuable()->attach($project->id, ['type_id' => $typeId]);
     }
     
     public function isAssignedTo(Project $project)

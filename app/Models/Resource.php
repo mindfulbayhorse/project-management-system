@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
 
-class Resource extends Model
+class Resource extends MorphPivot 
 {
     use HasFactory;
     
 	protected $table = 'resources';
 	protected $guarded = [];
 	public $timestamps = false;
+	public $incrementing = true;
 	
 	public function resourceType()
 	{
@@ -24,11 +26,11 @@ class Resource extends Model
 	    return $this->belongsTo(Project::class);
 	}
 
-	public function valued()
+	/*public function valued()
 	{
 	    
 	    return $this->morphTo('valuable');
-	}
+	}*/
 	
 	public function scopeFilter($query, $type, $filter = [])
 	{

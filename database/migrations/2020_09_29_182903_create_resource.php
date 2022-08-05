@@ -28,8 +28,10 @@ class CreateResource extends Migration
 			    ->constrained()
 			    ->onUpdate('cascade')
 			    ->onDelete('cascade');
+		
+			 $table->timestamps();
 			
-			$table->unique(['valuable_id', 'valuable_type', 'project_id'], 'resource_unique');
+			/*$table->unique(['valuable_id', 'valuable_type', 'project_id'], 'resource_unique');*/
 
 		});
     }

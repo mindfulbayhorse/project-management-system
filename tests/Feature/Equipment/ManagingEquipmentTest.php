@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Equipment;
-use Tests\RequestFactories\EquipmentRequest;
 
 class ManagingEquipmentTest extends TestCase
 {
@@ -35,38 +34,7 @@ class ManagingEquipmentTest extends TestCase
         
     }
     
-    /** @test */
-    public function authenticated_user_can_add_an_equipment()
-    {
-        //$this->withoutExceptionHandling();
-        
-        //original method to create request with model factory
-        //$equipment = Equipment::factory()->raw();
-        
-        $this->signIn();
-        
-        $this->actingAs($this->user)->get('/equipment/create')->assertStatus(200);
-        $model = 'L4r DT';
-        EquipmentRequest::new()->state(['model'=>$model])->fake();
-        
-        $this->actingAs($this->user)->followingRedirects()
-            ->post('/equipment/')
-            ->assertValid()
-            ->assertStatus(200)
-            ->assertSee($model);
-        
-        $this->assertDatabaseHas('equipment', ['model'=>$model]);
-        
-        $equipmentSaved = Equipment::where([
-            'model' => $model
-        ])->first();
-        
-        $this->actingAs($this->user)
-            ->get($equipmentSaved->path())
-            ->assertSee($model);
-        
-    }
-    
+   
     /** @test */
     public function it_can_be_found_by_title_or_manufacture(){
          

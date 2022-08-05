@@ -5,9 +5,7 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Project;
 use App\Models\Equipment;
-use App\Models\ResourceType;
 use App\Models\Supplier;
 
 class EquipmentTest extends TestCase
@@ -21,32 +19,9 @@ class EquipmentTest extends TestCase
         parent::setUp();
         
         $this->equipment = Equipment::factory()->create();
-        $this->resourceType = ResourceType::factory()->create();
+        
     }
     
-    /** @test */
-    public function it_is_a_resource_for_a_project()
-    {
-        $this->withoutExceptionHandling();
-        
-        $project = Project::factory()->create();
-        
-        $this->assertDatabaseMissing('resources', [
-            'valuable_id' => $this->equipment->id,
-            'project_id' => $project->id
-        ]);
-        
-        $this->equipment->assignTo($project, $this->resourceType->id);
-        
-        $this->assertDatabaseHas('resources', [
-            'valuable_id' => $this->equipment->id,
-            'project_id' => $project->id,
-            'type_id' => $this->resourceType->id
-        ]);
-
-        $this->assertCount(1, $project->resources);
-
-    }
     
     /** @test */
     public function it_has_a_path()

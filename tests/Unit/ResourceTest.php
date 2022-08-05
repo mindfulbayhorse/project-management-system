@@ -47,6 +47,10 @@ class ResourceTest extends TestCase
                 ]), 'valuable')
              ->create();
         
+             $comments = Subscription::factory()->count(3)->for(
+                 Post::factory(), 'commentable'
+                 )->create();
+        
         $this->assertCount(2,$this->project->resourceTypes());
         
     }

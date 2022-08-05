@@ -5,10 +5,9 @@ namespace Tests\Feature\Equipment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Project;
 use App\Models\Equipment;
 use App\Models\ResourceType;
-use App\Models\Resource;
+
 
 class ManagingProjectEquipmentTest extends TestCase
 {
@@ -24,12 +23,12 @@ class ManagingProjectEquipmentTest extends TestCase
         
         $type = ResourceType::factory()->create();
         
-        $this->get($this->project->path().'/resources/equipment/assign')
+        $this->get($this->project->path().'/equipment/')
             ->assertStatus(200);
             
         $this->actingAs($this->user)
             ->followingRedirects()
-            ->post($this->project->path().'/resources/equipment',[
+            ->post($this->project->path().'/equipment',[
                 'equipment_id' => $equipment->id,
                 'type_id' => $type->id
                 ])
@@ -37,4 +36,5 @@ class ManagingProjectEquipmentTest extends TestCase
         
         $this->assertCount(1, $this->project->resources);
     }
+    
 }

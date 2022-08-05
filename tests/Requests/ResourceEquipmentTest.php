@@ -5,29 +5,43 @@ namespace Tests\Feature\Requests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Tests\RequestFactories\ResourceEquipmentRequestFactory;
 use App\Models\ResourceType;
 use App\Models\Project;
+use Tests\RequestFactories\EquipmentRequest;
+use App\Models\Equipment;
 
 class ResourceEquipmentTest extends TestCase
 {
+    
+    use RefreshDatabase, WithFaker;
+    
     /** @test */
-    public function it_can_be_added_to_project()
+    public function authenticated_user_can_add_an_equipment()
     {
-        $type = ResourceType::factory()->create();
-        $project = Project::factory()->create();
+        $this->withoutExceptionHandling();
         
-        ResourceEquipmentRequestFactory::new()->state([
-            'type_id' => $type->id, 
-            'project_id' => $project->id
-        ])->fake();
+        $this->signIn();
         
-        $this->post(route('projects.equipment.index',['project'=>$project]))
+        $this->actingAs($this->user)->get('/equipment/create')->assertStatus(200);
+        $model = $this->faker->word;
+        EquipmentRequest::new()->state(['model'=>$model])->fake();
+        
+        $this->actingAs($this->user)->followingRedirects()
+            ->post('/equipment/')
             ->assertValid()
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertSee($model);
         
-        $this->assertDatabaseHas('resources', [
-            'type_id'=>$type->id,
-            'project_id'=>$project->id]);
+        $this->assertDatabaseHas('equipment', ['model'=>$model]);
+        
+        $equipmentSaved = Equipment::where([
+            'model' => $model
+        ])->first();
+        
+        $this->actingAs($this->user)
+            ->get($equipmentSaved->path())
+            ->assertSee($model);
+        
     }
+    
 }

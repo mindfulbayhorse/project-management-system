@@ -99,14 +99,14 @@ class Project extends Model
         $this->team()->attach($user);
     }
     
-    /*public function resources()
+    public function resources()
     {
         return $this->hasMany(Resource::class);
-    }*/
+    }
     
     public function equipment()
     {
-        return $this->morphedByMany(Equipment::class, 'valuable','resources','project_id','id');
+        return $this->morphedByMany(Equipment::class, 'valuable','resources','project_id')->withPivot('type_id');
     }
     
     

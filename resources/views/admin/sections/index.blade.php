@@ -7,7 +7,7 @@
 @endif
    
 @section('content')
-
+test
 <a href="{{ route('sections.create') }}" class="btn">Add section title</a>
 <main>
     <ul class="candidates_list">

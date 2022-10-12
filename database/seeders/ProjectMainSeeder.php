@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use App\Models\Project;
 use App\Models\Deliverable;
 use App\Models\Status;
-use Faker\Generator as Faker;
 
 class ProjectMainSeeder extends Seeder
 {
@@ -19,7 +18,8 @@ class ProjectMainSeeder extends Seeder
      */
     public function run()
     {
-        $this->faker = Faker::create();
+        
+        //$this->faker = \Faker\Factory::create();
         $this->seedProjectsWithStatus();
         $this->seedMainProject();
         
@@ -64,8 +64,8 @@ class ProjectMainSeeder extends Seeder
                 ->count(50)
                 ->state([
                     'wbs_id'=>$project->wbs()->actual()[0]->id,
-                    'start_date' => $this->faker->dateTimeBetween('-1 month', '+1month'),
-                    'end_date' => $this->faker->dateTimeBetween('+2 months','+1 year')
+                    'start_date' => fake()->dateTimeBetween('-1 month', '+1month'),
+                    'end_date' => fake()->dateTimeBetween('+2 months','+1 year')
                 ])
                 ->create();
         }
@@ -91,8 +91,8 @@ class ProjectMainSeeder extends Seeder
         
         Deliverable::factory()->state([
                 'title'=>'Content',
-                'start_date' => $this->faker->dateTimeThisYear('-1 month'),
-                'end_date' => $this->faker->dateTimeThisYear('+2 months')
+                'start_date' => fake()->dateTimeThisYear('-1 month'),
+                'end_date' => fake()->dateTimeThisYear('+2 months')
             ])
             ->forWBS(['project_id'=>$project->id, 'actual'=>1])
             ->create();

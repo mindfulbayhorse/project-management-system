@@ -55,14 +55,14 @@ class CreateRolesPermissionsTables extends Migration
             $table->primary(['permission_id', 'role_id']);
             
             $table->foreignId('permission_id')
-            ->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             
             $table->foreignId('role_id')
-            ->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             
             $table->timestamps(6);
             

@@ -17,7 +17,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
 
-        //Deliverable::class => DeliverablePolicy::class,
     ];
 
     /**
@@ -28,9 +27,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        
+       
         Gate::before(function($user, $ability){
-            if ($user->permissions()->contains($ability)) return true;
+            if ($user->permissions()->contains($ability) || $user->isAdmin()) return true;
         });
 
     }

@@ -19,6 +19,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ProjectEquipmentController;
+use App\Http\Controllers\Projects\Equipment\Allocating;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,8 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/projects/{project}/resources/equipment/assign',
         [ProjectResourceController::class, 'chooseEquipment']);
     
-    Route::post('/projects/{project}/resources/equipment', 
-            [ProjectResourceController::class, 'assignEquipmentToProject']);
+
     
     Route::post('/projects/{project}/resources/equipment',
         [ProjectEquipmentController::class, 'store'])
@@ -86,8 +86,13 @@ Route::middleware(['auth', 'verified'])->group(function(){
     
 });
 
+Route::prefix('projects')->middleware(['auth','verified'])->group(function(){
+        Route::post(
+            '{project}/equipment',
+            [Allocating::class, 'save']
+        )->name('projects.equipment.assign');
+});
 
-    
 Route::prefix('wbs')->middleware(['auth', 'verified'])->group(function () {
     
     Route::post('/milestones/{deliverable}', 
@@ -112,7 +117,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::resource('sections', SectionTitleController::class)->parameters([
         'section' => 'section'
-    ])->middleware(['can:edit_section']);
+    ])->middleware('can:edit_section');
     
     Route::resource('roles', RoleController::class);
 });

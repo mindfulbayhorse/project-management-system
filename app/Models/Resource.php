@@ -26,11 +26,11 @@ class Resource extends MorphPivot
 	    return $this->belongsTo(Project::class);
 	}
 
-	/*public function valued()
+	public function valued()
 	{
 	    
 	    return $this->morphTo('valuable');
-	}*/
+	}
 	
 	public function scopeFilter($query, $type, $filter = [])
 	{

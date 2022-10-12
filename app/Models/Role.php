@@ -20,6 +20,11 @@ class Role extends Model
     {
         $this->permissions()->syncWithoutDetaching($permission->id);
     }
+
+    public function disablePermission($permission)
+    {
+        $this->permissions()->detach($permission);
+    }
     
     public function users()
     {

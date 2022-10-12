@@ -69,12 +69,13 @@ class Project extends Model
         }
     }
     
-    public function scopeResourceTypes(Builder $query)
+    public function scopeResourceTypes(Builder $query, ResourceType $type)
     {
         $resourceTypes ='select project_id, type_id, count(valuable_id) from resources group by project_id, type_id';
 
         return $query->leftJoinSub($resourceTypes, 'resources', 'id', 'resources.project_id')
-                ->leftJoin('resource_types', 'type_id', '=', 'resource_types.id')->get();
+                ->leftJoin('resource_types', 'type_id', '=', 'resource_types.id')
+                ->where('type_id',$type->id)->get();
     }
     
     public function scopeLastUpdated($query){
@@ -107,8 +108,7 @@ class Project extends Model
     public function equipment()
     {
         return $this->morphedByMany(Equipment::class, 'valuable','resources','project_id')->withPivot('type_id');
-    }
-    
+    }    
     
     public function scopeFilter($query, array $filter)
     {

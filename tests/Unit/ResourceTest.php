@@ -26,64 +26,55 @@ class ResourceTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $equipmentType = ResourceType::factory()->create(['name'=>'Equipment']);
-        $subscriptionType = ResourceType::factory()->create(['name'=>'Subscription']);
+        $equipmentType = ResourceType::factory()->state(['name'=>'Equipment'])->create();
+        $subscriptionType = ResourceType::factory()->state(['name'=>'Subscription'])->create();
              
         Equipment::factory()
-            ->count(5)
-            ->has(Resource::factory()
-            ->state([
-                    'type_id' => $equipmentType->id,
-                    'project_id' => $this->project->id
-                ]), 'valuable')
+            ->count(2)
+            ->hasAttached(Project::factory()->count(1),[
+                    'type_id' => $equipmentType->id
+            ],'valuable')
             ->create();
-        
+
         Subscription::factory()
             ->count(3)
-            ->has(Resource::factory()
-            ->state([
+            ->hasAttached(Project::factory()->count(1),[
                     'type_id' => $subscriptionType->id,
-                    'project_id' => $this->project->id
-                ]), 'valuable')
+                ], 'valuable')
              ->create();
+       
         
-             $comments = Subscription::factory()->count(3)->for(
-                 Post::factory(), 'commentable'
-                 )->create();
-        
-        $this->assertCount(2,$this->project->resourceTypes());
+        $this->assertCount(3,Project::resourceTypes($subscriptionType));
+        $this->assertCount(2,Project::resourceTypes($equipmentType));
         
     }
     
     /** @test */
     public function resources_as_equipment_can_be_filtered_by_model() {
         
-        $equipmentType = ResourceType::factory()->create(['name'=>'Capital']);
+        $equipmentType = ResourceType::factory()->state(['name'=>'Capital'])->create();
         
         Equipment::factory()
             ->count(5)
-            ->has(Resource::factory()
-            ->state([
-                'type_id' => $equipmentType->id,
-                'project_id' => $this->project->id
-                ]), 'valuable')
+            ->hasAttached(Project::factory()->count(1), [
+                'type_id' => $equipmentType->id
+            ], 'valuable')
             ->create();
         
          $model =  'Canon camera r5';
          $equipment = Equipment::factory()
-         ->state(['model' => $model])
-             ->has(Resource::factory()
-             ->state([
-                'type_id' => $equipmentType->id,
-                'project_id' => $this->project->id
-                 ]), 'valuable')
-             ->create();
+            ->state(['model' => $model])
+            ->count(1)
+            ->hasAttached(Project::factory()->count(1), [
+                'type_id' => $equipmentType->id
+            ], 'valuable')
+            ->create();
         
         $result = Resource::filter(Equipment::class, compact('model'))->get();
 
         $this->assertCount(1, $result->toArray());
         
-        $this->assertEquals($equipment->id, $result[0]->valuable_id);
+        $this->assertEquals($equipment[0]->id, $result[0]->valuable_id);
     }
     
 }

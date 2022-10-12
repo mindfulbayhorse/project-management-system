@@ -23,6 +23,8 @@ class ManagingProjectEquipmentTest extends TestCase
         
         $type = ResourceType::factory()->create();
         
+        $project = Project::factory()->create();
+        
         $this->get($this->project->path().'/equipment/')
             ->assertStatus(200);
             

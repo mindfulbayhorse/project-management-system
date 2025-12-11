@@ -11,18 +11,18 @@
         "browser-sync": "^2.27.7",
         "browser-sync-webpack-plugin": "^2.3.0",
         "knockout": "^3.5.1",
-        "laravel-mix": "^6.0.43",
+        "laravel-vite-plugin": "^2.0.1",
         "less": "^4.1.2",
         "less-loader": "^10.2.0",
         "lodash": "^4.17.21",
         "postcss": "^8.4.6",
-        "laravel-vite-plugin": "^0.2.1",
-        "vite": "^2.9.11"
+        "vite": "^7.2.7"
     },
     "dependencies": {
         "elliptic": "^6.5.4",
         "is-svg": "^4.3.2",
         "ssri": "^8.0.1",
         "webpack-cli": "^4.9.2"
-    }
+    },
+    "type": "module"
 }
